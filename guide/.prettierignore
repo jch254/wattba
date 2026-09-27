@@ -3,3 +3,4 @@ dist/
 node_modules/
 validation/
 pnpm-lock.yaml
+infrastructure/terraform/.terraform/
