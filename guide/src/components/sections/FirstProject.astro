@@ -1,102 +1,90 @@
 ---
-import Callout from '../Callout.astro';
 import CodeBlock from '../CodeBlock.astro';
 import StepCard from '../StepCard.astro';
 ---
 
-<div class="sec" id="s6">
-  <div class="num">06</div>
-  <h2>First project: build yourself a website</h2>
-  <p class="lede">Everything above, used once, end to end. Budget an hour.</p>
+<div class="sec" id="s5">
+  <div class="num">05</div>
+  <h2>Build your website</h2>
+  <p class="lede">
+    One page, your photos, your words. Leave the clever bits out.
+  </p>
+  <p>
+    HTML describes a page's content. CSS controls its appearance. Claude will
+    write them in <code class="i">index.html</code> and <code class="i"
+      >style.css</code
+    >. You will open the first file in your browser; it will load the second.
+    The request excludes scripts, extra instructions a page can run. This page
+    only needs text, pictures and styling.
+  </p>
   <div class="steps">
-    <StepCard number="1" title={'Set up the folder'}
-      ><p>
-        Make a folder called <code class="i">my-site</code>. Inside it, make a <code
-          class="i">photos</code
-        > folder with a few images and a <code class="i">bio.txt</code> file with
-        a paragraph about you.
-      </p></StepCard
-    >
-    <StepCard number="2" title={'Write the prompt with the prompt writer'}
-      ><p>
-        Open a normal Claude chat, paste the prompt writer from section two and
-        answer its questions. You will end up with something like the prompt
-        below. Copy it.
-      </p></StepCard
-    >
-    <StepCard number="3" title={'Start a Delta thread'}
-      ><p>
-        Open <code class="i">my-site</code> in Delta, start a thread and paste the
-        prompt. Read the plan it comes back with. If the plan mentions anything you
-        did not ask for, say so. Then give it the ok.
-      </p></StepCard
-    >
-    <StepCard number="4" title={'Review the build'}
-      ><p>
-        It should create <code class="i">index.html</code> and <code class="i"
-          >style.css</code
-        >. Open <code class="i">index.html</code> in your browser (double click it).
-        Does it show your name, your bio and your photos? Comment in the thread on
-        anything that is off and let it fix it. Accept when it is right.
-      </p></StepCard
-    >
-    <StepCard number="5" title={'Tweak it yourself in Zed'}
-      ><p>
-        Open the folder in Zed, click <code class="i">index.html</code> and change
-        a word in the bio. Save, refresh the browser. Then open <code class="i"
-          >style.css</code
-        >, find a line with a colour like <code class="i">#0a0f0b</code> and change
-        it. Save, refresh. That is you editing code.
-      </p></StepCard
-    >
+    <StepCard number="1" title={'Prepare your material'}>
+      <p>
+        Inside <code class="i">my-site</code>, make a folder called
+        <code class="i">photos</code>. Put a few JPEG or PNG copies in it, not
+        your only originals or camera raw files. Choose pictures you are
+        comfortable letting an AI service process.
+      </p>
+      <p>
+        In Claude Code, ask it to create <code class="i">bio.txt</code>, a plain
+        text file, from a paragraph you supply. Include your display name and
+        the email address you want visitors to use. Ask for a plan, then approve
+        only that file. This avoids accidentally saving a formatted document
+        that merely has a .txt name.
+      </p>
+    </StepCard>
+    <StepCard number="2" title={'Send the website request'}>
+      <p>
+        Stay in Claude Code. Paste the request below, keeping its limits and
+        checks if you adapt it. The plan should use your existing material and
+        create the two website files. It should not need another account,
+        software installation or upload. Ask it to remove those steps if it
+        proposes them, then give the plan your ok.
+      </p>
+    </StepCard>
   </div>
   <CodeBlock
-    label={'The prompt you will end up with'}
-    code={"Goal: a one page personal website for NZB.\n\nContext: I am not a programmer. This folder is empty apart from a photos folder with my images and a bio.txt with a short paragraph about me.\n\nConstraints: one index.html file and one style.css file, no frameworks, no sign ups, no tracking. Dark background, big photos, easy to read on a phone. Do not change anything in the photos folder. Don't finish until you have checked that every photo in the photos folder shows on the page and the page has no broken links.\n\nWhat done looks like: I open index.html in my browser and see my name, the bio from bio.txt, all the photos in a grid and an email link at the bottom.\n\nOutput format: show me a short plan first and wait for my ok before writing files. When finished, tell me how to open the page.\n\nExample: the feel of a simple photographer portfolio page, mostly images, very little text."}
+    label={'Website request: paste into Claude Code'}
+    code={"Goal: a one page personal website for NZB, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Don't finish until you have checked that every photo appears, all file references and links are correct and the layout fits narrow screens. Report any checks you cannot perform.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Include short image descriptions for people who cannot see the photos.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text."}
     copy
   />
-  <Callout title={'Where to go next'}
-    ><svg
-      slot="icon"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="var(--color-b8ffd0)"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      ><path d="M12 2v4"></path><path d="m16.2 7.8 2.9-2.9"></path><path
-        d="M18 12h4"></path><path d="m16.2 16.2 2.9 2.9"></path><path
-        d="M12 18v4"></path><path d="m4.9 19.1 2.9-2.9"></path><path d="M2 12h4"
-      ></path><path d="m4.9 4.9 2.9 2.9"></path></svg
-    ><p>
-      Once the page exists, every new idea is a new thread. "Add a contact
-      form", "make the photos open bigger when tapped", "add a page for my
-      woodworking". Same loop each time: prompt writer, thread, plan, review,
-      accept.
-    </p></Callout
-  >
-  <Callout title={'It only exists on your machine for now'} warning
-    ><svg
-      slot="icon"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="var(--color-ffb347)"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      ><path d="M12 9v4"></path><path d="M12 17h.01"></path><path
-        d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"
-      ></path></svg
-    ><p>
-      At this point the site is a folder on your computer. Nobody else can visit
-      it. Getting it live on the internet needs hosting sorted, and that is a
-      separate job with its own choices. I am leaving it out of this guide on
-      purpose. When you have something you want people to see, tell me and we
-      will sort it then.
-    </p></Callout
-  >
+  <div class="steps">
+    <StepCard number="3" title={'Check the actual page'}>
+      <p>
+        In Finder or File Explorer, open <code class="i">my-site</code> and double-click
+        <code class="i">index.html</code>. If it opens as text, right-click it
+        and use Open With to choose your browser.
+      </p>
+      <p>
+        Read your name and bio. Count the photos. Make the browser window narrow
+        and check that nothing runs off the side or becomes hard to read. Click
+        the email link: it should address a new message to you, not send one. If
+        no email app is set up, ask Claude to show the address in the link.
+      </p>
+    </StepCard>
+    <StepCard number="4" title={'Back up, then correct anything wrong'}>
+      <p>
+        Before asking for revisions, wait until Claude finishes. In Finder or
+        File Explorer, copy <code class="i">my-site</code> beside itself and name
+        the copy <code class="i">my-site-backup</code>. Do not open the backup
+        in Claude Code.
+      </p>
+      <p>
+        Describe one visible problem in the same Claude Code conversation: "The
+        photos are too small when the window is narrow." Ask for a plan for that
+        correction. After the change, refresh the browser and check again.
+      </p>
+      <p>
+        Once it is right, close Claude Code's terminal window and make a new
+        backup called <code class="i">my-site-checked</code>. Keep it for the
+        optional Delta exercise. To recover later, close any agents first and
+        copy the affected files back from your last good backup.
+      </p>
+    </StepCard>
+  </div>
+  <p>
+    The page works on your computer. It is not a public website. Making it
+    available to visitors online is a separate job; nothing in this exercise
+    requires it.
+  </p>
 </div>

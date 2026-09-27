@@ -1,66 +1,48 @@
-<div class="sec" id="s9">
-  <div class="num">09</div>
+<div class="sec" id="s7">
+  <div class="num">07</div>
   <h2>Cheat sheet</h2>
-  <p class="lede">Print this panel and stick it next to the screen.</p>
   <div class="cheat">
     <h3>Getting going with AI: cheat sheet</h3>
     <div class="grid">
       <div class="blk">
-        <div class="h">The loop</div><p>
-          Prompt writer in Claude chat, then thread in Delta, then read the
-          plan, then approve, then review, then comment or accept.
+        <div class="h">Which window?</div>
+        <p>
+          Claude chat prepares a request. Claude Code builds the website. Your
+          browser checks it. Delta is optional.
         </p>
       </div>
       <div class="blk">
-        <div class="h">Prompt anatomy</div><ul>
-          <li>Goal</li><li>Context (the intern test)</li><li>
-            Constraints ("don't finish until")
-          </li><li>What done looks like</li><li>Output format</li><li>
-            Example
-          </li><li>Give it the goal, not the steps</li>
-        </ul>
+        <div class="h">Start again</div>
+        <p>
+          Open a terminal, use <code>cd</code> to enter your project folder and run
+          <code>claude --permission-mode default</code>. See <a href="#s3"
+            >setup</a
+          > for the exact steps.
+        </p>
       </div>
       <div class="blk">
-        <div class="h">Claude Code commands</div><ul>
-          <li><code>cd</code> then drag folder in: go to the project</li><li>
-            <code>claude</code>: start Claude Code
-          </li><li><code>/init</code>: create a CLAUDE.md</li><li>
-            <code>/help</code>: list commands
-          </li><li><code>/clear</code>: fresh conversation</li><li>
-            "Show me a plan first": always
-          </li>
-        </ul>
+        <div class="h">A new job</div>
+        <p>
+          Use the <a href="#s4">prompt writer</a> for a substantial request. Keep
+          small corrections in the existing conversation.
+        </p>
       </div>
       <div class="blk">
-        <div class="h">Delta flow</div><ul>
-          <li>Open project</li><li>New thread, one small ask</li><li>
-            Read plan, ok it
-          </li><li>Review the changes</li><li>
-            Comment on the line or message
-          </li><li>Accept, then new thread</li><li>
-            Share the link when stuck
-          </li>
-        </ul>
+        <div class="h">Check the result</div>
+        <p>
+          Open <code>index.html</code>, refresh after edits and check the words,
+          photos, email link and narrow layout. Use the <a href="#s5"
+            >website checks</a
+          >.
+        </p>
       </div>
       <div class="blk">
-        <div class="h">Zed setup</div><ul>
-          <li>Install from zed.dev, open folder</li><li>
-            Open the Agent Panel
-          </li><li>Add Agent, Install from Registry, Claude Agent</li><li>
-            New thread, type <code>/login</code>
-          </li>
-        </ul>
-      </div>
-      <div class="blk">
-        <div class="h">Safety</div><ul>
-          <li>No secrets in prompts</li><li>Read every plan</li><li>
-            One project folder
-          </li><li>Separate copies or Git</li>
-        </ul>
+        <div class="h">Safety</div>
+        <p>
+          No secrets. Read the plan. One project folder. Keep a backup. Leave
+          Claude Code's permission prompts on; <a href="#s6">Delta has none</a>.
+        </p>
       </div>
     </div>
-    <p style="font-size: 13px; color: var(--color-5a4d33)">
-      Live docs: docs.claude.com, delta.dev/docs, zed.dev/docs
-    </p>
   </div>
 </div>

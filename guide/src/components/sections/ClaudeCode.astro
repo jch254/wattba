@@ -1,141 +1,96 @@
 ---
-import Callout from '../Callout.astro';
 import CodeBlock from '../CodeBlock.astro';
 import StepCard from '../StepCard.astro';
 ---
 
 <div class="sec" id="s3">
   <div class="num">03</div>
-  <h2>Claude Code basics</h2>
+  <h2>Install Claude Code</h2>
   <p class="lede">
-    Claude Code is the agent. It runs in a project folder and does the work.
+    The terminal looks unfriendly. You only need a few commands.
   </p>
   <p>
-    Claude Code is a program from Anthropic that runs Claude as an agent on your
-    computer. You open it inside a folder, type what you want and it reads,
-    writes and runs things in that folder. It is text based, which looks
-    intimidating for about ten minutes and then feels like chatting.
+    A terminal is a window for typing commands. On a Mac, open Terminal using
+    Spotlight. On Windows, open PowerShell from Start. The steps here cover
+    those two systems; Linux users should follow the linked installation page.
   </p>
   <p>
-    It needs a paid Claude plan (at the time of writing, Pro or Max) or a pay as
-    you go developer account. Plans and prices change, so check <a
-      href="https://docs.claude.com">docs.claude.com</a
-    > before you buy anything.
+    Claude Code needs internet access and an eligible account. Claude Pro or Max
+    can be used for this exercise; the free Claude plan cannot. Check the
+    account requirements on <a href="https://code.claude.com/docs/en/setup"
+      >Claude Code's setup page</a
+    >
+    before paying. I would use a subscription here rather than set up separately billed
+    developer access.
   </p>
-  <h3>Install and open it</h3>
   <div class="steps">
-    <StepCard number="1" title={'Open the terminal'}
-      ><p>
-        The terminal is a window where you type commands. On a Mac it is called
-        Terminal (search for it with Spotlight). On Windows use PowerShell.
-      </p></StepCard
-    >
-    <StepCard number="2" title={'Run the install command from the docs'}
-      ><p>
-        The Claude Code page on <a href="https://docs.claude.com"
-          >docs.claude.com</a
-        > has a one line install command for Mac, Windows and Linux. Copy it from
-        there rather than from here, because it changes.
-      </p></StepCard
-    >
-    <StepCard number="3" title={'Make a project folder'}
-      ><p>
-        Create a folder for this project only, for example <code class="i"
-          >my-site</code
-        > in your Documents. Everything Claude Code does stays inside it.
-      </p></StepCard
-    >
-    <StepCard number="4" title={'Go into that folder'}
-      ><p>
-        In the terminal type <code class="i">cd</code>, a space, then drag the
-        folder into the window and press Enter. That moves the terminal into the
-        folder.
-      </p></StepCard
-    >
-    <StepCard number="5" title={'Start Claude Code'}
-      ><p>
-        Type <code class="i">claude</code> and press Enter. The first time it will
-        ask you to sign in with your Claude account.
-      </p></StepCard
-    >
-  </div>
-  <CodeBlock label={'Terminal'} code={'cd ~/Documents/my-site\nclaude'} copy />
-  <h3>Four habits that make it go well</h3>
-  <div class="card" style="display: flex; flex-direction: column; gap: 14px">
-    <div>
-      <div
-        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
-      >
-        Ask for a plan before changes
-      </div><p style="color: var(--color-9ee6b5)">
-        End your request with "show me a plan first and wait for my ok". Claude
-        Code will list what it intends to do. Read it. If a step looks wrong,
-        say so before anything happens. The docs also describe a plan mode you
-        can switch on so it never edits without asking.
+    <StepCard number="1" title={'Install and check it'}>
+      <p>
+        On the setup page, check that your computer meets the requirements. Copy
+        the install command for macOS or Windows PowerShell into your terminal
+        and press Enter. This downloads and runs Anthropic's installer, so take
+        it from that official page, not an AI reply.
       </p>
-    </div>
-    <div>
-      <div
-        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
-      >
-        Approve or reject each edit
-      </div><p style="color: var(--color-9ee6b5)">
-        When it wants to change a file or run a command, it asks. Yes lets it
-        through and no stops it. You can type why. You are never obliged to
-        accept.
+      <p>
+        When it finishes, open a new terminal window and run the check below. A
+        version number means the installation worked. If it says the command was
+        not found, stop here and use the installation troubleshooting link on
+        the setup page.
       </p>
-    </div>
-    <div>
-      <div
-        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
-      >
-        Give the project standing instructions in CLAUDE.md
-      </div><p style="color: var(--color-9ee6b5)">
-        CLAUDE.md is a plain text file in your project folder that Claude Code
-        reads every time it starts. Put in the things you would otherwise
-        repeat: what the project is, what to avoid, how you like things written.
-        Typing <code class="i">/init</code> inside Claude Code creates a starter one
-        for you.
-      </p>
-    </div>
-    <div>
-      <div
-        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
-      >
-        Use skills for repeatable jobs
-      </div><p style="color: var(--color-9ee6b5)">
-        A skill is a reusable pack of instructions you can call by name. I keep
-        one that holds my writing style rules, so every document Claude writes
-        for me sounds like me instead of like a robot. You could make one for
-        "how I like my photos laid out". The docs explain where skill files
-        live. One warning: skills written for older models tend to over explain
-        and over constrain, which can make a newer model worse. Keep yours short
-        and revisit them when the model changes.
-      </p>
-    </div>
+    </StepCard>
   </div>
   <CodeBlock
-    label={'Example CLAUDE.md'}
-    code={"# About this project\n\nThis is NZB's personal website. One page, plain HTML and CSS, no frameworks.\n\n# Rules\n\n- Always show me a plan and wait for my ok before changing files.\n- Keep explanations short and in plain English. I am not a programmer.\n- Do not add anything I did not ask for.\n- Never touch the photos folder."}
+    label={'Terminal: check installation'}
+    code={'claude --version'}
     copy
   />
-  <Callout title={'If it offers to skip permissions, say no'} warning
-    ><svg
-      slot="icon"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="var(--color-ffb347)"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      ><path d="M12 9v4"></path><path d="M12 17h.01"></path><path
-        d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"
-      ></path></svg
-    ><p>
-      There are settings that let Claude Code run without asking. Leave them
-      off. The asking is the safety net.
-    </p></Callout
-  >
+  <div class="steps">
+    <StepCard number="2" title={'Make and enter your folder'}>
+      <p>
+        In Finder on a Mac or File Explorer on Windows, make a new folder called
+        <code class="i">my-site</code>. In the terminal, type <code class="i"
+          >cd</code
+        >
+        followed by a space. On a Mac, drag the folder into the window. On Windows,
+        copy its full location from File Explorer's address bar and paste it between
+        straight double quotes. Press Enter. This changes which folder the terminal
+        is working in.
+      </p>
+    </StepCard>
+    <StepCard number="3" title={'Start and sign in'}>
+      <p>
+        Run the command below. The extra words select Manual mode, which asks
+        before most actions that change files or run commands. Follow the
+        browser sign-in prompts with your Claude account. If asked to trust a
+        folder, check it is your new <code class="i">my-site</code> folder.
+      </p>
+    </StepCard>
+  </div>
+  <CodeBlock
+    label={'Terminal: start with manual permissions'}
+    code={'claude --permission-mode default'}
+    copy
+  />
+  <h3>Give it standing instructions</h3>
+  <p>
+    <code class="i">CLAUDE.md</code> is a plain text file of project instructions
+    Claude Code reads at the start of a session. In Claude Code, type "Create CLAUDE.md
+    with exactly the following text, and change nothing else", then paste this block
+    into the same message. Approve that file creation.
+  </p>
+  <CodeBlock
+    label={'Example CLAUDE.md'}
+    code={"# About this project\n\nThis is NZB's one page personal website.\n\n# Rules\n\nShow me a short plan and wait for my ok before changing files.\nExplain things briefly in plain English. I am not a programmer.\nDo not add anything I did not ask for.\nDo not modify the photos folder or work outside this project.\nDo not upload or publish files, install software or change permission settings without asking me."}
+    copy
+  />
+  <p>
+    Ask it to show the saved file so you can check it. These are instructions,
+    not enforced restrictions. Keep Manual mode selected and approve individual
+    actions rather than choosing "don't ask again". File reads may happen
+    without a prompt. See <a
+      href="https://code.claude.com/docs/en/permission-modes"
+      >permission modes</a
+    >
+    if the label is unclear.
+  </p>
 </div>

@@ -1,126 +1,49 @@
 ---
-import Callout from '../Callout.astro';
 import CodeBlock from '../CodeBlock.astro';
 ---
 
-<div class="sec" id="s2">
-  <div class="num">02</div>
-  <h2>Meta prompting</h2>
+<div class="sec" id="s4">
+  <div class="num">04</div>
+  <h2>Get Claude to write the request</h2>
   <p class="lede">
-    Ask Claude to write the prompt first. This is the trick from the front page,
-    and it is the fastest way to a good result.
+    You can describe the thing badly first. That is what the chat is for.
   </p>
   <p>
-    Here is the move. Instead of typing your request straight into the agent,
-    you open a normal Claude chat and ask it to write a good prompt for you.
-    Then you paste that prompt into the agent. It works because Claude is better
-    at being specific than you are when you are in a hurry. It remembers to ask
-    about the things you would have forgotten. Meta prompting is the name for
-    it: using one AI to write the instructions for another. The second AI here
-    is an agent that will change files on your computer, so the prompt matters
-    more than it would in a chat.
+    Open your usual Claude chat and paste the prompt writer below. Answer its
+    questions about the website. Say you want one page for your photos and bio,
+    saved in the project folder you have just made. It should work without
+    installing more software.
   </p>
-  <div class="card" style="display: flex; flex-direction: column; gap: 12px">
-    <div class="num" style="color: var(--color-b8ffd0)">
-      Matt Shumer's three Cs
-    </div>
-    <p>
-      This is the framework I use. It boils an agent brief down to context,
-      constraints and composition. Context is everything the agent needs to know
-      and every file it will touch. The test for whether you have given enough:
-      could a new hire do this without coming back to ask you anything? Think of
-      it as the intern test. Constraints are the rules, and the most useful one
-      is a phrase: "don't finish until". Tell the agent what to check before it
-      is allowed to say it is done. Composition is the shape of the result you
-      want, because the format changes how it thinks.
-    </p>
-    <p>
-      The other rule that goes with it: give it the goal, not the steps. Say
-      where you want to end up and what must always be true along the way (I
-      think of those as house rules), then let the agent work out the route. One
-      line from his piece that I keep coming back to: "Every step I dictate is
-      just me overriding its judgment with mine, and mine is usually worse."
-    </p>
-    <p style="font-size: 15px; color: var(--color-4f9a68)">
-      Read: <a href="https://somethingbig.ai/prompting-ai-agents"
-        >Prompting AI agents</a
-      > and <a href="https://somethingbig.ai/how-i-prompt-fable"
-        >How I prompt Fable</a
-      >.
-    </p>
-  </div>
-  <h3>The anatomy of a solid prompt</h3>
-  <div class="anat">
-    <div class="a">
-      <div class="h">Goal</div><p>
-        One sentence on what you want to exist at the end.
-      </p>
-    </div>
-    <div class="a">
-      <div class="h">Context</div><p>
-        Who it is for, what already exists, why you want it.
-      </p>
-    </div>
-    <div class="a">
-      <div class="h">Constraints</div><p>
-        Limits. Keep it simple, no sign-ups, must work on a phone, do not touch
-        these files.
-      </p>
-    </div>
-    <div class="a">
-      <div class="h">What done looks like</div><p>
-        How you will know it worked. "I open index.html and see my name and
-        three photos." Vague words like "high quality" let the agent stop at its
-        own idea of good enough, which is usually lower than yours.
-      </p>
-    </div>
-    <div class="a">
-      <div class="h">Output format</div><p>
-        Do you want a plan first? A single file? A list of changes?
-      </p>
-    </div>
-    <div class="a">
-      <div class="h">An example</div><p>
-        A link or a short description of something close to what you want.
-      </p>
-    </div>
-  </div>
-  <h3>Before and after</h3>
-  <div class="two">
-    <CodeBlock label={'Before'} code={'Make me a website'} />
-    <CodeBlock
-      label={'After'}
-      code={'Goal: a one page personal site for NZB, a maker and photographer.\n\nContext: I have no code yet. I have four photos in the photos folder and a short bio in bio.txt.\n\nConstraints: plain HTML and CSS only, no frameworks, no sign ups, must look good on a phone, dark background.\n\nDone looks like: I open index.html in a browser and see my name, the bio and the four photos in a grid, with an email link at the bottom.\n\nOutput: show me a short plan first and wait for my ok before writing files.\n\nExample: similar feel to a simple portfolio page, big photos, not much text.'}
-    />
-  </div>
-  <h3>The prompt writer</h3>
   <p>
-    Paste this into a normal Claude chat whenever you have a task. It interviews
-    you, then hands you a structured prompt you can drop into an agent.
+    The result has six headings. Goal says what you want. Context supplies the
+    facts and materials. Constraints are the limits. What done looks like gives
+    you something to check. Output format says how the answer should be
+    delivered. Example gives it a reference, if you have one.
+  </p>
+  <p>
+    Read the result before using it. Remove anything you did not ask for and
+    correct assumptions about your photos or personal details. The chat cannot
+    see your project folder just because Claude Code can. Tell it what is there;
+    do not give it private files to save a sentence of explanation.
   </p>
   <CodeBlock
-    label={'Copy this into Claude'}
-    code={'I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.\n\nFirst, ask me questions one at a time, no more than five, until you understand: what I want to exist at the end, who it is for, what I already have, any limits (time, tools, things to avoid) and how I will know it is finished.\n\nThen write one structured prompt with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include a line starting "Don\'t finish until" that tells the agent what to check before it says it is done. Keep it under 250 words, use plain language and end it with "Show me a short plan first and wait for my ok before changing any files."\n\nDo not start writing the prompt until you have asked your questions.'}
+    label={'Prompt writer: paste into Claude chat'}
+    code={'I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.\n\nAsk me questions one at a time, no more than five, about the goal, audience, existing materials, limits and how I will check the result. Do not ask for secrets or private information.\n\nThen write a prompt under 250 words with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include "Don\'t finish until" followed by specific checks. Do not invent missing details. Use plain language. End with "Show me a short plan first and wait for my ok before changing files."\n\nAsk your questions before writing the prompt.'}
     copy
   />
-  <Callout title={'Tip'}
-    ><svg
-      slot="icon"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="var(--color-b8ffd0)"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      ><path d="M12 2v4"></path><path d="m16.2 7.8 2.9-2.9"></path><path
-        d="M18 12h4"></path><path d="m16.2 16.2 2.9 2.9"></path><path
-        d="M12 18v4"></path><path d="m4.9 19.1 2.9-2.9"></path><path d="M2 12h4"
-      ></path><path d="m4.9 4.9 2.9 2.9"></path></svg
-    ><p>
-      Save the prompt writer somewhere handy (a note on your phone is fine). You
-      will use it more than anything else in this guide.
-    </p></Callout
-  >
+  <p>
+    Save this prompt writer in a note for other jobs. For this website, compare
+    its answer with the ready-to-use request in <a href="#s5"
+      >Build your website</a
+    >. Use that supplied request for this first build. If you adapt it with the
+    chat's answer, keep its filenames, limits and checks. A small wording change
+    later does not need another interview.
+  </p>
+  <p>
+    This approach owes a lot to <a
+      href="https://somethingbig.ai/prompting-ai-agents"
+      >Matt Shumer's writing on briefing agents</a
+    >. Give it the result you want and the limits, rather than guessing the code
+    it should write.
+  </p>
 </div>

@@ -1,60 +1,27 @@
----
-import Callout from '../Callout.astro';
-import AgentLoop from '../diagrams/AgentLoop.astro';
----
-
 <div class="sec" id="s1">
   <div class="num">01</div>
-  <h2>How to think about AI tools</h2>
+  <h2>What these tools do</h2>
   <p class="lede">
-    A chatbot answers. An agent works. That is the whole idea in six words.
+    An agent is an AI that can act on your computer, not only answer.
   </p>
   <p>
-    When you type into Claude and it replies, that is a chat. You ask, it
-    answers. Then it is up to you to go and do something with the answer. Ask it
-    for a recipe and you get a recipe. Ask it for an email and you get an email.
-    Claude gives you words, and the doing is still yours.
+    Claude chat gives you words to work with. Claude Code is a program from
+    Anthropic that can read files, change them and run commands: typed
+    instructions to your computer. What you ask an AI to do is called a prompt.
   </p>
   <p>
-    An agent is Claude with hands. You point it at a folder on your computer and
-    it can read the files in there, edit them, run commands (the typed
-    instructions a computer understands) and then check whether the result
-    worked. If something fails, it reads the error and tries again. You are
-    still in charge, because it shows you what it plans to do and you approve or
-    reject each change.
+    I use Claude chat to help write a clear request, then give that request to
+    Claude Code. You will use those two for the website. Your browser, the app
+    you use to visit websites, is where you check the result.
   </p>
-  <div class="card" style="display: flex; flex-direction: column; gap: 10px">
-    <AgentLoop />
-    <p style="font-size: 15px; color: var(--color-9ee6b5)">
-      The loop: you write a prompt, the agent works on your files, you review
-      what it did. Accept it or send it back with a comment. Repeat.
-    </p>
-  </div>
-  <Callout title={'The review step is the whole job'}
-    ><svg
-      slot="icon"
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="var(--color-b8ffd0)"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      ><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path
-        d="M12 8h.01"></path></svg
-    ><p>
-      Engineers spend most of their time reading, not typing. With an agent,
-      that is now your job too. You do not need to understand every line. You
-      need to check that what it says it did matches what you asked for.
-    </p></Callout
-  >
   <p>
-    The closest thing I can compare it to is briefing a contractor. You are not
-    typing into a chat box, you are handing someone a job. A contractor you have
-    briefed badly does not stop and ring you. They guess, and they build the
-    guess. Agents are the same. If your brief leaves a question open, the agent
-    will not ask it. It will pick an answer and keep going. That is why the next
-    section is about the brief.
+    Delta is a separate app for working with agents and reviewing their changes.
+    It is optional here. It has different account requirements and fewer safety
+    controls, which I explain before its exercise.
+  </p>
+  <p>
+    You do not have to understand every line the agent writes. You do have to
+    check its work. A confident explanation and a working page are different
+    things.
   </p>
 </div>
