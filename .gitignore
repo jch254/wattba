@@ -1,0 +1,31 @@
+# Local implementation example (not part of the project)
+/example/
+
+# Dependencies and package-manager caches
+node_modules/
+.pnpm-store/
+.npm/
+
+# Astro build output and generated types
+dist/
+.astro/
+
+# Test results, coverage and local validation artifacts
+coverage/
+playwright-report/
+test-results/
+/guide/validation/
+
+# Local environment configuration; keep documented templates trackable
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.schema
+
+# Logs
+*.log
+
+# Operating-system files
+.DS_Store
+Thumbs.db

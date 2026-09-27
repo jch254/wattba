@@ -1,0 +1,126 @@
+---
+import Callout from '../Callout.astro';
+import CodeBlock from '../CodeBlock.astro';
+import StepCard from '../StepCard.astro';
+---
+
+<div class="sec" id="s4">
+  <div class="num">04</div>
+  <h2>Delta as home base</h2>
+  <p class="lede">
+    Delta is where you should spend most of your time. Claude Code does the
+    work, Delta is where you watch, review and share it.
+  </p>
+  <p>
+    Delta (<a href="https://delta.dev">delta.dev</a>) comes from the team behind
+    the Zed editor. It is built for exactly the loop from section one: you ask,
+    an agent works, you review. Each task lives in a thread, which keeps the
+    conversation with the agent and the code changes it made together in one
+    place, so you can scroll back and see why something changed.
+  </p>
+  <div class="card" style="display: flex; flex-direction: column; gap: 14px">
+    <div>
+      <div
+        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
+      >
+        Experiments cannot wreck the original
+      </div><p style="color: var(--color-9ee6b5)">
+        Delta works in a separate copy of the project for each thread. If a
+        thread goes sideways you close it and the original is untouched.
+      </p>
+    </div>
+    <div>
+      <div
+        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
+      >
+        Comment on the exact spot
+      </div><p style="color: var(--color-9ee6b5)">
+        You can leave a comment on a specific line of code or a specific message
+        in the conversation to ask for a change. "Make this heading bigger"
+        pointed at the heading beats describing it.
+      </p>
+    </div>
+    <div>
+      <div
+        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
+      >
+        Share a thread link with me
+      </div><p style="color: var(--color-9ee6b5)">
+        Every thread has a link. Send it to me and I can open it, read what
+        happened and help, without you having to explain anything over the
+        phone.
+      </p>
+    </div>
+    <div>
+      <div
+        style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: var(--color-7dffa8)"
+      >
+        Claude Code stays the engine
+      </div><p style="color: var(--color-9ee6b5)">
+        Your Claude Code sessions can sync into Delta threads. Nothing about how
+        the agent works changes. Delta gives it a home with history, comments
+        and sharing.
+      </p>
+    </div>
+  </div>
+  <Callout title={'Delta is new'} warning
+    ><svg
+      slot="icon"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-ffb347)"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      ><path d="M12 9v4"></path><path d="M12 17h.01"></path><path
+        d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"
+      ></path></svg
+    ><p>
+      It is in public beta, so things will keep changing. If the sign up flow on
+      delta.dev looks different from what I describe, follow <a
+        href="https://delta.dev/docs">delta.dev/docs</a
+      >. If anything in Delta is not working for you yet, everything in this
+      guide still works with Claude Code and Zed on their own.
+    </p></Callout
+  >
+  <h3>Your first thread</h3>
+  <div class="steps">
+    <StepCard number="1" title={'Open your project'}
+      ><p>
+        Start Delta and open the same project folder you used with Claude Code.
+        If Delta asks to connect Claude Code, say yes.
+      </p></StepCard
+    >
+    <StepCard number="2" title={'Start a thread and ask for one small change'}
+      ><p>
+        Something you can check in ten seconds. "Change the heading to my full
+        name" is perfect. Ask for a plan first.
+      </p></StepCard
+    >
+    <StepCard number="3" title={'Read the plan, then read the change'}
+      ><p>
+        Delta shows the conversation and the files that changed side by side.
+        Look at the before and after. Does it match what you asked for?
+      </p></StepCard
+    >
+    <StepCard number="4" title={'Comment where it is wrong'}
+      ><p>
+        Click the line or the message, leave a comment saying what you want
+        instead and let the agent have another go.
+      </p></StepCard
+    >
+    <StepCard number="5" title={'Accept it'}
+      ><p>
+        When you are happy, accept the change so it lands in the real project.
+        Then start a new thread for the next thing.
+      </p></StepCard
+    >
+  </div>
+  <CodeBlock
+    label={'A good first request'}
+    code={'In index.html, change the heading text to my full name and make the background colour a touch warmer. Show me a plan first and wait for my ok.'}
+    copy
+  />
+</div>

@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AccessGate from '../components/AccessGate.astro';
+import Introduction from '../components/sections/Introduction.astro';
+import AiTools from '../components/sections/AiTools.astro';
+import MetaPrompting from '../components/sections/MetaPrompting.astro';
+import ClaudeCode from '../components/sections/ClaudeCode.astro';
+import Delta from '../components/sections/Delta.astro';
+import Zed from '../components/sections/Zed.astro';
+import FirstProject from '../components/sections/FirstProject.astro';
+import StayingSafe from '../components/sections/StayingSafe.astro';
+import Future from '../components/sections/Future.astro';
+import CheatSheet from '../components/sections/CheatSheet.astro';
+import Glossary from '../components/sections/Glossary.astro';
+---
+
+<Layout>
+  <AccessGate />
+  <div
+    class="g"
+    id="guide"
+    style="width: 100%; min-height: 100%; box-sizing: border-box; display: none; flex-direction: column; align-items: center; background: var(--color-0a0f0b)"
+  >
+    <div
+      style="width: 100%; max-width: 720px; box-sizing: border-box; padding: 24px 20px 80px; display: flex; flex-direction: column"
+    >
+      <Introduction />
+      <AiTools />
+      <MetaPrompting />
+      <ClaudeCode />
+      <Delta />
+      <Zed />
+      <FirstProject />
+      <StayingSafe />
+      <Future />
+      <CheatSheet />
+      <Glossary />
+    </div>
+  </div>
+</Layout>

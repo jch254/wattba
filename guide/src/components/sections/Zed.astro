@@ -1,0 +1,77 @@
+---
+import StepCard from '../StepCard.astro';
+import ToolsOverview from '../diagrams/ToolsOverview.astro';
+---
+
+<div class="sec" id="s5">
+  <div class="num">05</div>
+  <h2>Zed for the full editor experience</h2>
+  <p class="lede">
+    Zed is a fast code editor. Use it when you want to see every file and poke
+    at things yourself.
+  </p>
+  <p>
+    An editor is a program for opening and changing text files, which is what
+    code is. Zed (<a href="https://zed.dev">zed.dev</a>) is a quick, clean one.
+    Open your project folder in it and you get a file list down the side and the
+    contents in the middle. You can also run Claude as an agent inside Zed,
+    which is handy for small hands on tweaks.
+  </p>
+  <h3>Add Claude Agent to Zed</h3>
+  <div class="steps">
+    <StepCard number="1" title={'Install Zed and open your folder'}
+      ><p>
+        Download it from zed.dev, open it and choose your project folder.
+      </p></StepCard
+    >
+    <StepCard number="2" title={'Open the Agent Panel'}
+      ><p>
+        It is the panel for talking to agents inside Zed. There is a button for
+        it in the corner of the window, or open it from the View menu.
+      </p></StepCard
+    >
+    <StepCard number="3" title={'Add an agent from the ACP Registry'}
+      ><p>
+        In the Agent Panel look for Add Agent, then Install from Registry and
+        pick Claude Agent. ACP is the Agent Client Protocol, a shared language
+        that lets editors like Zed talk to agents like Claude. The registry is
+        the list of agents that speak it.
+      </p></StepCard
+    >
+    <StepCard number="4" title={'Sign in with /login'}
+      ><p>
+        Start a new thread with Claude Agent, type <code class="i">/login</code> and
+        follow the prompts to sign in with your Claude account. The exact steps are
+        on <a href="https://zed.dev/docs">zed.dev/docs</a> under External Agents.
+      </p></StepCard
+    >
+  </div>
+  <h3>Delta or Zed?</h3>
+  <div class="two">
+    <div class="card" style="border-color: var(--color-7dffa8)">
+      <div class="num" style="color: var(--color-b8ffd0); margin-bottom: 8px">
+        Delta
+      </div><ul>
+        <li>Planning a task</li><li>Reviewing what the agent did</li><li>
+          Sharing a thread with me
+        </li><li>Getting help when stuck</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color: var(--color-ffb347)">
+      <div class="num" style="margin-bottom: 8px">Zed</div><ul>
+        <li>Browsing the files yourself</li><li>
+          Small hands on tweaks (text, a colour)
+        </li><li>Seeing the whole project at once</li><li>
+          Opening a file the agent mentioned
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="display: flex; flex-direction: column; gap: 10px">
+    <ToolsOverview />
+    <p style="font-size: 15px; color: var(--color-9ee6b5)">
+      One engine, one folder, two windows onto it. Delta for the conversation
+      and the review, Zed for the files.
+    </p>
+  </div>
+</div>

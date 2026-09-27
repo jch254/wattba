@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Static reference export of the design. The access gate markup is present but hidden; behaviour is described in the build prompt. -->
+<meta charset="utf-8">
+<title>Getting going with AI</title>
+
+</head>
+<body>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0a0f0b;color:#9ee6b5;font-family:"IBM Plex Mono","Courier New",monospace;-webkit-font-smoothing:antialiased}
+a{color:#7dffa8;text-decoration:underline;text-decoration-color:#2f7a4c;text-underline-offset:3px}a:hover{color:#b8ffd0;text-decoration-color:#7dffa8}
+.g{position:relative}
+.g::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.10) 0px,rgba(0,0,0,0.10) 1px,transparent 1px,transparent 3px)}
+.g::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 90% 80% at 50% 50%,transparent 55%,rgba(0,0,0,0.45) 100%)}
+.g > div{position:relative;z-index:1}
+.g h1,.g h2,.g h3{font-family:"VT323","Courier New",monospace;font-weight:400;margin:0;color:#7dffa8;text-shadow:0 0 6px rgba(125,255,168,0.45),0 0 18px rgba(125,255,168,0.18)}
+.g h2{font-size:clamp(36px,6.5vw,52px);line-height:1;text-transform:none}
+.g h2::before{content:">: ";color:#b8ffd0}
+.g h3{font-size:clamp(26px,4.4vw,32px);line-height:1.1;margin-top:8px;text-shadow:0 0 5px rgba(125,255,168,0.3)}
+.g h3::before{content:"// ";color:#4f9a68}
+.g p{margin:0;font-size:16px;line-height:1.7;text-wrap:pretty}
+.g p.lede{font-size:17px;color:#b8ffd0}
+.g ul{margin:0;padding-left:22px;font-size:16px;line-height:1.7}
+.g li{margin:4px 0}
+.g li::marker{color:#4f9a68}
+.sec{display:flex;flex-direction:column;gap:22px;padding:56px 0;border-top:1px dashed #245a38}
+.num{font-family:"VT323",monospace;font-size:20px;letter-spacing:0.12em;text-transform:uppercase;color:#7dffa8;line-height:1}
+.card{background:#0c130e;border:1px solid #2a6b42;border-radius:4px;padding:22px;box-shadow:inset 0 0 0 1px rgba(125,255,168,0.06)}
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:16px;align-items:flex-start;background:#0c130e;border:1px solid #2a6b42;border-radius:4px;padding:18px}
+.step .n{flex-shrink:0;font-family:"VT323",monospace;font-size:26px;line-height:1;color:#b8ffd0;padding-top:2px;min-width:44px}
+.step .n::before{content:"[";color:#4f9a68}
+.step .n::after{content:"]";color:#4f9a68}
+.step .t{font-family:"VT323",monospace;font-size:24px;line-height:1.1;color:#7dffa8;margin-bottom:6px}
+.step p{font-size:15px;color:#9ee6b5}
+.code{background:#d9cfb4;border-radius:8px;padding:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.35),inset 0 -2px 0 #a89c7c}
+.code .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 4px 10px 8px;font-family:"VT323",monospace;font-size:19px;color:#3d3627;text-transform:uppercase;letter-spacing:0.1em;line-height:1}
+.code pre{margin:0;padding:16px;font-family:"IBM Plex Mono","Courier New",monospace;font-size:14px;line-height:1.6;color:#9ee6b5;white-space:pre-wrap;word-break:break-word;background:#060a07;border-radius:4px;border:2px solid #0a0f0b;box-shadow:inset 0 0 0 1px #1c3a27,inset 0 0 40px rgba(0,0,0,0.6)}
+.code button{min-height:44px;padding:0 18px;border-radius:5px;border:1px solid #b3a685;border-bottom-width:1px;background:linear-gradient(#efe7d2,#d9cfb4);color:#2d281c;font-family:"VT323",monospace;font-size:19px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 0 #a89c7c,0 4px 4px rgba(0,0,0,0.4);transform:translateY(0);transition:transform 60ms,box-shadow 60ms}
+.code button:hover{background:linear-gradient(#f6efdc,#e2d9c0)}
+.code button:active{transform:translateY(3px);box-shadow:0 0 0 #a89c7c,0 1px 2px rgba(0,0,0,0.4)}
+.callout{display:flex;flex-direction:column;gap:6px;padding:18px 20px;border-radius:4px;background:#0c130e;border:1px solid #2a6b42}
+.callout::before{content:"NOTE";font-family:"VT323",monospace;font-size:18px;letter-spacing:0.14em;color:#4f9a68;line-height:1}
+.callout.warn{border-color:#a8742c;background:#110f08}
+.callout.warn::before{content:"WARNING";color:#ffb347}
+.callout > svg{display:none}
+.callout .k{font-family:"VT323",monospace;font-size:24px;line-height:1.1;color:#7dffa8;margin-bottom:4px}
+.callout.warn .k{color:#ffb347}
+.callout.warn p{color:#e8c28a}
+.callout p{font-size:15px}
+.two{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:14px}
+@media (max-width:600px){.two{grid-template-columns:repeat(1, minmax(0, 1fr))}}
+.kv{display:flex;flex-direction:column;gap:10px}
+.kv .row{display:flex;gap:12px;align-items:baseline;border-bottom:1px dashed #245a38;padding:10px 0}
+.kv .row .term{flex-shrink:0;width:118px;font-family:"VT323",monospace;font-size:22px;line-height:1;color:#7dffa8}
+.kv .row p{font-size:15px}
+code.i{font-family:"IBM Plex Mono",monospace;font-size:0.92em;background:#13241a;padding:2px 6px;border-radius:3px;color:#b8ffd0;border:1px solid #245a38}
+.anat{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px}
+@media (max-width:600px){.anat{grid-template-columns:repeat(1, minmax(0, 1fr))}}
+.anat .a{background:#0c130e;border:1px solid #2a6b42;border-radius:4px;padding:16px}
+.anat .a .h{font-family:"VT323",monospace;font-size:24px;line-height:1;color:#7dffa8;margin-bottom:6px}
+.anat .a .h::before{content:"> ";color:#4f9a68}
+.anat .a p{font-size:14px;color:#9ee6b5}
+.diag{width:100%;height:auto;display:block}
+.cheat{background:#d9cfb4;color:#14161a;border-radius:8px;padding:26px;display:flex;flex-direction:column;gap:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.4),inset 0 -2px 0 #a89c7c}
+.cheat h3{color:#2d281c;margin:0;text-shadow:none}
+.cheat h3::before{color:#7a6a45}
+.cheat .grid{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:18px}
+@media (max-width:600px){.cheat .grid{grid-template-columns:repeat(1, minmax(0, 1fr))}}
+.cheat .blk{display:flex;flex-direction:column;gap:6px}
+.cheat .blk .h{font-family:"VT323",monospace;font-size:20px;letter-spacing:0.1em;text-transform:uppercase;color:#7a5510;line-height:1}
+.cheat .blk p,.cheat .blk li{font-size:13.5px;line-height:1.55;color:#2d281c}
+.cheat ul{margin:0;padding-left:18px}
+.cheat li::marker{color:#7a6a45}
+.cheat code{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:#c4b995;padding:1px 6px;border-radius:3px;color:#1b1a14}
+.toc{display:flex;flex-direction:column;gap:2px;border:1px solid #2a6b42;border-radius:4px;padding:10px;background:#0c130e}
+.toc a{display:flex;gap:14px;align-items:baseline;padding:10px 12px;border-radius:3px;text-decoration:none;color:#9ee6b5;font-size:15px;min-height:44px;box-sizing:border-box}
+.toc a::before{content:" ";display:inline-block;width:12px;color:#b8ffd0;font-family:"VT323",monospace;font-size:20px;line-height:1;flex-shrink:0}
+.toc a:hover{background:#7dffa8;color:#0a0f0b}
+.toc a:hover::before{content:">";color:#0a0f0b}
+.toc a:hover span.n{color:#0a0f0b}
+.toc a span.n{font-family:"VT323",monospace;font-size:20px;line-height:1;color:#7dffa8;width:26px;flex-shrink:0}
+.hero{display:inline-block;white-space:normal;max-width:100%;animation:typing 1.6s steps(21,end) 0.3s both}
+@media (min-width:600px){.hero{white-space:nowrap}}
+.hero::after{content:"";display:inline-block;width:0.5em;height:0.85em;margin-left:0.12em;vertical-align:-0.08em;background:#b8ffd0;box-shadow:0 0 8px rgba(184,255,208,0.8);animation:blink 1s steps(2,start) infinite}
+@keyframes typing{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes blink{to{visibility:hidden}}
+@media (prefers-reduced-motion:reduce){.hero{animation:none;clip-path:none}.hero::after{animation:none}.code button{transition:none}}
+@media (max-width:420px){.hero{animation:none;clip-path:none}}
+.gate{position:relative;min-height:100vh;box-sizing:border-box;background:#0a0f0b;color:#7dffa8;font-family:"IBM Plex Mono","Courier New",monospace;display:flex;align-items:center;justify-content:center;padding:24px;cursor:text;overflow:hidden;transition:opacity 600ms ease}
+.gate.out{opacity:0;pointer-events:none}
+.gate::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.10) 0px,rgba(0,0,0,0.10) 1px,transparent 1px,transparent 3px)}
+.gate::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 90% 80% at 50% 50%,transparent 55%,rgba(0,0,0,0.45) 100%)}
+.gate .scr{position:relative;z-index:1;width:100%;max-width:640px;display:flex;flex-direction:column;gap:6px;font-family:"VT323","Courier New",monospace;font-size:clamp(22px,4.2vw,30px);line-height:1.25;text-shadow:0 0 6px rgba(125,255,168,0.4)}
+.gate pre{margin:0;font:inherit;white-space:pre-wrap;word-break:break-word;color:#7dffa8}
+.gate .line{position:relative;display:flex;align-items:baseline;gap:0;min-height:1.25em}
+.gate .line .ps{color:#b8ffd0;margin-right:0.5ch}
+.gate .line .mask{color:#7dffa8;letter-spacing:0.05em}
+.gate .cur{display:inline-block;width:0.55em;height:0.9em;margin-left:0.1em;vertical-align:-0.08em;background:#b8ffd0;box-shadow:0 0 8px rgba(184,255,208,0.8);animation:blink 1s steps(2,start) infinite}
+.gate input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:0;background:transparent;color:transparent;caret-color:transparent;font:inherit;-webkit-text-fill-color:transparent}
+.gate input::selection{background:transparent}
+.gate .deny{color:#ffb347;text-shadow:0 0 6px rgba(255,179,71,0.4)}
+.gate .grant{color:#b8ffd0;text-shadow:0 0 10px rgba(184,255,208,0.7)}
+.g.reveal{animation:wipe 700ms ease-out both}
+@keyframes wipe{from{opacity:0;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+@media (prefers-reduced-motion:reduce){.gate{transition:none}.gate .cur{animation:none}.g.reveal{animation:none}}
+
+/* responsive polish */
+.g h1,.g h2,.g h3,.g p,.g li{overflow-wrap:normal;word-break:normal;hyphens:none;min-width:0}
+.g{overflow-x:hidden}
+.g svg,.g img{max-width:100%}
+.hero{max-width:100%}
+.code pre{white-space:pre-wrap;overflow-wrap:normal;word-break:normal;overflow-x:auto;max-width:100%}
+.code .bar{flex-wrap:wrap;row-gap:8px}
+.diag-v{display:none}
+.gate .line{white-space:nowrap;overflow:hidden}
+.gate .line .mask{overflow:hidden;text-overflow:clip;flex:0 1 auto}
+@media (max-width:600px){
+.diag-h{display:none}.diag-v{display:block}
+.gate .scr{font-size:clamp(27px,7vw,34px)}
+.g p{font-size:16px;line-height:1.7}
+.g p a,.g li a,.callout a{padding:10px 0;margin:-10px 0}
+.g h2{font-size:clamp(30px,8.6vw,40px)}
+.g h3{font-size:clamp(22px,6.4vw,28px)}
+.step .t,.callout .k,.anat .a .h{font-size:22px}
+.kv .row{flex-direction:column;gap:4px}
+.kv .row .term{width:auto}
+.code button{min-height:48px}
+.toc a{min-height:48px}
+}
+</style>
+
+<div class="gate " style="display: none">
+<div class="scr">
+<pre>BOOTING GUIDE SYSTEM...
+MEMORY CHECK OK
+LOADING "GETTING GOING WITH AI"
+ENTER ACCESS CODE:</pre>
+<div class="line" style="display: flex">
+<span class="ps">&gt;:</span><span class="mask"></span><span class="cur"></span>
+<input type="text" value="" autoComplete="off" autoCapitalize="none" autoCorrect="off" spellCheck="false" aria-label="Access code" inputMode="text">
+</div>
+<div class="deny" style="display: none">ACCESS DENIED. TRY AGAIN.</div>
+<div class="grant" style="display: none">ACCESS GRANTED</div>
+</div>
+</div>
+<div class="g " style="width: 100%; min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; background: #0a0f0b">
+<div style="width: 100%; max-width: 720px; box-sizing: border-box; padding: 24px 20px 80px; display: flex; flex-direction: column">
+
+<!-- Title page -->
+<div style="display: flex; flex-direction: column; gap: 28px; padding: 40px 0 56px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 12px; height: 18px; background: #7dffa8; box-shadow: 0 0 8px #7dffa8"></div>
+<div class="num">A practical guide for non-engineers</div>
+</div>
+<h1 style="font-size: clamp(40px, 8.5vw, 64px); line-height: 1"><span class="hero">Getting going with AI</span></h1>
+<p class="lede">From "I chat with Claude sometimes" to "Claude builds small things on my computer while I check its work".</p>
+<div class="card" style="display: flex; flex-direction: column; gap: 12px; border-color: #2a6b42">
+<div class="num" style="color: #b8ffd0">For NZB</div>
+<p>There is one trick that runs through this whole guide: you get one AI to write the instructions, then hand those instructions to another AI that does the work. Once you have seen it, you will use it for everything. This guide points that trick at your own computer. You will not need to learn to code. You will need to read what the agent plans, say yes or no and keep your work in one folder. Go slow, keep it small and when you get stuck, send me a thread link and I will jump in.</p>
+<p>A lot of the thinking in here comes from Matt Shumer, who writes a newsletter called <a href="https://somethingbig.ai">Something Big Is Happening</a>. He has spent years building AI companies and he writes about this stuff in plain English better than anyone I know. I link his articles where they fit. Read them.</p>
+</div>
+<div class="card" style="display: flex; flex-direction: column; gap: 10px">
+<div class="num" style="color: #b8ffd0">Why now</div>
+<p>Building with AI now feels like describing what you want in plain English and watching it appear. Engineers have had that experience for the last year or so. Everyone else is about to have it too, and right now there is a short window where most people are still ignoring it. The other thing that changed is price. A result that cost a lab hundreds of thousands of dollars in late 2024 now comes out of a twenty dollar a month subscription. In AI, "this year's million-dollar breakthrough is next year's $20 subscription." So the thing you could not afford to build last year is probably a weekend project now.</p>
+<p style="font-size: 15px; color: #4f9a68">Read: <a href="https://somethingbig.ai/something-big-is-happening">Something big is happening</a> and <a href="https://somethingbig.ai/what-costs-millions-today">What costs millions today</a>.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div class="num">What is in here</div>
+<div class="toc">
+<a href="#s1"><span class="n">01</span>How to think about AI tools</a>
+<a href="#s2"><span class="n">02</span>Meta prompting</a>
+<a href="#s3"><span class="n">03</span>Claude Code basics</a>
+<a href="#s4"><span class="n">04</span>Delta as home base</a>
+<a href="#s5"><span class="n">05</span>Zed for the full editor experience</a>
+<a href="#s6"><span class="n">06</span>First project: build yourself a website</a>
+<a href="#s7"><span class="n">07</span>Staying safe</a>
+<a href="#s8"><span class="n">08</span>Where this is heading</a>
+<a href="#s9"><span class="n">09</span>Cheat sheet</a>
+<a href="#s10"><span class="n">10</span>Glossary</a>
+</div>
+</div>
+<div class="callout warn">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb347" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<div><div class="k">These tools change fast</div><p>Menus, commands and prices move around every few months. Where this guide gives steps, treat them as the shape of the thing and check the live docs for the exact wording: <a href="https://docs.claude.com">docs.claude.com</a>, <a href="https://delta.dev/docs">delta.dev/docs</a> and <a href="https://zed.dev/docs">zed.dev/docs</a>.</p></div>
+</div>
+</div>
+
+<!-- 1 -->
+<div class="sec" id="s1">
+<div class="num">01</div>
+<h2>How to think about AI tools</h2>
+<p class="lede">A chatbot answers. An agent works. That is the whole idea in six words.</p>
+<p>When you type into Claude and it replies, that is a chat. You ask, it answers. Then it is up to you to go and do something with the answer. Ask it for a recipe and you get a recipe. Ask it for an email and you get an email. Claude gives you words, and the doing is still yours.</p>
+<p>An agent is Claude with hands. You point it at a folder on your computer and it can read the files in there, edit them, run commands (the typed instructions a computer understands) and then check whether the result worked. If something fails, it reads the error and tries again. You are still in charge, because it shows you what it plans to do and you approve or reject each change.</p>
+<div class="card" style="display: flex; flex-direction: column; gap: 10px">
+<svg class="diag diag-h" viewBox="0 0 680 250" role="img" aria-label="Diagram: you write a prompt, the agent reads and edits your files, then you review the result and either accept it or ask for changes">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7dffa8"></path></marker></defs>
+<g font-family="VT323, Courier New, monospace" font-size="20" fill="#7dffa8" stroke-linecap="square">
+<rect x="10" y="80" width="110" height="64" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="65" y="118" text-anchor="middle">You</text>
+<rect x="190" y="80" width="120" height="64" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="250" y="118" text-anchor="middle">Prompt</text>
+<rect x="380" y="60" width="130" height="104" fill="none" stroke="#b8ffd0" stroke-width="2.5"></rect><text x="445" y="104" text-anchor="middle" font-size="24" fill="#b8ffd0">Agent</text><text x="445" y="130" text-anchor="middle" font-size="16" fill="#9ee6b5">reads, edits, runs</text>
+<rect x="560" y="80" width="110" height="64" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="615" y="110" text-anchor="middle">Your files</text><text x="615" y="130" text-anchor="middle" font-size="15" fill="#9ee6b5">one folder</text>
+<line x1="120" y1="112" x2="188" y2="112" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah)"></line>
+<line x1="310" y1="112" x2="378" y2="112" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah)"></line>
+<line x1="510" y1="100" x2="558" y2="100" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah)"></line>
+<line x1="558" y1="124" x2="512" y2="124" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah)"></line>
+<path d="M445 164 V205 H65 V146" fill="none" stroke="#ffb347" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah)"></path>
+<rect x="190" y="188" width="130" height="36" fill="#0a0f0b" stroke="#ffb347" stroke-width="1.5"></rect><text x="255" y="213" text-anchor="middle" fill="#ffb347">You review</text>
+</g>
+</svg>
+<svg class="diag diag-v" viewBox="0 0 340 600" role="img" aria-label="Diagram: you write a prompt, the agent reads and edits your files, then you review the result and either accept it or ask for changes">
+<defs><marker id="ahv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7dffa8"></path></marker></defs>
+<g font-family="VT323, Courier New, monospace" font-size="22" fill="#7dffa8" stroke-linecap="square">
+<rect x="90" y="10" width="180" height="60" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="180" y="47" text-anchor="middle">You</text>
+<rect x="90" y="120" width="180" height="60" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="180" y="157" text-anchor="middle">Prompt</text>
+<rect x="90" y="230" width="180" height="90" fill="none" stroke="#b8ffd0" stroke-width="2.5"></rect><text x="180" y="268" text-anchor="middle" font-size="26" fill="#b8ffd0">Agent</text><text x="180" y="298" text-anchor="middle" font-size="18" fill="#9ee6b5">reads, edits, runs</text>
+<rect x="90" y="370" width="180" height="70" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="180" y="402" text-anchor="middle">Your files</text><text x="180" y="426" text-anchor="middle" font-size="17" fill="#9ee6b5">one folder</text>
+<line x1="180" y1="70" x2="180" y2="118" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ahv)"></line>
+<line x1="180" y1="180" x2="180" y2="228" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ahv)"></line>
+<line x1="170" y1="320" x2="170" y2="368" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ahv)"></line>
+<line x1="190" y1="368" x2="190" y2="322" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ahv)"></line>
+<path d="M180 440 V520 H40 V40 H88" fill="none" stroke="#ffb347" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ahv)"></path>
+<rect x="105" y="500" width="150" height="40" fill="#0a0f0b" stroke="#ffb347" stroke-width="1.5"></rect><text x="180" y="527" text-anchor="middle" fill="#ffb347">You review</text>
+</g>
+</svg>
+<p style="font-size: 15px; color: #9ee6b5">The loop: you write a prompt, the agent works on your files, you review what it did. Accept it or send it back with a comment. Repeat.</p>
+</div>
+<div class="callout">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b8ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+<div><div class="k">The review step is the whole job</div><p>Engineers spend most of their time reading, not typing. With an agent, that is now your job too. You do not need to understand every line. You need to check that what it says it did matches what you asked for.</p></div>
+</div>
+<p>The closest thing I can compare it to is briefing a contractor. You are not typing into a chat box, you are handing someone a job. A contractor you have briefed badly does not stop and ring you. They guess, and they build the guess. Agents are the same. If your brief leaves a question open, the agent will not ask it. It will pick an answer and keep going. That is why the next section is about the brief.</p>
+</div>
+
+<!-- 2 -->
+<div class="sec" id="s2">
+<div class="num">02</div>
+<h2>Meta prompting</h2>
+<p class="lede">Ask Claude to write the prompt first. This is the trick from the front page, and it is the fastest way to a good result.</p>
+<p>Here is the move. Instead of typing your request straight into the agent, you open a normal Claude chat and ask it to write a good prompt for you. Then you paste that prompt into the agent. It works because Claude is better at being specific than you are when you are in a hurry. It remembers to ask about the things you would have forgotten. Meta prompting is the name for it: using one AI to write the instructions for another. The second AI here is an agent that will change files on your computer, so the prompt matters more than it would in a chat.</p>
+<div class="card" style="display: flex; flex-direction: column; gap: 12px">
+<div class="num" style="color: #b8ffd0">Matt Shumer's three Cs</div>
+<p>This is the framework I use. It boils an agent brief down to context, constraints and composition. Context is everything the agent needs to know and every file it will touch. The test for whether you have given enough: could a new hire do this without coming back to ask you anything? Think of it as the intern test. Constraints are the rules, and the most useful one is a phrase: "don't finish until". Tell the agent what to check before it is allowed to say it is done. Composition is the shape of the result you want, because the format changes how it thinks.</p>
+<p>The other rule that goes with it: give it the goal, not the steps. Say where you want to end up and what must always be true along the way (I think of those as house rules), then let the agent work out the route. One line from his piece that I keep coming back to: "Every step I dictate is just me overriding its judgment with mine, and mine is usually worse."</p>
+<p style="font-size: 15px; color: #4f9a68">Read: <a href="https://somethingbig.ai/prompting-ai-agents">Prompting AI agents</a> and <a href="https://somethingbig.ai/how-i-prompt-fable">How I prompt Fable</a>.</p>
+</div>
+<h3>The anatomy of a solid prompt</h3>
+<div class="anat">
+<div class="a"><div class="h">Goal</div><p>One sentence on what you want to exist at the end.</p></div>
+<div class="a"><div class="h">Context</div><p>Who it is for, what already exists, why you want it.</p></div>
+<div class="a"><div class="h">Constraints</div><p>Limits. Keep it simple, no sign-ups, must work on a phone, do not touch these files.</p></div>
+<div class="a"><div class="h">What done looks like</div><p>How you will know it worked. "I open index.html and see my name and three photos." Vague words like "high quality" let the agent stop at its own idea of good enough, which is usually lower than yours.</p></div>
+<div class="a"><div class="h">Output format</div><p>Do you want a plan first? A single file? A list of changes?</p></div>
+<div class="a"><div class="h">An example</div><p>A link or a short description of something close to what you want.</p></div>
+</div>
+<h3>Before and after</h3>
+<div class="two">
+<div class="code"><div class="bar"><span>Before</span></div><pre>Make me a website</pre></div>
+<div class="code"><div class="bar"><span>After</span></div><pre>Goal: a one page personal site for NZB, a maker and photographer.
+
+Context: I have no code yet. I have four photos in the photos folder and a short bio in bio.txt.
+
+Constraints: plain HTML and CSS only, no frameworks, no sign ups, must look good on a phone, dark background.
+
+Done looks like: I open index.html in a browser and see my name, the bio and the four photos in a grid, with an email link at the bottom.
+
+Output: show me a short plan first and wait for my ok before writing files.
+
+Example: similar feel to a simple portfolio page, big photos, not much text.</pre></div>
+</div>
+<h3>The prompt writer</h3>
+<p>Paste this into a normal Claude chat whenever you have a task. It interviews you, then hands you a structured prompt you can drop into an agent.</p>
+<div class="code">
+<div class="bar"><span>Copy this into Claude</span><button>Copy</button></div>
+<pre>I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.
+
+First, ask me questions one at a time, no more than five, until you understand: what I want to exist at the end, who it is for, what I already have, any limits (time, tools, things to avoid) and how I will know it is finished.
+
+Then write one structured prompt with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include a line starting "Don't finish until" that tells the agent what to check before it says it is done. Keep it under 250 words, use plain language and end it with "Show me a short plan first and wait for my ok before changing any files."
+
+Do not start writing the prompt until you have asked your questions.</pre>
+</div>
+<div class="callout">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b8ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="m16.2 7.8 2.9-2.9"></path><path d="M18 12h4"></path><path d="m16.2 16.2 2.9 2.9"></path><path d="M12 18v4"></path><path d="m4.9 19.1 2.9-2.9"></path><path d="M2 12h4"></path><path d="m4.9 4.9 2.9 2.9"></path></svg>
+<div><div class="k">Tip</div><p>Save the prompt writer somewhere handy (a note on your phone is fine). You will use it more than anything else in this guide.</p></div>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="sec" id="s3">
+<div class="num">03</div>
+<h2>Claude Code basics</h2>
+<p class="lede">Claude Code is the agent. It runs in a project folder and does the work.</p>
+<p>Claude Code is a program from Anthropic that runs Claude as an agent on your computer. You open it inside a folder, type what you want and it reads, writes and runs things in that folder. It is text based, which looks intimidating for about ten minutes and then feels like chatting.</p>
+<p>It needs a paid Claude plan (at the time of writing, Pro or Max) or a pay as you go developer account. Plans and prices change, so check <a href="https://docs.claude.com">docs.claude.com</a> before you buy anything.</p>
+<h3>Install and open it</h3>
+<div class="steps">
+<div class="step"><div class="n">1</div><div><div class="t">Open the terminal</div><p>The terminal is a window where you type commands. On a Mac it is called Terminal (search for it with Spotlight). On Windows use PowerShell.</p></div></div>
+<div class="step"><div class="n">2</div><div><div class="t">Run the install command from the docs</div><p>The Claude Code page on <a href="https://docs.claude.com">docs.claude.com</a> has a one line install command for Mac, Windows and Linux. Copy it from there rather than from here, because it changes.</p></div></div>
+<div class="step"><div class="n">3</div><div><div class="t">Make a project folder</div><p>Create a folder for this project only, for example <code class="i">my-site</code> in your Documents. Everything Claude Code does stays inside it.</p></div></div>
+<div class="step"><div class="n">4</div><div><div class="t">Go into that folder</div><p>In the terminal type <code class="i">cd</code>, a space, then drag the folder into the window and press Enter. That moves the terminal into the folder.</p></div></div>
+<div class="step"><div class="n">5</div><div><div class="t">Start Claude Code</div><p>Type <code class="i">claude</code> and press Enter. The first time it will ask you to sign in with your Claude account.</p></div></div>
+</div>
+<div class="code">
+<div class="bar"><span>Terminal</span><button>Copy</button></div>
+<pre>cd ~/Documents/my-site
+claude</pre>
+</div>
+<h3>Four habits that make it go well</h3>
+<div class="card" style="display: flex; flex-direction: column; gap: 14px">
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Ask for a plan before changes</div><p style="color: #9ee6b5">End your request with "show me a plan first and wait for my ok". Claude Code will list what it intends to do. Read it. If a step looks wrong, say so before anything happens. The docs also describe a plan mode you can switch on so it never edits without asking.</p></div>
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Approve or reject each edit</div><p style="color: #9ee6b5">When it wants to change a file or run a command, it asks. Yes lets it through and no stops it. You can type why. You are never obliged to accept.</p></div>
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Give the project standing instructions in CLAUDE.md</div><p style="color: #9ee6b5">CLAUDE.md is a plain text file in your project folder that Claude Code reads every time it starts. Put in the things you would otherwise repeat: what the project is, what to avoid, how you like things written. Typing <code class="i">/init</code> inside Claude Code creates a starter one for you.</p></div>
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Use skills for repeatable jobs</div><p style="color: #9ee6b5">A skill is a reusable pack of instructions you can call by name. I keep one that holds my writing style rules, so every document Claude writes for me sounds like me instead of like a robot. You could make one for "how I like my photos laid out". The docs explain where skill files live. One warning: skills written for older models tend to over explain and over constrain, which can make a newer model worse. Keep yours short and revisit them when the model changes.</p></div>
+</div>
+<div class="code">
+<div class="bar"><span>Example CLAUDE.md</span><button>Copy</button></div>
+<pre># About this project
+
+This is NZB's personal website. One page, plain HTML and CSS, no frameworks.
+
+# Rules
+
+- Always show me a plan and wait for my ok before changing files.
+- Keep explanations short and in plain English. I am not a programmer.
+- Do not add anything I did not ask for.
+- Never touch the photos folder.</pre>
+</div>
+<div class="callout warn">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb347" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<div><div class="k">If it offers to skip permissions, say no</div><p>There are settings that let Claude Code run without asking. Leave them off. The asking is the safety net.</p></div>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="sec" id="s4">
+<div class="num">04</div>
+<h2>Delta as home base</h2>
+<p class="lede">Delta is where you should spend most of your time. Claude Code does the work, Delta is where you watch, review and share it.</p>
+<p>Delta (<a href="https://delta.dev">delta.dev</a>) comes from the team behind the Zed editor. It is built for exactly the loop from section one: you ask, an agent works, you review. Each task lives in a thread, which keeps the conversation with the agent and the code changes it made together in one place, so you can scroll back and see why something changed.</p>
+<div class="card" style="display: flex; flex-direction: column; gap: 14px">
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Experiments cannot wreck the original</div><p style="color: #9ee6b5">Delta works in a separate copy of the project for each thread. If a thread goes sideways you close it and the original is untouched.</p></div>
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Comment on the exact spot</div><p style="color: #9ee6b5">You can leave a comment on a specific line of code or a specific message in the conversation to ask for a change. "Make this heading bigger" pointed at the heading beats describing it.</p></div>
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Share a thread link with me</div><p style="color: #9ee6b5">Every thread has a link. Send it to me and I can open it, read what happened and help, without you having to explain anything over the phone.</p></div>
+<div><div style="font-family: VT323, Courier New, monospace; font-size: 24px; line-height: 1.1; color: #7dffa8">Claude Code stays the engine</div><p style="color: #9ee6b5">Your Claude Code sessions can sync into Delta threads. Nothing about how the agent works changes. Delta gives it a home with history, comments and sharing.</p></div>
+</div>
+<div class="callout warn">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb347" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<div><div class="k">Delta is new</div><p>It is in public beta, so things will keep changing. If the sign up flow on delta.dev looks different from what I describe, follow <a href="https://delta.dev/docs">delta.dev/docs</a>. If anything in Delta is not working for you yet, everything in this guide still works with Claude Code and Zed on their own.</p></div>
+</div>
+<h3>Your first thread</h3>
+<div class="steps">
+<div class="step"><div class="n">1</div><div><div class="t">Open your project</div><p>Start Delta and open the same project folder you used with Claude Code. If Delta asks to connect Claude Code, say yes.</p></div></div>
+<div class="step"><div class="n">2</div><div><div class="t">Start a thread and ask for one small change</div><p>Something you can check in ten seconds. "Change the heading to my full name" is perfect. Ask for a plan first.</p></div></div>
+<div class="step"><div class="n">3</div><div><div class="t">Read the plan, then read the change</div><p>Delta shows the conversation and the files that changed side by side. Look at the before and after. Does it match what you asked for?</p></div></div>
+<div class="step"><div class="n">4</div><div><div class="t">Comment where it is wrong</div><p>Click the line or the message, leave a comment saying what you want instead and let the agent have another go.</p></div></div>
+<div class="step"><div class="n">5</div><div><div class="t">Accept it</div><p>When you are happy, accept the change so it lands in the real project. Then start a new thread for the next thing.</p></div></div>
+</div>
+<div class="code">
+<div class="bar"><span>A good first request</span><button>Copy</button></div>
+<pre>In index.html, change the heading text to my full name and make the background colour a touch warmer. Show me a plan first and wait for my ok.</pre>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="sec" id="s5">
+<div class="num">05</div>
+<h2>Zed for the full editor experience</h2>
+<p class="lede">Zed is a fast code editor. Use it when you want to see every file and poke at things yourself.</p>
+<p>An editor is a program for opening and changing text files, which is what code is. Zed (<a href="https://zed.dev">zed.dev</a>) is a quick, clean one. Open your project folder in it and you get a file list down the side and the contents in the middle. You can also run Claude as an agent inside Zed, which is handy for small hands on tweaks.</p>
+<h3>Add Claude Agent to Zed</h3>
+<div class="steps">
+<div class="step"><div class="n">1</div><div><div class="t">Install Zed and open your folder</div><p>Download it from zed.dev, open it and choose your project folder.</p></div></div>
+<div class="step"><div class="n">2</div><div><div class="t">Open the Agent Panel</div><p>It is the panel for talking to agents inside Zed. There is a button for it in the corner of the window, or open it from the View menu.</p></div></div>
+<div class="step"><div class="n">3</div><div><div class="t">Add an agent from the ACP Registry</div><p>In the Agent Panel look for Add Agent, then Install from Registry and pick Claude Agent. ACP is the Agent Client Protocol, a shared language that lets editors like Zed talk to agents like Claude. The registry is the list of agents that speak it.</p></div></div>
+<div class="step"><div class="n">4</div><div><div class="t">Sign in with /login</div><p>Start a new thread with Claude Agent, type <code class="i">/login</code> and follow the prompts to sign in with your Claude account. The exact steps are on <a href="https://zed.dev/docs">zed.dev/docs</a> under External Agents.</p></div></div>
+</div>
+<h3>Delta or Zed?</h3>
+<div class="two">
+<div class="card" style="border-color: #7dffa8"><div class="num" style="color: #b8ffd0; margin-bottom: 8px">Delta</div><ul><li>Planning a task</li><li>Reviewing what the agent did</li><li>Sharing a thread with me</li><li>Getting help when stuck</li></ul></div>
+<div class="card" style="border-color: #ffb347"><div class="num" style="margin-bottom: 8px">Zed</div><ul><li>Browsing the files yourself</li><li>Small hands on tweaks (text, a colour)</li><li>Seeing the whole project at once</li><li>Opening a file the agent mentioned</li></ul></div>
+</div>
+<div class="card" style="display: flex; flex-direction: column; gap: 10px">
+<svg class="diag diag-h" viewBox="0 0 680 230" role="img" aria-label="Diagram: Claude Code is the engine in the middle. Delta and Zed both connect to it and to the same project folder">
+<defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7dffa8"></path></marker></defs>
+<g font-family="VT323, Courier New, monospace" font-size="20" fill="#7dffa8" stroke-linecap="square">
+<rect x="20" y="30" width="180" height="80" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="110" y="66" text-anchor="middle" font-size="24">Delta</text><text x="110" y="90" text-anchor="middle" font-size="16" fill="#9ee6b5">threads, review, sharing</text>
+<rect x="480" y="30" width="180" height="80" fill="none" stroke="#d9cfb4" stroke-width="1.5"></rect><text x="570" y="66" text-anchor="middle" font-size="24" fill="#d9cfb4">Zed</text><text x="570" y="90" text-anchor="middle" font-size="16" fill="#9ee6b5">see and edit every file</text>
+<rect x="240" y="60" width="200" height="80" fill="none" stroke="#b8ffd0" stroke-width="2.5"></rect><text x="340" y="96" text-anchor="middle" font-size="24" fill="#b8ffd0">Claude Code</text><text x="340" y="120" text-anchor="middle" font-size="16" fill="#9ee6b5">the engine</text>
+<rect x="240" y="170" width="200" height="46" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="340" y="200" text-anchor="middle">Your project folder</text>
+<line x1="200" y1="80" x2="238" y2="92" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah2)" marker-start="url(#ah2)"></line>
+<line x1="480" y1="80" x2="442" y2="92" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah2)" marker-start="url(#ah2)"></line>
+<line x1="340" y1="140" x2="340" y2="168" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah2)" marker-start="url(#ah2)"></line>
+<path d="M110 110 V193 H238" fill="none" stroke="#4f9a68" stroke-width="1.5" stroke-dasharray="4 4"></path>
+<path d="M570 110 V193 H442" fill="none" stroke="#4f9a68" stroke-width="1.5" stroke-dasharray="4 4"></path>
+</g>
+</svg>
+<svg class="diag diag-v" viewBox="0 0 340 520" role="img" aria-label="Diagram: Claude Code is the engine in the middle. Delta and Zed both connect to it and to the same project folder">
+<defs><marker id="ah2v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7dffa8"></path></marker></defs>
+<g font-family="VT323, Courier New, monospace" font-size="22" fill="#7dffa8" stroke-linecap="square">
+<rect x="80" y="10" width="220" height="80" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="190" y="46" text-anchor="middle" font-size="26">Delta</text><text x="190" y="72" text-anchor="middle" font-size="18" fill="#9ee6b5">threads, review, sharing</text>
+<rect x="80" y="150" width="220" height="80" fill="none" stroke="#b8ffd0" stroke-width="2.5"></rect><text x="190" y="186" text-anchor="middle" font-size="26" fill="#b8ffd0">Claude Code</text><text x="190" y="212" text-anchor="middle" font-size="18" fill="#9ee6b5">the engine</text>
+<rect x="80" y="290" width="220" height="80" fill="none" stroke="#d9cfb4" stroke-width="1.5"></rect><text x="190" y="326" text-anchor="middle" font-size="26" fill="#d9cfb4">Zed</text><text x="190" y="352" text-anchor="middle" font-size="18" fill="#9ee6b5">see and edit every file</text>
+<rect x="80" y="440" width="220" height="50" fill="none" stroke="#7dffa8" stroke-width="1.5"></rect><text x="190" y="472" text-anchor="middle">Your project folder</text>
+<line x1="180" y1="90" x2="180" y2="148" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah2v)" marker-start="url(#ah2v)"></line>
+<line x1="200" y1="230" x2="200" y2="288" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah2v)" marker-start="url(#ah2v)"></line>
+<line x1="190" y1="370" x2="190" y2="438" stroke="#7dffa8" stroke-width="1.5" marker-end="url(#ah2v)" marker-start="url(#ah2v)"></line>
+<path d="M80 50 H40 V465 H78" fill="none" stroke="#4f9a68" stroke-width="1.5" stroke-dasharray="4 4"></path>
+<path d="M80 190 H40" fill="none" stroke="#4f9a68" stroke-width="1.5" stroke-dasharray="4 4"></path>
+<path d="M80 330 H40" fill="none" stroke="#4f9a68" stroke-width="1.5" stroke-dasharray="4 4"></path>
+</g>
+</svg>
+<p style="font-size: 15px; color: #9ee6b5">One engine, one folder, two windows onto it. Delta for the conversation and the review, Zed for the files.</p>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="sec" id="s6">
+<div class="num">06</div>
+<h2>First project: build yourself a website</h2>
+<p class="lede">Everything above, used once, end to end. Budget an hour.</p>
+<div class="steps">
+<div class="step"><div class="n">1</div><div><div class="t">Set up the folder</div><p>Make a folder called <code class="i">my-site</code>. Inside it, make a <code class="i">photos</code> folder with a few images and a <code class="i">bio.txt</code> file with a paragraph about you.</p></div></div>
+<div class="step"><div class="n">2</div><div><div class="t">Write the prompt with the prompt writer</div><p>Open a normal Claude chat, paste the prompt writer from section two and answer its questions. You will end up with something like the prompt below. Copy it.</p></div></div>
+<div class="step"><div class="n">3</div><div><div class="t">Start a Delta thread</div><p>Open <code class="i">my-site</code> in Delta, start a thread and paste the prompt. Read the plan it comes back with. If the plan mentions anything you did not ask for, say so. Then give it the ok.</p></div></div>
+<div class="step"><div class="n">4</div><div><div class="t">Review the build</div><p>It should create <code class="i">index.html</code> and <code class="i">style.css</code>. Open <code class="i">index.html</code> in your browser (double click it). Does it show your name, your bio and your photos? Comment in the thread on anything that is off and let it fix it. Accept when it is right.</p></div></div>
+<div class="step"><div class="n">5</div><div><div class="t">Tweak it yourself in Zed</div><p>Open the folder in Zed, click <code class="i">index.html</code> and change a word in the bio. Save, refresh the browser. Then open <code class="i">style.css</code>, find a line with a colour like <code class="i">#0a0f0b</code> and change it. Save, refresh. That is you editing code.</p></div></div>
+</div>
+<div class="code">
+<div class="bar"><span>The prompt you will end up with</span><button>Copy</button></div>
+<pre>Goal: a one page personal website for NZB.
+
+Context: I am not a programmer. This folder is empty apart from a photos folder with my images and a bio.txt with a short paragraph about me.
+
+Constraints: one index.html file and one style.css file, no frameworks, no sign ups, no tracking. Dark background, big photos, easy to read on a phone. Do not change anything in the photos folder. Don't finish until you have checked that every photo in the photos folder shows on the page and the page has no broken links.
+
+What done looks like: I open index.html in my browser and see my name, the bio from bio.txt, all the photos in a grid and an email link at the bottom.
+
+Output format: show me a short plan first and wait for my ok before writing files. When finished, tell me how to open the page.
+
+Example: the feel of a simple photographer portfolio page, mostly images, very little text.</pre>
+</div>
+<div class="callout">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b8ffd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="m16.2 7.8 2.9-2.9"></path><path d="M18 12h4"></path><path d="m16.2 16.2 2.9 2.9"></path><path d="M12 18v4"></path><path d="m4.9 19.1 2.9-2.9"></path><path d="M2 12h4"></path><path d="m4.9 4.9 2.9 2.9"></path></svg>
+<div><div class="k">Where to go next</div><p>Once the page exists, every new idea is a new thread. "Add a contact form", "make the photos open bigger when tapped", "add a page for my woodworking". Same loop each time: prompt writer, thread, plan, review, accept.</p></div>
+</div>
+<div class="callout warn">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb347" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<div><div class="k">It only exists on your machine for now</div><p>At this point the site is a folder on your computer. Nobody else can visit it. Getting it live on the internet needs hosting sorted, and that is a separate job with its own choices. I am leaving it out of this guide on purpose. When you have something you want people to see, tell me and we will sort it then.</p></div>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="sec" id="s7">
+<div class="num">07</div>
+<h2>Staying safe</h2>
+<p class="lede">Four rules. They cover almost everything that goes wrong.</p>
+<div class="steps">
+<div class="step"><div class="n">1</div><div><div class="t">Never paste secrets into a prompt</div><p>No passwords, no API keys (long codes that let a program use a paid service), no bank details, no one else's private information. If a tool needs a key, the docs will show a proper place to put it. A prompt is never that place.</p></div></div>
+<div class="step"><div class="n">2</div><div><div class="t">Read the plan before you approve</div><p>Every time. If a plan includes deleting things, installing things or touching files outside your project, stop and ask why.</p></div></div>
+<div class="step"><div class="n">3</div><div><div class="t">Keep work in a project folder</div><p>Open agents in <code class="i">my-site</code>, never in your home folder or your whole Documents. What the agent can see is what the agent can change.</p></div></div>
+<div class="step"><div class="n">4</div><div><div class="t">Make mistakes undoable</div><p>Delta's separate copies mean a bad thread can be thrown away. Outside Delta, ask Claude Code to "set up Git and commit" before big changes. Git is a save history for a folder, and a commit is one saved snapshot you can go back to.</p></div></div>
+</div>
+<div class="callout warn">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb347" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<div><div class="k">If something feels off, stop</div><p>Reject the change, close the thread and message me. Nothing in a project folder is urgent enough to guess.</p></div>
+</div>
+<div class="card" style="display: flex; flex-direction: column; gap: 12px">
+<div class="num" style="color: #b8ffd0">Why the asking matters</div>
+<p>An agent that is trying hard to finish will sometimes find a route you did not intend. It is not being sneaky. It has a goal, it hits a wall and it looks for a way around, and the way around might be something you would never have agreed to. The models you will use have a lot of guard rails, but this is the reason you keep the approval prompts on and keep the agent inside one folder. Every yes you give is a small decision that stays yours.</p>
+<p>My practical advice, which lines up with what people who run agents on their own work every day have found: start with tasks you already know well, so you can tell whether it did them right. Start with the strictest approval settings and loosen them only after the agent has earned it.</p>
+<p style="font-size: 15px; color: #4f9a68">Read: <a href="https://somethingbig.ai/ai-risk-plain-english">AI risk in plain English</a> and <a href="https://somethingbig.ai/astra-review-everyday-work">Using an agent for everyday work</a>.</p>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="sec" id="s8">
+<div class="num">08</div>
+<h2>Where this is heading</h2>
+<p class="lede">Two things worth knowing about before you get too settled.</p>
+<h3>A new kind of model that does not chat</h3>
+<p>There is a new kind of AI that does not chat at all. It makes decisions. It is called <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Jev</a>. You hand it a situation and a list of possible decisions, it picks one and tells you how sure it is. Because it is not writing paragraphs, it is dramatically faster and cheaper than the models you have used so far.</p>
+<p>I have been testing it for work and it is legit. To get a feel for what people are doing with it, have a look at <a href="https://jevable.com/">this gallery of projects built with Jev</a>. One builder used it to make an agent that finds flights in about seven seconds for less than half a cent. Another <a href="https://dev.to/trknhr/jev-x-highwayenv-60-seconds-without-a-crash-30ig">taught a car to drive itself in a driving game</a> and it went a full minute on the highway without a crash.</p>
+<p>Why it matters: a lot of work is small decisions made over and over. Is this message urgent? Is this photo worth keeping? Asking a top model every one of those questions has been too slow or too expensive. A job that costs a hundred dollars on a top model costs well under a dollar on Jev. At that price a lot more is worth automating. Once you have a site running, ask yourself what you sort by hand all day, and test it there.</p>
+<p>I also put out my first YouTube video about Jev, <a href="https://www.youtube.com/watch?v=6FT9GpKaaYQ">here</a>. I did it on a whim so the quality is low, but it goes deeper than this page does.</p>
+<h3>If it goes well</h3>
+<p>After all the warnings, it is worth reading something hopeful. The price of using AI at the original ChatGPT's level fell by more than 280 times between late 2022 and late 2024. If that keeps going, things like personalised medicine and a world class tutor for every kid end up within reach of ordinary people, not only companies. Matt Shumer puts the stakes better than I can: "I think a world where someone you love finds a lump, and you still sleep that night, is really on the table." The small version of that for you is this: the tools in this guide are the same ones the professionals use, at the same price. There is no upgraded version being kept from you.</p>
+<p style="font-size: 15px; color: #4f9a68">Read: <a href="https://somethingbig.ai/what-if-ai-goes-well">What if AI goes well</a> and <a href="https://somethingbig.ai/skills-upgrade">Skills upgrade</a>.</p>
+</div>
+
+<!-- 9 -->
+<div class="sec" id="s9">
+<div class="num">09</div>
+<h2>Cheat sheet</h2>
+<p class="lede">Print this panel and stick it next to the screen.</p>
+<div class="cheat">
+<h3>Getting going with AI: cheat sheet</h3>
+<div class="grid">
+<div class="blk"><div class="h">The loop</div><p>Prompt writer in Claude chat, then thread in Delta, then read the plan, then approve, then review, then comment or accept.</p></div>
+<div class="blk"><div class="h">Prompt anatomy</div><ul><li>Goal</li><li>Context (the intern test)</li><li>Constraints ("don't finish until")</li><li>What done looks like</li><li>Output format</li><li>Example</li><li>Give it the goal, not the steps</li></ul></div>
+<div class="blk"><div class="h">Claude Code commands</div><ul><li><code>cd</code> then drag folder in: go to the project</li><li><code>claude</code>: start Claude Code</li><li><code>/init</code>: create a CLAUDE.md</li><li><code>/help</code>: list commands</li><li><code>/clear</code>: fresh conversation</li><li>"Show me a plan first": always</li></ul></div>
+<div class="blk"><div class="h">Delta flow</div><ul><li>Open project</li><li>New thread, one small ask</li><li>Read plan, ok it</li><li>Review the changes</li><li>Comment on the line or message</li><li>Accept, then new thread</li><li>Share the link when stuck</li></ul></div>
+<div class="blk"><div class="h">Zed setup</div><ul><li>Install from zed.dev, open folder</li><li>Open the Agent Panel</li><li>Add Agent, Install from Registry, Claude Agent</li><li>New thread, type <code>/login</code></li></ul></div>
+<div class="blk"><div class="h">Safety</div><ul><li>No secrets in prompts</li><li>Read every plan</li><li>One project folder</li><li>Separate copies or Git</li></ul></div>
+</div>
+<p style="font-size: 13px; color: #5a4d33">Live docs: docs.claude.com, delta.dev/docs, zed.dev/docs</p>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="sec" id="s10">
+<div class="num">10</div>
+<h2>Glossary</h2>
+<div class="kv">
+<div class="row"><div class="term">agent</div><p>An AI that can act, not only answer. Reads and edits files, runs commands, checks its own work.</p></div>
+<div class="row"><div class="term">prompt</div><p>What you type to an AI. The better it is structured, the better the result.</p></div>
+<div class="row"><div class="term">repository</div><p>A project folder with a Git save history attached. Often shortened to repo.</p></div>
+<div class="row"><div class="term">terminal</div><p>A window where you type commands to the computer instead of clicking. Claude Code runs in one.</p></div>
+<div class="row"><div class="term">commit</div><p>One saved snapshot of a project in Git. You can go back to any commit.</p></div>
+<div class="row"><div class="term">Git</div><p>The tool that keeps that save history. Ask the agent to set it up; you rarely need to touch it directly.</p></div>
+<div class="row"><div class="term">thread</div><p>In Delta, one task: the conversation with the agent plus the changes it made, kept together.</p></div>
+<div class="row"><div class="term">editor</div><p>A program for opening and changing text files, which is what code is. Zed is one.</p></div>
+<div class="row"><div class="term">ACP</div><p>Agent Client Protocol. A shared language that lets editors talk to agents. Why Zed can run Claude.</p></div>
+<div class="row"><div class="term">CLAUDE.md</div><p>A text file in your project that Claude Code reads on every start. Your standing instructions.</p></div>
+<div class="row"><div class="term">skill</div><p>A reusable pack of instructions you can call by name, like a recipe card for a job you do often.</p></div>
+<div class="row"><div class="term">Jev</div><p>A model that picks a decision from a list instead of chatting. Fast and cheap for small repeated choices.</p></div>
+</div>
+<p style="color: #4f9a68; font-size: 15px; padding-top: 24px">Made for NZB. Check the live docs whenever a step looks different from what is written here.</p>
+</div>
+</div>
+</div>
+
+
+</body>
+</html>

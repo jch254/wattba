@@ -1,0 +1,87 @@
+---
+import Callout from '../Callout.astro';
+import StepCard from '../StepCard.astro';
+---
+
+<div class="sec" id="s7">
+  <div class="num">07</div>
+  <h2>Staying safe</h2>
+  <p class="lede">Four rules. They cover almost everything that goes wrong.</p>
+  <div class="steps">
+    <StepCard number="1" title={'Never paste secrets into a prompt'}
+      ><p>
+        No passwords, no API keys (long codes that let a program use a paid
+        service), no bank details, no one else's private information. If a tool
+        needs a key, the docs will show a proper place to put it. A prompt is
+        never that place.
+      </p></StepCard
+    >
+    <StepCard number="2" title={'Read the plan before you approve'}
+      ><p>
+        Every time. If a plan includes deleting things, installing things or
+        touching files outside your project, stop and ask why.
+      </p></StepCard
+    >
+    <StepCard number="3" title={'Keep work in a project folder'}
+      ><p>
+        Open agents in <code class="i">my-site</code>, never in your home folder
+        or your whole Documents. What the agent can see is what the agent can
+        change.
+      </p></StepCard
+    >
+    <StepCard number="4" title={'Make mistakes undoable'}
+      ><p>
+        Delta's separate copies mean a bad thread can be thrown away. Outside
+        Delta, ask Claude Code to "set up Git and commit" before big changes.
+        Git is a save history for a folder, and a commit is one saved snapshot
+        you can go back to.
+      </p></StepCard
+    >
+  </div>
+  <Callout title={'If something feels off, stop'} warning
+    ><svg
+      slot="icon"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-ffb347)"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      ><path d="M12 9v4"></path><path d="M12 17h.01"></path><path
+        d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"
+      ></path></svg
+    ><p>
+      Reject the change, close the thread and message me. Nothing in a project
+      folder is urgent enough to guess.
+    </p></Callout
+  >
+  <div class="card" style="display: flex; flex-direction: column; gap: 12px">
+    <div class="num" style="color: var(--color-b8ffd0)">
+      Why the asking matters
+    </div>
+    <p>
+      An agent that is trying hard to finish will sometimes find a route you did
+      not intend. It is not being sneaky. It has a goal, it hits a wall and it
+      looks for a way around, and the way around might be something you would
+      never have agreed to. The models you will use have a lot of guard rails,
+      but this is the reason you keep the approval prompts on and keep the agent
+      inside one folder. Every yes you give is a small decision that stays
+      yours.
+    </p>
+    <p>
+      My practical advice, which lines up with what people who run agents on
+      their own work every day have found: start with tasks you already know
+      well, so you can tell whether it did them right. Start with the strictest
+      approval settings and loosen them only after the agent has earned it.
+    </p>
+    <p style="font-size: 15px; color: var(--color-4f9a68)">
+      Read: <a href="https://somethingbig.ai/ai-risk-plain-english"
+        >AI risk in plain English</a
+      > and <a href="https://somethingbig.ai/astra-review-everyday-work"
+        >Using an agent for everyday work</a
+      >.
+    </p>
+  </div>
+</div>

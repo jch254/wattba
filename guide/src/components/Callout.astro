@@ -1,0 +1,11 @@
+---
+interface Props {
+  title: string;
+  warning?: boolean;
+}
+const { title, warning = false } = Astro.props;
+---
+
+<div class:list={['callout', { warn: warning }]}>
+  <slot name="icon" /><div><div class="k">{title}</div><slot /></div>
+</div>
