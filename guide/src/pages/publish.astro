@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AccessGate from '../components/AccessGate.astro';
+import PublishFollowUp from '../components/sections/PublishFollowUp.astro';
+---
+
+<Layout>
+  <AccessGate />
+  <div
+    class="g"
+    id="guide"
+    style="width: 100%; min-height: 100%; box-sizing: border-box; display: none; flex-direction: column; align-items: center; background: var(--color-0a0f0b)"
+  >
+    <div
+      style="width: 100%; max-width: 720px; box-sizing: border-box; padding: 24px 20px 80px; display: flex; flex-direction: column"
+    >
+      <PublishFollowUp />
+    </div>
+  </div>
+</Layout>

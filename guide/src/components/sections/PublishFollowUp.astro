@@ -1,0 +1,333 @@
+---
+import CodeBlock from '../CodeBlock.astro';
+import StepCard from '../StepCard.astro';
+---
+
+<div class="sec" id="publish-follow-up">
+  <p><a href="/#s8">← Back to the main guide</a></p>
+  <div class="num">OPTIONAL FOLLOW-UP</div>
+  <h1>Put your website online</h1>
+  <p class="lede">
+    From a page on your computer to a link someone else can open. You choose the
+    files and publish them yourself; the agent does not need access to your
+    hosting account.
+  </p>
+  <p>
+    Hosting means keeping a copy of your website on a service that visitors can
+    reach over the internet. Deploying means uploading a version to that
+    service. This exercise uses Cloudflare Pages Direct Upload on its Free plan,
+    with a supplied HTTPS address. No Git, terminal commands, extra software or
+    domain purchase are needed for publishing this HTML/CSS site.
+  </p>
+  <p>
+    Finish the <a href="/#s5">local website and checks</a> first. Publishing is optional
+    and makes your chosen material public. It is not required for the main guide or
+    the Delta exercise.
+  </p>
+  <p>
+    Hosting guidance checked against official documentation on
+    <time datetime="2026-09-27">27 September 2026</time>. Screens and free plans
+    change. If yours differs, use the linked docs or ask the person helping you;
+    do not choose paid options just to continue.
+  </p>
+
+  <details>
+    <summary>Why Cloudflare rather than Vercel or Netlify?</summary>
+    <p>
+      For this small photo website, I would choose Cloudflare Pages: its
+      <a
+        href="https://developers.cloudflare.com/pages/get-started/direct-upload/"
+        >browser upload</a
+      >
+      works without Git, lets you update the same project, and
+      <a href="https://developers.cloudflare.com/pages/functions/pricing/"
+        >static-file requests are free and unlimited</a
+      >.
+      <a href="https://pages.cloudflare.com/"
+        >Pages advertises unlimited bandwidth</a
+      >. That is useful when photos are the largest part of your page. File
+      limits and service terms still apply; this is not a promise of unlimited
+      storage or free use of every Cloudflare product.
+    </p>
+    <ul>
+      <li>
+        <strong>Vercel:</strong> a good option for personal projects and apps.
+        <a href="https://vercel.com/docs/drop">Vercel Drop</a> needs no Git or CLI,
+        but each upload creates a new project; it cannot update an existing one.
+        <a href="https://vercel.com/docs/plans/hobby">Hobby</a> is free for non-commercial
+        personal use only. Advertising paid photography services or selling prints
+        falls under its
+        <a href="https://vercel.com/docs/limits/fair-use-guidelines"
+          >commercial-use restrictions</a
+        >. Do not assume a portfolio qualifies just because it has no checkout.
+      </li>
+      <li>
+        <strong>Netlify:</strong> a simple
+        <a href="https://docs.netlify.com/deploy/create-deploys/#drag-and-drop"
+          >drag-and-drop alternative</a
+        >
+        that can update the same project. Its current
+        <a href="https://www.netlify.com/pricing/">Free plan</a> has 300 credits per
+        month shared by deployments and usage: a production deploy costs 15 credits
+        and bandwidth costs 20 credits per GB, with requests also metered. Reaching
+        the limit pauses projects rather than charging Free-plan overages. Large photos
+        and frequent updates can use the allowance quickly.
+      </li>
+    </ul>
+    <p>
+      There is a trade-off: Cloudflare
+      <a href="https://developers.cloudflare.com/pages/"
+        >recommends Workers for new applications</a
+      >. Pages still documents the browser-only upload, update and rollback
+      workflow used here. A Direct Upload Pages project cannot later switch to
+      Git integration; that needs a new project. Cloudflare Drop is another
+      option, but starts with a
+      <a
+        href="https://developers.cloudflare.com/changelog/post/2026-07-08-cloudflare-drag-and-drop/"
+        >one-hour preview that must be claimed</a
+      >. We use a signed-in Pages project instead, without a claim countdown.
+    </p>
+  </details>
+
+  <h2>Before uploading: public means public</h2>
+  <ul>
+    <li>
+      Publish only photos and words you own or have permission to share. Check
+      identifiable people, client work and locations. Your contact email will be
+      visible to strangers and may attract spam.
+    </li>
+    <li>
+      Photos can include hidden location and camera details. Export web-sized
+      copies and remove location or other private metadata with a trusted local
+      photo tool before publishing. If unsure, ask for help. Do not assume the
+      hosting service strips it, and do not use a random online converter for
+      private photos.
+    </li>
+    <li>
+      Anything uploaded as a website file may be downloadable even if your page
+      does not link to it. An obscure address, hidden link or instruction not to
+      index a page is not privacy protection. Visitors can save copies; taking
+      the site down cannot recall them.
+    </li>
+  </ul>
+  <p>
+    Keep Claude Code and other agents closed while preparing the upload and
+    using your hosting account. Sign in yourself on the official site. Do not
+    give an agent your password, recovery codes or API tokens. Enable two-factor
+    authentication if available and keep recovery codes outside your projects.
+  </p>
+
+  <p>
+    If you want to leave a photo out, first use the main guide's backup and
+    <code class="i">/plan</code> workflow to remove its image reference and any associated
+    captions or alternative text from the working page. Check the result, then close
+    the agent. Leaving the file out alone would break the image and could still expose
+    its description.
+  </p>
+
+  <div class="steps">
+    <StepCard number="1" title="Make a folder containing only public files">
+      <p>
+        In Finder or File Explorer, create a new empty folder called
+        <code class="i">my-site-publish</code> beside your working project, not inside
+        it or your backup. If that name already exists, use a new name such as <code
+          class="i">my-site-publish-2</code
+        >; do not merge folders.
+      </p>
+      <p>
+        Copy only <code class="i">index.html</code>, <code class="i"
+          >style.css</code
+        >
+        and the photos you intend to publish into it. Keep those photos in a
+        <code class="i">photos</code> subfolder with the exact filenames used by the
+        page. For the first upload, resize and remove private metadata from these
+        publishing copies before continuing. For later uploads, reuse the already
+        prepared photos from your last known-good published folder; prepare and inspect
+        any new or replacement photos the same way. Do not recopy the unprepared originals
+        on each update. Copy files, not shortcuts. Leave your working project and
+        <code class="i">my-site-checked</code> backup unchanged.
+      </p>
+      <p>
+        Do not copy the whole project. Leave out <code class="i">CLAUDE.md</code
+        >,
+        <code class="i">bio.txt</code>, notes, backups, hidden configuration
+        folders and any account details. Your public bio and contact address
+        should already be part of <code class="i">index.html</code>.
+      </p>
+    </StepCard>
+  </div>
+  <CodeBlock
+    label="Upload only this folder"
+    code={'my-site-publish/\n├── index.html\n├── style.css\n└── photos/\n    └── only the approved JPEG or PNG copies'}
+  />
+  <p>
+    Open this new folder's <code class="i">index.html</code> in your browser. Check
+    the words, photos, email link and narrow layout again. The page must work from
+    this folder alone. If anything needs fixing, return to your working project, use
+    the main guide's backup and <code class="i">/plan</code> workflow, and make a
+    fresh public-files folder after checking the result.
+  </p>
+  <p>
+    Keep the page light: aim for a few hundred KB per photo where the image
+    still looks good, rather than full-resolution camera exports. That is a
+    practical target, not a service limit. The dashboard upload limit is
+    <a
+      href="https://developers.cloudflare.com/pages/get-started/direct-upload/#limits"
+      >1,000 files, with a maximum of 25 MiB per file</a
+    >. This small exercise should be well below both. Resizing changes the file,
+    so do it only to publishing copies and recheck them.
+  </p>
+
+  <div class="steps">
+    <StepCard number="2" title="Create your free hosting account">
+      <p>
+        Open <a href="https://dash.cloudflare.com/">Cloudflare's dashboard</a>
+        and sign in or create an account. Complete email verification if requested.
+        Use the Free plan; do not start a paid Workers subscription or buy a domain.
+        Pages advertises a free start with no credit card required. If asked to pay
+        for this exercise, stop and check you are in the right setup flow.
+      </p>
+      <p>
+        You do not need to add an existing domain, change nameservers, connect
+        GitHub or install Wrangler. Your site will get a free address ending in
+        <code class="i">pages.dev</code>, with HTTPS handled by the service.
+        HTTPS protects the connection; it does not make the website private.
+      </p>
+    </StepCard>
+    <StepCard number="3" title="Upload and deliberately publish">
+      <ol>
+        <li>
+          In the dashboard, open <strong>Workers &amp; Pages</strong>, then
+          <strong>Create application</strong>.
+        </li>
+        <li>
+          Choose the Pages upload flow. The
+          <a
+            href="https://developers.cloudflare.com/pages/get-started/direct-upload/#drag-and-drop"
+            >Direct Upload docs</a
+          >
+          describe <strong>Get started → Drag and drop your files</strong>. If
+          you see only Worker templates or a Git connection, find the Pages
+          option or ask for help rather than following a different tutorial.
+        </li>
+        <li>
+          Choose a project name you are comfortable making public; it forms part
+          of the site address. Upload the <code class="i">my-site-publish</code>
+          folder, not its parent or the original working project.
+        </li>
+        <li>
+          Check the upload has <code class="i">index.html</code> at its top level,
+          alongside <code class="i">style.css</code> and
+          <code class="i">photos</code>. Check for failed uploads. Do not
+          continue with a missing or rejected photo.
+        </li>
+        <li>
+          When you are ready for strangers to see these files, use
+          <strong>Deploy site</strong> and any <strong>Save and Deploy</strong>
+          confirmation shown. Treat this as publishing immediately, not as a private
+          preview.
+        </li>
+      </ol>
+      <p>
+        No build command is needed: this site's HTML, CSS and images are already
+        the finished files. Do not add Functions, a database, analytics or other
+        services for this exercise.
+      </p>
+    </StepCard>
+    <StepCard number="4" title="Check the live address before sharing it">
+      <p>
+        Open the project's production address in the form
+        <code class="i">https://&lt;project&gt;.pages.dev</code>, using the
+        actual address Cloudflare gives you. Do not share the version-specific
+        address in the form <code class="i"
+          >https://&lt;deployment-id&gt;.&lt;project&gt;.pages.dev</code
+        >. Save the production address and a bookmark to the project's dashboard
+        in a personal note outside the upload folder. Share the website address,
+        not the dashboard.
+      </p>
+      <ul>
+        <li>
+          Open it in a private/incognito window while signed out of Cloudflare.
+          It should not require your hosting login.
+        </li>
+        <li>
+          Check HTTPS works without a certificate warning. Do not bypass a
+          warning.
+        </li>
+        <li>
+          Read the name and bio, count the photos and check the email link's
+          destination without sending a message.
+        </li>
+        <li>
+          Try it on your phone, preferably using mobile data, and check the
+          narrow layout and loading speed.
+        </li>
+        <li>
+          Confirm you are looking at the live address, not a local file or an
+          older browser tab.
+        </li>
+      </ul>
+      <p>
+        If a photo works locally but not online, its path or capital letters may
+        not match the filename exactly. Ask Claude to investigate in your
+        working project with <code class="i">/plan</code>, without publishing or
+        accessing your hosting account. Recheck the corrected public-files
+        folder before uploading again.
+      </p>
+      <p>
+        Once these checks pass, you can send someone the link. Your computer and
+        Claude Code do not need to stay on for the hosted page to work.
+      </p>
+    </StepCard>
+  </div>
+
+  <h2>Update the same site</h2>
+  <p>
+    Editing your local files does not update the live site. Make and check
+    changes in your working project using <code class="i">/plan</code> and backups,
+    then close the agent. Prepare a fresh public-files folder using step 1. Include
+    the complete current site, not just changed files, and leave out removed photos.
+  </p>
+  <p>
+    Open the <strong>existing Pages project</strong> in Cloudflare and select
+    <strong>Create a new deployment</strong>. Choose <strong>Production</strong>
+    to update the main address, upload the complete checked folder and confirm deployment.
+    Do not create another project. Recheck the same production address in a fresh
+    browser window. Keep an outside copy of each known-good published folder, named
+    by date or version, so you know what was actually uploaded.
+  </p>
+
+  <h2>Undo an update or take the site down</h2>
+  <p>
+    For a broken update, open the project's <strong>Deployments</strong> list, find
+    the previous known-good production deployment, open its three-dot menu and choose
+    <strong>Rollback to this deployment</strong>. Review and confirm, then check
+    the live address. Only previous successful production deployments are
+    rollback targets; the first upload has none. See
+    <a href="https://developers.cloudflare.com/pages/configuration/rollbacks/"
+      >Cloudflare's rollback instructions</a
+    >. Rollback changes the hosted site, not your local files.
+  </p>
+  <p>
+    If you published something private, a rollback or replacement upload is not
+    enough: <a
+      href="https://developers.cloudflare.com/pages/configuration/preview-deployments/#preview-aliases"
+      >older deployment URLs may still serve it</a
+    >. With your helper, remove the affected deployments or delete this practice
+    Pages project through its settings, checking the project name carefully.
+    Keep local backups. Verify the main address and affected deployment links no
+    longer serve the material; contact Cloudflare support if removal fails.
+    Copies already downloaded or cached elsewhere cannot be recalled. If a
+    credential was exposed, revoke or replace it with its issuer immediately,
+    not just remove the file.
+  </p>
+
+  <h2>Later, not today</h2>
+  <p>
+    A custom domain is optional and usually has a registration and renewal cost.
+    Git-based publishing and AWS hosting with S3 and CloudFront can be separate
+    follow-ups. Neither is needed to share this site. For now, keep the free
+    address, review service notices and usage, and publish only when you choose.
+  </p>
+  <p><a href="/#s8">← Back to the main guide</a></p>
+</div>
