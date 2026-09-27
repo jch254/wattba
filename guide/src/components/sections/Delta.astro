@@ -7,24 +7,32 @@ import StepCard from '../StepCard.astro';
   <div class="num">06</div>
   <h2>Optional: review a change in Delta</h2>
   <p class="lede">
-    Your website already works. Try Delta only if you want conversation and
-    changes together for review.
+    Your website already works. Skip this entire section unless you want to try
+    Delta's visual review tools.
   </p>
   <p>
-    Delta's <a href="https://delta.dev/docs/privacy-and-security/agentic-safety"
+    Delta is an agent app from Zed with a different safety model. Isolated
+    Workspace gives a thread a separate working copy; Existing Local Checkout
+    edits your selected project directly. Check the Work In selection: a new
+    thread can inherit your previous choice.
+  </p>
+  <p>
+    Neither choice is a security sandbox. Delta's
+    <a href="https://delta.dev/docs/privacy-and-security/agentic-safety"
       >safety docs</a
-    > say agents have unrestricted device access, no sandbox and no permission prompts.
-    Asking for a plan is not enforced approval. Skip this if you need that protection;
-    avoid unfamiliar repositories, whose configuration can run code automatically.
+    >
+    say agents can access the device where they run and call tools without asking,
+    including destructive actions. Unlike Claude Code, Delta has no agent permission
+    system. Asking for a plan is not enforced approval.
   </p>
   <p>
     Project contents and history <a
       href="https://delta.dev/docs/privacy-and-security/data-storage"
       >sync to Delta's servers</a
-    >; agent conversations and relevant code also reach model providers. Use
-    only upload-safe practice material. Keep backups outside every agent's
-    working project, never open a backup to an agent, and use a separate working
-    copy. Backups cannot undo disclosure.
+    > when you add a project. Agent requests may also send relevant messages and file
+    contents to your selected model provider, not automatically every file in the
+    repository. Use only material you are comfortable uploading. Backups outside the
+    project help recovery, but cannot undo disclosure.
   </p>
   <p>
     Follow Delta's <a href="https://delta.dev/docs/installation"
@@ -33,36 +41,41 @@ import StepCard from '../StepCard.astro';
     and check <a href="https://delta.dev/docs/agents/models-and-providers"
       >model access</a
     >
-    and costs. Paid Zed plans offer metered hosted models; Claude subscription sign-in
-    is still marked “coming soon”.
+    and costs before paying. Do not assume your Claude subscription also provides
+    model access in Delta.
   </p>
   <div class="steps">
     <StepCard number="1" title={'Prepare and open the working copy'}>
       <p>
-        Use <code class="i">my-site-delta</code>, the separate working copy from
-        the previous section. Delta needs a Git repository: a folder with saved
-        history. If needed, use
-        <a href="#s3">Claude Code</a> to propose local Git setup and an initial commit.
-        Review the plan before proceeding; this is separate from tool permissions.
-        Close Claude Code afterward.
+        Delta works with Git repositories, folders with saved change history.
+        Its <a href="https://delta.dev/docs/concepts/worktrees"
+          >workspace docs</a
+        >
+        specify a configured origin remote, another location for that history. Treat
+        that as a prerequisite here. If your practice project has only local history,
+        or no Git setup, stop this exercise and ask me. Do not publish files just
+        to satisfy Delta.
       </p>
       <p>
-        Add the working copy as a project, then choose Work In → Existing Local
-        Checkout. This edits that copy directly; run only one agent at a time.
-        An isolated workspace is not a security sandbox either.
+        If that prerequisite is already met, follow the
+        <a href="https://delta.dev/docs/getting-started/quick-start"
+          >Quick Start</a
+        >
+        to add the top-level <code class="i">my-site-delta</code> folder, not its
+        photos folder. You do not need Git commands for this review. Close Claude
+        Code first.
       </p>
       <p>
-        The <a href="https://delta.dev/docs/concepts/delta-and-git">Git docs</a> allow
-        local-only repositories, but the <a
-          href="https://delta.dev/docs/concepts/worktrees">worktree docs</a
-        > require an origin remote (another Git location). If blocked, stop and ask
-        me; do not publish files to continue.
+        For this exercise, deliberately select Work In → Existing Local Checkout
+        so the browser opens the same files you are editing. This changes <code
+          class="i">my-site-delta</code
+        > directly, not your backup. Run only one agent at a time.
       </p>
     </StepCard>
   </div>
   <CodeBlock
     label={'One small change'}
-    code={'Read CLAUDE.md. Add "Maker and photographer" below my name in index.html; use style.css if needed. Change nothing else. No Git commands or publishing; no uploads beyond Delta\'s automatic syncing. Show a short plan and wait for my ok before editing. Then list changed files and checks.'}
+    code={'Read CLAUDE.md. Add "Maker and photographer" below my name in index.html; use style.css if needed. Change nothing else. Do not run Git commands, publish or push the project anywhere. Use only Delta\'s normal project synchronization. Show a short plan and wait for my ok before editing. Then list changed files and checks.'}
     copy
   />
   <div class="steps">

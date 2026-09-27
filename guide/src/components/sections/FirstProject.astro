@@ -45,7 +45,7 @@ import StepCard from '../StepCard.astro';
   </div>
   <CodeBlock
     label={'Website request: paste into Claude Code'}
-    code={"Goal: a one page personal website for the reader, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Don't finish until you have checked that every photo appears, all file references and links are correct and the layout fits narrow screens. Report any checks you cannot perform.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Include short image descriptions for people who cannot see the photos.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text."}
+    code={"Goal: a one-page personal website for me, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Don't finish until you have checked that every photo appears, all file references and links are correct and the layout fits narrow screens. Report any checks you cannot perform.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Include short image descriptions for people who cannot see the photos.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text."}
     copy
   />
   <div class="steps">
@@ -61,6 +61,13 @@ import StepCard from '../StepCard.astro';
         the email link: it should address a new message to you, not send one. If
         no email app is set up, ask Claude to show the address in the link.
       </p>
+      <p>
+        Claude's report is not proof that the page looks right. It may not have
+        browser access; your visual check still matters. If the page is blank or
+        photos are missing, confirm you opened this project's
+        <code class="i">index.html</code>, then tell Claude exactly what you
+        see. Do not install extra software just to fix this simple page.
+      </p>
     </StepCard>
     <StepCard number="4" title={'Back up, then correct anything wrong'}>
       <p>
@@ -74,13 +81,15 @@ import StepCard from '../StepCard.astro';
       <p>
         Describe one visible problem in the same Claude Code conversation: "The
         photos are too small when the window is narrow." Ask for a plan for that
-        correction. After the change, refresh the browser and check again.
+        correction. After the change, refresh with Cmd+R on Mac or Ctrl+R on
+        Windows and check again.
       </p>
       <p>
-        Once it is right, close Claude Code's terminal window and make a new
-        backup beside it called <code class="i">my-site-checked</code>. Leave
-        that backup untouched. For the optional Delta exercise, make another
-        sibling copy called <code class="i">my-site-delta</code>
+        Once it is right, type <code class="i">/exit</code> in Claude Code and press
+        Enter. Make a new backup beside it called <code class="i"
+          >my-site-checked</code
+        >. Leave that backup untouched. For the optional Delta exercise, make
+        another sibling copy called <code class="i">my-site-delta</code>
         and work only in that copy, not the backup. To recover later, close any agents
         first and copy the affected files back from your last good backup.
       </p>

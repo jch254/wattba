@@ -13,6 +13,7 @@ dist/
 # Test results, coverage and local validation artifacts
 coverage/
 playwright-report/
+.playwright-mcp/
 test-results/
 /guide/validation/
 

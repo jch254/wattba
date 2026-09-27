@@ -13,10 +13,11 @@ import StepCard from '../StepCard.astro';
     A terminal is a window for typing commands. On a Mac, open Terminal using
     Spotlight. On Windows, open PowerShell from Start. The steps here cover
     those two systems; Linux users should follow the linked installation page.
+    Press Enter after typing or pasting each terminal command.
   </p>
   <p>
-    Claude Code needs internet access. Claude Code requires an eligible Claude
-    account or supported API access. Check the current account requirements on
+    Claude Code requires internet access and an eligible Claude account or
+    supported API access. Check the current account requirements on
     <a href="https://code.claude.com/docs/en/setup#authenticate"
       >Claude Code's setup page</a
     > before paying. For this exercise, I would use an eligible subscription rather
@@ -83,8 +84,10 @@ import StepCard from '../StepCard.astro';
     Code may fall back to prompting you. If the flag is rejected, start with
     <code class="i">claude --permission-mode default</code> instead. That setting
     normally asks before edits and commands, subject to permission rules; its screen
-    label varies by version. Read any prompt before agreeing, and ask for help if
-    unclear. See the current
+    label varies by version. A permission prompt shows a proposed action and choices
+    to allow or deny it. Read the action, use the displayed keys to select your choice,
+    then press Enter where instructed. If unclear, stop and ask for help rather than
+    approve everything. See the current
     <a href="https://code.claude.com/docs/en/permission-modes"
       >permission docs</a
     >.
@@ -92,7 +95,8 @@ import StepCard from '../StepCard.astro';
   <h3>Give it standing instructions</h3>
   <p>
     <code class="i">CLAUDE.md</code> is a plain text file of project instructions
-    Claude Code reads at the start of a session. <strong
+    Claude Code reads at the start of a session, so you do not have to repeat your
+    preferences every time. <strong
       >It is guidance, not enforced protection.</strong
     > The rule about photos below does not lock the folder or prevent Claude from
     modifying it. That is why you use copies and keep backups outside the project.
@@ -104,7 +108,7 @@ import StepCard from '../StepCard.astro';
   </p>
   <CodeBlock
     label={'Example CLAUDE.md'}
-    code={"# About this project\n\nThis is the reader's one page personal website.\n\n# Rules\n\nShow me a short plan and wait for my ok before changing files.\nExplain things briefly in plain English. I am not a programmer.\nDo not add anything I did not ask for.\nDo not modify the photos folder or work outside this project.\nDo not upload or publish files, install software or change permission settings without asking me."}
+    code={'# About this project\n\nThis is my one-page personal website.\n\n# Rules\n\nShow me a short plan and wait for my ok before changing files.\nExplain things briefly in plain English. I am not a programmer.\nDo not add anything I did not ask for.\nDo not modify the photos folder or work outside this project.\nDo not upload or publish files, install software or change permission settings without asking me.'}
     copy
   />
   <p>

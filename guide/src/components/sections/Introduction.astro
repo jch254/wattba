@@ -26,7 +26,7 @@ import Callout from '../Callout.astro';
   >
     <div class="num" style="color: var(--color-b8ffd0)">For the reader</div>
     <p>
-      By the end, you will have a one page website of your photos, working on
+      By the end, you will have a one-page website of your photos, working on
       your computer. Claude chat helps write the request; Claude Code builds it.
       You decide what changes and check the result.
     </p>
@@ -35,16 +35,19 @@ import Callout from '../Callout.astro';
   <div class="card workflow">
     <div class="num" id="workflow-title">The whole workflow</div>
     <ol aria-labelledby="workflow-title">
-      <li><strong>Claude chat</strong><span>writes the request</span></li>
-      <li><strong>Claude Code</strong><span>proposes changes</span></li>
+      <li><strong>Claude chat</strong>{' '}<span>writes the request</span></li>
+      <li><strong>Claude Code</strong>{' '}<span>proposes changes</span></li>
       <li>
-        <strong>You approve</strong><span>then Claude Code makes changes</span>
+        <strong>You approve</strong>{' '}<span
+          >then Claude Code makes changes</span
+        >
       </li>
-      <li><strong>Browser</strong><span>you inspect the result</span></li>
+      <li><strong>Browser</strong>{' '}<span>you inspect the result</span></li>
     </ol>
     <p>
-      Here, approval means your ok to the plan, not a prompt for every edit.
-      Asking an agent to wait is an instruction, not a technical lock.
+      Here, approval means you have reviewed the plan and told the agent to
+      proceed, not that you approve every edit separately. Asking an agent to
+      wait is an instruction, not a technical lock.
     </p>
   </div>
   <Callout title={'Before you start'} warning
@@ -71,6 +74,10 @@ import Callout from '../Callout.astro';
       removed.
     </p></Callout
   >
+  <p>
+    Product guidance last checked against Claude Code and Delta docs on
+    <time datetime="2026-09-27">27 September 2026</time>.
+  </p>
   <div style="display: flex; flex-direction: column; gap: 10px">
     <div class="num">What is in here</div>
     <BootMenu />
