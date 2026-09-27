@@ -4,11 +4,17 @@ A practical guide for non-engineers moving from chatting with AI to using agents
 that work on files on their computer. The first-build path uses Claude Code's
 Plan mode and a supplied website request, with optional prompt-writing practice.
 Delta's assisted review exercise lives separately at `/delta/index.html`.
+The optional publishing follow-up at `/publish/index.html` uses Cloudflare Pages
+Direct Upload for the reader's plain HTML/CSS portfolio, with a sourced comparison
+of Vercel and Netlify. It covers public-file preparation, manual publishing,
+verification, updates and recovery. This is reader guidance, not a change to this
+repository's AWS hosting or an automatic deployment integration.
 Links use the explicit HTML path so the static S3 origin does not need directory
 index rewriting.
 
-The guide is a static Astro site with a retro terminal design. Its words, links
-and section order come from the [design reference](reference/guide-reference.html).
+The guide is a static Astro site with a retro terminal design based on the
+[original design reference](reference/guide-reference.html). Current guide content
+lives in `guide/src/components/sections/`; the original export is historical.
 Mobile text and touch targets are enlarged where needed for readability and ease
 of use.
 
