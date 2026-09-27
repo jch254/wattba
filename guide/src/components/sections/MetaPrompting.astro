@@ -31,7 +31,7 @@ import CodeBlock from '../CodeBlock.astro';
   </p>
   <CodeBlock
     label={'Prompt writer: paste into Claude chat'}
-    code={'I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.\n\nAsk me questions one at a time, no more than five, about the goal, audience, existing materials, limits and how I will check the result. Do not ask for secrets or private information.\n\nThen write a prompt under 250 words with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include "Don\'t finish until" followed by specific checks. Do not invent missing details. Use plain language. End with "Show me a short plan first and wait for my ok before changing files."\n\nAsk your questions before writing the prompt.'}
+    code={'I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.\n\nAsk me questions one at a time, no more than five, about the goal, audience, existing materials, limits and how I will check the result. Do not ask for secrets or private information.\n\nThen write a prompt under 250 words with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include specific completion checks using only available tools. If a check cannot be performed, tell the agent to stop trying that check, report what remains unverified and explain how I can check it. Do not install tools to complete checks. Do not invent missing details. Use plain language. End with "Show me a short plan first and wait for my ok before changing files."\n\nAsk your questions before writing the prompt.'}
     copy
   />
   <p>

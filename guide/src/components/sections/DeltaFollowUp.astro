@@ -51,8 +51,7 @@ import StepCard from '../StepCard.astro';
     not ignore. Agent requests may also send relevant messages and file contents to
     your selected model provider, not automatically every file in the repository.
     Use only material you are comfortable uploading. Backups cannot undo disclosure.
-    Keep threads private; send redacted error text to the person helping you rather
-    than sharing a thread.
+    Send redacted error text to the person helping you rather than sharing a thread.
   </p>
   <p>
     If you are comfortable with those risks and your computer is supported,
@@ -92,17 +91,27 @@ import StepCard from '../StepCard.astro';
         agent to set this up for you.
       </p>
     </StepCard>
-    <StepCard number="2" title={'Open the copy, then return here'}>
+    <StepCard number="2" title={'Open the working copy'}>
       <p>
-        Use ONLY the <strong>Open your project</strong> section of Delta's
-        <a
+        With your helper, check Settings → Thread → Sharing and confirm Default
+        Visibility is not set to Your organization. Do not share this exercise's
+        thread.
+      </p>
+      <ul>
+        <li>Choose Add Project.</li>
+        <li>
+          Select the top-level <code class="i">my-site-delta</code> folder, not its
+          photos folder.
+        </li>
+        <li>Review the cloud-sync notice if shown before continuing.</li>
+      </ul>
+      <p>
+        Delta's <a
           href="https://delta.dev/docs/getting-started/quick-start#open-your-project"
           >Quick Start</a
-        > to add the top-level <code class="i">my-site-delta</code> folder, not its
-        photos folder: choose Add Project, select the folder, and review the cloud-sync
-        notice if shown. Then return here immediately, before that section tells you
-        to select Isolated Workspace. Do not continue to Make a change or send the
-        Quick Start's prompt; it teaches an isolated workspace and a different task.
+        >
+        is a reference if the screen differs. This exercise uses the checkout selection
+        and request below, not the Quick Start's task.
       </p>
       <p>
         For this exercise, deliberately select Work In → Existing Local

@@ -48,7 +48,7 @@ import StepCard from '../StepCard.astro';
   </div>
   <CodeBlock
     label={'Website request: paste into Claude Code'}
-    code={"/plan Goal: a one-page personal website for me, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Don't finish until you have checked that every photo appears, all file references and links are correct and the layout fits narrow screens. Report any checks you cannot perform.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Include short image descriptions for people who cannot see the photos.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed, list each photo filename with the image description you wrote, and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text."}
+    code={'/plan Goal: a one-page personal website for me, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Before finishing, check that every photo is referenced, file paths and links are correct, and the layout fits narrow screens using the tools already available. If you cannot perform a check, stop trying that check, say what remains unverified, and tell me how to check it. Do not install tools to complete checks.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Give each portfolio image concise, accurate alternative text in its HTML alt attribute. If you cannot inspect an image, ask me for its description rather than guessing.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed, list each photo filename with the image description you wrote, and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text.'}
     copy
   />
   <CodeBlock
@@ -66,20 +66,25 @@ import StepCard from '../StepCard.astro';
         Read your name and bio. Count the photos. Make the browser window narrow
         and check that nothing runs off the side or becomes hard to read. Click
         the email link: it should address a new message to you, not send one. If
-        no email app is set up, ask Claude to show the address in the link.
+        no email app is set up, ask Claude to tell you which email address the
+        link uses, without changing files.
       </p>
       <p>
-        Read the image descriptions Claude lists alongside each photo filename.
-        Check that they describe the actual photos accurately. These
-        descriptions help people who cannot see the images; looking at the page
-        alone will not check them.
+        Read the alternative text (image descriptions in HTML alt attributes)
+        Claude lists alongside each photo filename. Check that they describe the
+        actual photos accurately. These descriptions help people who cannot see
+        the images; looking at the page alone will not check them.
       </p>
       <p>
         Claude's report is not proof that the page looks right. It may not have
         browser access; your visual check still matters. If the page is blank or
         photos are missing, confirm you opened this project's
-        <code class="i">index.html</code>, then tell Claude exactly what you
-        see. Do not install extra software just to fix this simple page.
+        <code class="i">index.html</code>. Do not install extra software just to
+        fix this simple page.
+      </p>
+      <p>
+        Note any problems. Before asking Claude to change the page, make the
+        backup in the next step.
       </p>
     </StepCard>
     <StepCard number="4" title={'Back up, then correct anything wrong'}>

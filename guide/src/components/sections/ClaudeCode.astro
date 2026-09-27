@@ -70,40 +70,49 @@ import StepCard from '../StepCard.astro';
     copy
   />
   <p>
-    Check that the terminal shows Plan mode. It can read files and run
-    exploration commands, so it is not a sandbox or a promise that nothing runs.
-    It blocks source edits until you approve the plan, except in interactive
-    terminal sessions where bypass permissions are available in the mode cycle,
-    even if not selected. Do not enable bypass permissions or use flags that
-    make them available.
+    Check that the terminal shows Plan mode. Once you send a request, Claude
+    will propose a plan. If it matches your request, choose "Yes, and use auto
+    mode" if available, or "Yes, manually approve edits". If it does not, choose
+    "No, keep planning" and explain what needs changing.
   </p>
   <p>
-    Read the proposed plan. If it matches your request, choose "Yes, and use
-    auto mode" if available, or "Yes, manually approve edits". If it does not,
-    choose "No, keep planning" and explain what needs changing. Approval leaves
-    Plan mode. Before each new change, prefix your request with
-    <code class="i">/plan</code> to return to planning.
+    Approval leaves Plan mode. Before requesting another change, start your
+    message with <code class="i">/plan</code>. Never enable bypass permissions.
   </p>
-  <p>
-    Auto mode reduces routine permission prompts with background safety checks.
-    Routine file edits inside the working folder can proceed without individual
-    classifier review. It is not bypass permissions, a sandbox or a guarantee of
-    safety. You still check the finished page yourself.
-  </p>
-  <p>
-    Auto availability depends on your version, selected model, provider,
-    organization settings and service availability. If Auto is unavailable,
-    choose manual approval, not "auto-accept edits", which is a different mode.
-    To start directly in Manual mode, use
-    <code class="i">claude --permission-mode default</code>, then prefix each
-    change request with <code class="i">/plan</code>. Manual normally asks
-    before edits and commands, subject to permission rules; labels vary by
-    version. Read each proposed action and use the displayed keys to allow or
-    deny it. If unclear, ask the person helping you. See the current
-    <a href="https://code.claude.com/docs/en/permission-modes"
-      >permission docs</a
-    >.
-  </p>
+  <details class="card">
+    <summary>About these safety controls</summary>
+    <div
+      style="display: flex; flex-direction: column; gap: 16px; padding-top: 16px"
+    >
+      <p>
+        Plan mode can read files and run exploration commands, so it is not a
+        sandbox or a promise that nothing runs. It blocks source edits until you
+        approve the plan, except in interactive terminal sessions where bypass
+        permissions are available in the mode cycle, even if not selected. Do
+        not use flags that make bypass permissions available.
+      </p>
+      <p>
+        Auto mode reduces routine permission prompts with background safety
+        checks. Routine file edits inside the working folder may happen without
+        a separate AI safety check. It is not bypass permissions, a sandbox or a
+        guarantee of safety. You still check the finished page yourself.
+      </p>
+      <p>
+        Auto availability depends on your version, selected model, provider,
+        organization settings and service availability. If Auto is unavailable,
+        choose manual approval, not "auto-accept edits", which is a different
+        mode. To start directly in Manual mode, use
+        <code class="i">claude --permission-mode default</code>, then prefix
+        each change request with <code class="i">/plan</code>. Manual normally
+        asks before edits and commands, subject to permission rules; labels vary
+        by version. Read each proposed action and use the displayed keys to
+        allow or deny it. If unclear, ask the person helping you. See the
+        current <a href="https://code.claude.com/docs/en/permission-modes"
+          >permission docs</a
+        >.
+      </p>
+    </div>
+  </details>
   <h3>Give it standing instructions</h3>
   <p>
     <code class="i">CLAUDE.md</code> is a plain text file of project instructions
