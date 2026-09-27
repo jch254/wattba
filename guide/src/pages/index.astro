@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AccessGate from '../components/AccessGate.astro';
+import GuideNav from '../components/GuideNav.astro';
 import Introduction from '../components/sections/Introduction.astro';
 import AiTools from '../components/sections/AiTools.astro';
 import MetaPrompting from '../components/sections/MetaPrompting.astro';
@@ -21,9 +22,8 @@ import Publish from '../components/sections/Publish.astro';
     id="guide"
     style="width: 100%; min-height: 100%; box-sizing: border-box; display: none; flex-direction: column; align-items: center; background: var(--color-0a0f0b)"
   >
-    <div
-      style="width: 100%; max-width: 720px; box-sizing: border-box; padding: 24px 20px 80px; display: flex; flex-direction: column"
-    >
+    <GuideNav current="main" />
+    <main id="main-content" class="guide-content" tabindex="-1">
       <Introduction />
       <AiTools />
       <StayingSafe />
@@ -33,6 +33,6 @@ import Publish from '../components/sections/Publish.astro';
       <Delta />
       <CheatSheet />
       <Publish />
-    </div>
+    </main>
   </div>
 </Layout>

@@ -24,14 +24,15 @@ import Callout from '../Callout.astro';
     class="card"
     style="display: flex; flex-direction: column; gap: 12px; border-color: var(--color-2a6b42)"
   >
-    <div class="num" style="color: var(--color-b8ffd0)">For the reader</div>
+    <div class="num" style="color: var(--color-b8ffd0)">What you will make</div>
     <p>
-      By the end, you will have a one-page website of your photos, working on
-      your computer. Start with the supplied request; Claude chat can help you
-      write your own requests later. Claude Code builds it while you decide what
-      changes and check the result.
+      A one-page photo website that works on your computer. Use the supplied
+      request, let Claude Code build it, and check the result. Writing your own
+      request, trying Delta and publishing online are optional.
     </p>
   </div>
+
+  <BootMenu />
 
   <div class="card workflow">
     <div class="num" id="workflow-title">The whole workflow</div>
@@ -54,10 +55,8 @@ import Callout from '../Callout.astro';
       <li><strong>Browser</strong>{' '}<span>you inspect the result</span></li>
     </ol>
     <p>
-      Here, approval means you have reviewed the plan and told the agent to
-      proceed. We use Plan mode for that checkpoint, then Auto or manual
-      approval for the edits. Asking an agent to wait in ordinary text does not
-      turn Plan mode on.
+      Review the plan before allowing edits. Plan mode provides that checkpoint;
+      asking the agent to wait in ordinary text does not turn it on.
     </p>
   </div>
   <Callout title={'Before you start'} warning
@@ -88,10 +87,6 @@ import Callout from '../Callout.astro';
     Product guidance last checked against Claude Code and Delta docs on
     <time datetime="2026-09-27">27 September 2026</time>.
   </p>
-  <div style="display: flex; flex-direction: column; gap: 10px">
-    <div class="num">What is in here</div>
-    <BootMenu />
-  </div>
 </div>
 
 <style>

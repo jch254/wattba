@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AccessGate from '../components/AccessGate.astro';
+import GuideNav from '../components/GuideNav.astro';
 import PublishFollowUp from '../components/sections/PublishFollowUp.astro';
 ---
 
@@ -11,10 +12,9 @@ import PublishFollowUp from '../components/sections/PublishFollowUp.astro';
     id="guide"
     style="width: 100%; min-height: 100%; box-sizing: border-box; display: none; flex-direction: column; align-items: center; background: var(--color-0a0f0b)"
   >
-    <div
-      style="width: 100%; max-width: 720px; box-sizing: border-box; padding: 24px 20px 80px; display: flex; flex-direction: column"
-    >
+    <GuideNav current="publish" />
+    <main id="main-content" class="guide-content" tabindex="-1">
       <PublishFollowUp />
-    </div>
+    </main>
   </div>
 </Layout>

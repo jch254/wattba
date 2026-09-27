@@ -28,6 +28,9 @@
 <script>
   const PASSWORD_HASH =
     '0d45c7a3c88662e83ba778e364b4a26f62cd4483f056c18be8fcb853e9c58d01';
+  const UNLOCK_DURATION_MS = 24 * 60 * 60 * 1000;
+  // Changing the access code also invalidates previously remembered unlocks.
+  const UNLOCK_STORAGE_KEY = `guide-unlocked-until:${PASSWORD_HASH}`;
   const BOOT_TEXT = [
     'BOOTING GUIDE SYSTEM...',
     'MEMORY CHECK OK',
@@ -93,10 +96,17 @@
     };
 
     try {
-      if (sessionStorage.getItem('guide-unlocked') === 'true') {
+      const expiresAt = Number(localStorage.getItem(UNLOCK_STORAGE_KEY));
+      const now = Date.now();
+      if (
+        Number.isSafeInteger(expiresAt) &&
+        expiresAt > now &&
+        expiresAt <= now + UNLOCK_DURATION_MS
+      ) {
         revealGuide(false);
         return;
       }
+      localStorage.removeItem(UNLOCK_STORAGE_KEY);
     } catch {
       // Unavailable storage must not bypass the gate.
     }
@@ -136,7 +146,10 @@
       }
 
       try {
-        sessionStorage.setItem('guide-unlocked', 'true');
+        localStorage.setItem(
+          UNLOCK_STORAGE_KEY,
+          String(Date.now() + UNLOCK_DURATION_MS),
+        );
       } catch {
         // A valid code still unlocks this page when storage is unavailable.
       }

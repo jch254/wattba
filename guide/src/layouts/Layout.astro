@@ -117,7 +117,15 @@ const imageUrl = new URL('/og.png', siteUrl).href;
           rgba(0, 0, 0, 0.45) 100%
         );
       }
-      .g > div {
+      .guide-content {
+        width: 100%;
+        max-width: 720px;
+        box-sizing: border-box;
+        padding: 24px 20px 80px;
+        display: flex;
+        flex-direction: column;
+      }
+      .g > .guide-content {
         position: relative;
         z-index: 1;
       }
@@ -744,7 +752,52 @@ const imageUrl = new URL('/og.png', siteUrl).href;
         min-width: 0;
       }
       .g {
-        overflow-x: hidden;
+        overflow-x: clip;
+      }
+      .g [id] {
+        scroll-margin-top: 84px;
+      }
+      a:focus-visible,
+      summary:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--color-7dffa8);
+        outline-offset: 4px;
+      }
+      .guide-contents {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .g .guide-contents h2 {
+        font-size: 32px;
+      }
+      .g .guide-contents h3 {
+        font-size: 26px;
+      }
+      .g .sec > h1 {
+        font-size: clamp(40px, 8.5vw, 56px);
+        line-height: 1.05;
+      }
+      .g details {
+        border: 1px solid var(--color-2a6b42);
+        border-radius: 4px;
+        padding: 16px;
+        background: var(--color-0c130e);
+      }
+      .g summary {
+        cursor: pointer;
+        min-height: 44px;
+        align-content: center;
+        line-height: 1.6;
+        color: var(--color-b8ffd0);
+      }
+      .g details[open] > :not(summary) {
+        margin-top: 16px;
+      }
+      @media (max-width: 600px) {
+        .g [id] {
+          scroll-margin-top: 128px;
+        }
       }
       .g svg,
       .g img {

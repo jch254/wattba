@@ -1,0 +1,88 @@
+---
+interface Props {
+  current: 'main' | 'delta' | 'publish';
+}
+
+const { current } = Astro.props;
+const pages = [
+  { id: 'main', href: '/index.html', label: 'Main guide' },
+  { id: 'delta', href: '/delta/index.html', label: 'Delta review' },
+  { id: 'publish', href: '/publish/index.html', label: 'Publish your site' },
+];
+---
+
+<header class="guide-nav">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <nav aria-label="Guide pages">
+    {
+      pages.map((page) => (
+        <a
+          href={page.href}
+          aria-current={current === page.id ? 'page' : undefined}
+        >
+          {page.label}
+        </a>
+      ))
+    }
+    <a href="#contents">On this page ↓</a>
+  </nav>
+</header>
+
+<style>
+  .guide-nav {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    background: var(--color-0a0f0b);
+    border-bottom: 1px solid var(--color-245a38);
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8px 20px;
+    box-sizing: border-box;
+  }
+
+  nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    font-size: 14px;
+    border-radius: 3px;
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--color-0a0f0b);
+    background: var(--color-7dffa8);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 20px;
+    top: 8px;
+    padding: 12px;
+    background: var(--color-0a0f0b);
+    transform: translateY(-200%);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    z-index: 3;
+  }
+
+  @media (max-width: 600px) {
+    nav a {
+      flex: 1 1 calc(50% - 4px);
+    }
+  }
+</style>

@@ -19,7 +19,10 @@ The guide is a static Astro site with a retro terminal design based on the
 [original design reference](reference/guide-reference.html). Current guide content
 lives in `guide/src/components/sections/`; the original export is historical.
 Mobile text and touch targets are enlarged where needed for readability and ease
-of use.
+of use. All three pages share a sticky navigation bar with an active-page marker,
+a skip link and a link to page contents. The main contents distinguish the first
+build from optional follow-up pages; each follow-up has section links and return
+navigation. Existing section anchors remain stable.
 
 ## Repository structure
 
@@ -64,6 +67,7 @@ Run from `guide/`:
 
 ```sh
 pnpm typecheck
+pnpm test
 pnpm lint
 pnpm format:check
 ```
@@ -155,7 +159,15 @@ manual workflow. This infrastructure has been locally validated, not applied.
 ## Access gate and browser behaviour
 
 The terminal-style access gate hashes the entered code in the browser and
-remembers an unlock for the current session when session storage is available.
+remembers a successful entry for 24 hours in local storage. Only an expiry
+timestamp is saved, never the entered code. The unlock works across subpages,
+tabs and browser restarts on the same origin and browser profile. Visits do not
+extend the expiry; after 24 hours, the next page load asks for the code again.
+Changing the configured code invalidates remembered unlocks. Clearing site data
+or using a different browser also requires another entry. When local storage is
+unavailable, a valid code still opens the current page but cannot be remembered.
+Older session-only unlocks are not carried over; enter the code once to start
+the new 24-hour period.
 It is a presentation gate, **not authentication**: the static guide content and
 password hash are publicly inspectable.
 

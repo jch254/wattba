@@ -8,9 +8,8 @@ import StepCard from '../StepCard.astro';
   <div class="num">OPTIONAL FOLLOW-UP</div>
   <h1>Review a change in Delta — with help</h1>
   <p class="lede">
-    Your website already works. This separate exercise is optional: ask the
-    person helping you to prepare it with you, rather than treating it as the
-    next step in the main guide.
+    Review one small change to your finished website. Do this optional exercise
+    with the person helping you; it needs setup the main guide does not cover.
   </p>
   <p>
     The main guide does not create a Git repository, an <code class="i"
@@ -20,7 +19,16 @@ import StepCard from '../StepCard.astro';
     setup, which you will check together below. Do not publish the project just to
     make this exercise work.
   </p>
-  <h2>Before installing: check compatibility and the risks</h2>
+  <nav class="guide-contents" id="contents" aria-labelledby="contents-title">
+    <h2 id="contents-title">On this page</h2>
+    <div class="toc">
+      <a href="#compatibility">Check compatibility and risks</a>
+      <a href="#prepare">1–2. Prepare and open a working copy</a>
+      <a href="#review">3. Request and review a change</a>
+      <a href="#recovery">If something goes wrong</a>
+    </div>
+  </nav>
+  <h2 id="compatibility">Before installing: compatibility and risks</h2>
   <p>
     On a Mac, Delta requires Apple Silicon and macOS 13 or later; Intel Macs are
     not supported. Check Apple menu → About This Mac before installing. On
@@ -62,6 +70,7 @@ import StepCard from '../StepCard.astro';
     > and costs before paying. Do not assume your Claude subscription also provides
     model access in Delta.
   </p>
+  <h2 id="prepare">Prepare your working copy</h2>
   <div class="steps">
     <StepCard number="1" title={'Create a separate working copy with help'}>
       <p>
@@ -124,6 +133,7 @@ import StepCard from '../StepCard.astro';
       </p>
     </StepCard>
   </div>
+  <h2 id="review">Request and review one change</h2>
   <CodeBlock
     label={'One small change'}
     code={'Read CLAUDE.md. Add "Maker and photographer" below my name in index.html; use style.css if needed. Change nothing else. Do not run Git commands, publish or push the project anywhere. Use only Delta\'s normal project synchronization. Show a short plan and wait for my ok before editing. Then list changed files and checks.'}
@@ -147,7 +157,7 @@ import StepCard from '../StepCard.astro';
       </p>
     </StepCard>
   </div>
-  <h2>If something goes wrong</h2>
+  <h2 id="recovery">If something goes wrong</h2>
   <p>
     Stop and close all agents, including Delta and Claude Code. Keep the damaged
     working folder for inspection; do not delete it or restore affected files
@@ -163,5 +173,9 @@ import StepCard from '../StepCard.astro';
     copy in your browser before trying again. Do not resume an old thread
     against the damaged folder or open the backup in Delta.
   </p>
-  <p><a href="/#s6">← Back to the main guide</a></p>
+  <nav class="toc" aria-label="After the Delta exercise">
+    <a href="/index.html#s7">Main guide: cheat sheet →</a>
+    <a href="/publish/index.html">Optional: publish your site →</a>
+    <a href="#contents">↑ Back to contents</a>
+  </nav>
 </div>

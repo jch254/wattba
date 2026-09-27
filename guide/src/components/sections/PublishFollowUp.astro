@@ -13,17 +13,32 @@ import StepCard from '../StepCard.astro';
     hosting account.
   </p>
   <p>
-    Hosting means keeping a copy of your website on a service that visitors can
-    reach over the internet. Deploying means uploading a version to that
-    service. This exercise uses Cloudflare Pages Direct Upload on its Free plan,
-    with a supplied HTTPS address. No Git, terminal commands, extra software or
-    domain purchase are needed for publishing this HTML/CSS site.
+    Hosting keeps your site online; deploying uploads a version of it. This
+    exercise uses Cloudflare Pages Direct Upload on its Free plan, with an HTTPS
+    address included. No Git, terminal commands, extra software or domain
+    purchase are needed for this HTML/CSS site.
   </p>
   <p>
     Finish the <a href="/#s5">local website and checks</a> first. Publishing is optional
     and makes your chosen material public. It is not required for the main guide or
     the Delta exercise.
   </p>
+  <nav class="guide-contents" id="contents" aria-labelledby="contents-title">
+    <h2 id="contents-title">On this page</h2>
+    <div class="toc">
+      <a href="#public-files">Check what is safe to publish</a>
+      <a href="#prepare">1. Prepare public files</a>
+      <a href="#upload">2–4. Upload, publish and check</a>
+      <a href="#updates">Update the same site</a>
+      <a href="#recovery">Undo an update or take the site down</a>
+    </div>
+    <h3>For later</h3>
+    <div class="toc">
+      <a href="#technology">Choose tools for a larger site</a>
+      <a href="#migrate">Move an existing site</a>
+      <a href="#later">Domains and ongoing care</a>
+    </div>
+  </nav>
   <p>
     Hosting guidance checked against official documentation on
     <time datetime="2026-09-27">27 September 2026</time>. Screens and free plans
@@ -89,7 +104,7 @@ import StepCard from '../StepCard.astro';
     </p>
   </details>
 
-  <h2>Before uploading: public means public</h2>
+  <h2 id="public-files">Before uploading: public means public</h2>
   <ul>
     <li>
       Publish only photos and words you own or have permission to share. Check
@@ -125,6 +140,7 @@ import StepCard from '../StepCard.astro';
     its description.
   </p>
 
+  <h2 id="prepare">Prepare public files</h2>
   <div class="steps">
     <StepCard number="1" title="Make a folder containing only public files">
       <p>
@@ -178,6 +194,7 @@ import StepCard from '../StepCard.astro';
     so do it only to publishing copies and recheck them.
   </p>
 
+  <h2 id="upload">Upload, publish and check</h2>
   <div class="steps">
     <StepCard number="2" title="Create your free hosting account">
       <p>
@@ -281,7 +298,7 @@ import StepCard from '../StepCard.astro';
     </StepCard>
   </div>
 
-  <h2>Update the same site</h2>
+  <h2 id="updates">Update the same site</h2>
   <p>
     Editing your local files does not update the live site. Make and check
     changes in your working project using <code class="i">/plan</code> and backups,
@@ -297,7 +314,7 @@ import StepCard from '../StepCard.astro';
     by date or version, so you know what was actually uploaded.
   </p>
 
-  <h2>Undo an update or take the site down</h2>
+  <h2 id="recovery">Undo an update or take the site down</h2>
   <p>
     For a broken update, open the project's <strong>Deployments</strong> list, find
     the previous known-good production deployment, open its three-dot menu and choose
@@ -322,9 +339,14 @@ import StepCard from '../StepCard.astro';
     not just remove the file.
   </p>
 
-  <h2 id="technology">
-    When your site needs more: let the job choose the tools
-  </h2>
+  <div class="card">
+    <p>
+      <strong>First publish complete?</strong> You can stop here. The sections below
+      are optional reference for a larger site or a future move.
+      <a href="/index.html#s7">Return to the cheat sheet</a>.
+    </p>
+  </div>
+  <h2 id="technology">Choose tools for a larger site</h2>
   <p>
     Plain HTML and CSS are enough for the first exercise. A larger portfolio,
     multi-page site or blog can benefit from reusable layouts and a simpler way
@@ -506,12 +528,18 @@ import StepCard from '../StepCard.astro';
     and save redesign ideas for a separate change.
   </p>
 
-  <h2>Later, not today</h2>
+  <h2 id="later">Domains and ongoing care</h2>
   <p>
     A custom domain is optional and usually has a registration and renewal cost.
     Git-based publishing and AWS hosting with S3 and CloudFront can be separate
     follow-ups. Neither is needed to share this site. For now, keep the free
     address, review service notices and usage, and publish only when you choose.
   </p>
-  <p><a href="/#s8">← Back to the main guide</a></p>
+  <nav class="toc" aria-label="After publishing">
+    <a href="/index.html#s7">Main guide: cheat sheet →</a>
+    <a href="/delta/index.html"
+      >Optional: review a change in Delta with help →</a
+    >
+    <a href="#contents">↑ Back to contents</a>
+  </nav>
 </div>
