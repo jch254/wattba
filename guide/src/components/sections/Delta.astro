@@ -7,122 +7,78 @@ import StepCard from '../StepCard.astro';
   <div class="num">06</div>
   <h2>Optional: review a change in Delta</h2>
   <p class="lede">
-    Your website is already working. You do not need Delta to keep it.
+    Your website already works. Try Delta only if you want conversation and
+    changes together for review.
   </p>
   <p>
-    Delta keeps a task's conversation and file changes together in a thread. I
-    like that for reviewing work, but its <a
-      href="https://delta.dev/docs/privacy-and-security/agentic-safety"
-      >safety documentation</a
+    Delta's <a href="https://delta.dev/docs/privacy-and-security/agentic-safety"
+      >safety docs</a
+    > say agents have unrestricted device access, no sandbox and no permission prompts.
+    Asking for a plan is not enforced approval. Skip this if you need that protection;
+    avoid unfamiliar repositories, whose configuration can run code automatically.
+  </p>
+  <p>
+    Project contents and history <a
+      href="https://delta.dev/docs/privacy-and-security/data-storage"
+      >sync to Delta's servers</a
+    >; agent conversations and relevant code also reach model providers. Use
+    only upload-safe practice material. Keep backups outside every agent's
+    working project, never open a backup to an agent, and use a separate working
+    copy. Backups cannot undo disclosure.
+  </p>
+  <p>
+    Follow Delta's <a href="https://delta.dev/docs/installation"
+      >setup instructions</a
     >
-    currently says agents have unrestricted device access and no permission prompts.
-    A request to wait is only an instruction. Skip this exercise if you want enforced
-    approvals.
-  </p>
-  <p>
-    Adding a project uploads its files to Delta's servers, and later edits sync
-    there too. Sync means keeping copies up to date. Use only the practice
-    website and material you are comfortable uploading. Do not open your photo
-    library, client work or an unfamiliar project. A backup helps recover files;
-    it cannot undo a disclosure.
-  </p>
-  <p>
-    Delta needs its own model access: a model is the AI doing the reasoning.
-    Claude subscription sign-in is still marked "coming soon" in the
-    <a href="https://delta.dev/docs/agents/models-and-providers"
-      >provider docs</a
-    >. A paid Zed plan with hosted AI, supplied through Zed's service, is one
-    option without API keys. Check its usage charges before paying. You do not
-    need to install the Zed editor, an app for changing text files. A Claude
-    Code subscription alone is not enough.
+    and check <a href="https://delta.dev/docs/agents/models-and-providers"
+      >model access</a
+    >
+    and costs. Paid Zed plans offer metered hosted models; Claude subscription sign-in
+    is still marked “coming soon”.
   </p>
   <div class="steps">
-    <StepCard number="1" title={'Install and sign in'}>
+    <StepCard number="1" title={'Prepare and open the working copy'}>
       <p>
-        Get Delta from <a href="https://delta.dev/download"
-          >delta.dev/download</a
-        >
-        and follow its <a href="https://delta.dev/docs/installation"
-          >installation instructions</a
-        >. Macs need macOS 13 or later and Apple Silicon, not Intel. Windows
-        users run the downloaded installer. Mac users unzip the app and move it
-        to Applications. The documented Mac terminal step removes a system
-        download warning, so read it before running it and use only the official
-        download.
+        Use <code class="i">my-site-delta</code>, the separate working copy from
+        the previous section. Delta needs a Git repository: a folder with saved
+        history. If needed, use
+        <a href="#s3">Claude Code</a> to propose local Git setup and an initial commit.
+        Review the plan before proceeding; this is separate from tool permissions.
+        Close Claude Code afterward.
       </p>
       <p>
-        Follow the <a href="https://delta.dev/docs/account/authenticate"
-          >sign-in steps</a
-        >
-        to create a Zed account and accept the early access agreement. Sign-in uses
-        GitHub, an online service for storing and sharing code; create an account
-        there if needed. Connect model access during setup. Skip "Add your team" and
-        complete "Welcome to Delta", including opening its terminal.
-      </p>
-    </StepCard>
-    <StepCard number="2" title={'Prepare the project for Delta'}>
-      <p>
-        Delta opens a Git repository: a project folder with a saved history. Git
-        is the program that keeps that history; a commit is one saved snapshot.
-        Reopen Claude Code in <code class="i">my-site</code> using
-        <a href="#s3">the manual-permissions command</a>.
+        Add the working copy as a project, then choose Work In → Existing Local
+        Checkout. This edits that copy directly; run only one agent at a time.
+        An isolated workspace is not a security sandbox either.
       </p>
       <p>
-        Ask it to check whether Git is installed, then propose setting up Git
-        and saving the website in an initial commit. Do not upload anything or
-        change other folders. If Git is missing, use its
-        <a href="https://git-scm.com/install/"
-          >official installation instructions</a
-        >. Approve the local setup after reviewing its plan, then close Claude
-        Code.
-      </p>
-    </StepCard>
-    <StepCard number="3" title={'Open the website folder'}>
-      <p>
-        In Delta, click Add Project and select <code class="i">my-site</code>,
-        not its photos folder. Review the "Projects Sync to the Cloud" notice
-        before continuing. In the project menu, choose Work In, then Existing
-        Local Checkout. A checkout means the files you are working on. This
-        choice edits your website directly, not an isolated copy. Keep your
-        backup and run only one agent at a time.
+        The <a href="https://delta.dev/docs/concepts/delta-and-git">Git docs</a> allow
+        local-only repositories, but the <a
+          href="https://delta.dev/docs/concepts/worktrees">worktree docs</a
+        > require an origin remote (another Git location). If blocked, stop and ask
+        me; do not publish files to continue.
       </p>
     </StepCard>
   </div>
-  <p>
-    There is a setup gap: <a
-      href="https://delta.dev/docs/concepts/delta-and-git">Delta &amp; Git</a
-    >
-    says a repository without a remote works locally, while
-    <a href="https://delta.dev/docs/concepts/worktrees">Delta Worktrees</a> says a
-    remote is required. A remote is another location Git can exchange history with,
-    often online. If Delta refuses this local project, stop and message me. Do not
-    publish your files to get past it.
-  </p>
   <CodeBlock
-    label={'First Delta request: only after setup succeeds'}
-    code={'Read CLAUDE.md. In index.html, add the words "Maker and photographer" below my name. Use style.css for any styling. Change nothing else. Do not initiate any uploads or publishing beyond Delta\'s automatic syncing, and do not run Git commands. Show me a short plan first and wait for my ok before changing files. Afterward, list the files changed and explain how you checked the result.'}
+    label={'One small change'}
+    code={'Read CLAUDE.md. Add "Maker and photographer" below my name in index.html; use style.css if needed. Change nothing else. No Git commands or publishing; no uploads beyond Delta\'s automatic syncing. Show a short plan and wait for my ok before editing. Then list changed files and checks.'}
     copy
   />
   <div class="steps">
-    <StepCard number="4" title={'Run and review the change'}>
+    <StepCard number="2" title={'Review the result'}>
       <p>
-        Send the request and read its plan before replying. When the change is
-        ready, open Changes using the upper-right diff icon. A diff is a view of
-        what was added and removed. Select each changed file. Select a line and
-        start typing to comment, or send a normal message if that fails.
+        Read the plan before replying. Open Changes with the upper-right diff
+        icon to compare additions and removals (a "diff"). Select a line and
+        type feedback, or send a normal message. Refresh the working copy's <code
+          class="i">index.html</code
+        > in your browser; check the words and narrow layout.
       </p>
       <p>
-        Open your original <code class="i">index.html</code> in the browser and refresh
-        it. Check the new words and the narrow layout. Ask for a correction if needed.
-        There is no separate acceptance step in this workflow: the files have already
-        changed. Close Delta before restoring files from your backup if you do not
-        want the result.
+        These edits are already applied, not awaiting acceptance. Close Delta
+        before restoring from backup. For help, send redacted error text, not a
+        shared thread.
       </p>
     </StepCard>
   </div>
-  <p>
-    For help, send me the error text with private details removed. Sharing a
-    thread is a separate access decision and may require an online Git copy;
-    copying its link does not necessarily let me open it.
-  </p>
 </div>

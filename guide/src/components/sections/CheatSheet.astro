@@ -7,16 +7,16 @@
       <div class="blk">
         <div class="h">Which window?</div>
         <p>
-          Claude chat prepares a request. Claude Code builds the website. Your
-          browser checks it. Delta is optional.
+          Claude chat writes the request → Claude Code proposes changes → you
+          approve the plan → Claude Code builds → you inspect in the browser.
+          Delta is optional.
         </p>
       </div>
       <div class="blk">
         <div class="h">Start again</div>
         <p>
           Open a terminal, use <code>cd</code> to enter your project folder and run
-          <code>claude --permission-mode default</code>. See <a href="#s3"
-            >setup</a
+          <code>claude --permission-mode auto</code>. See <a href="#s3">setup</a
           > for the exact steps.
         </p>
       </div>
@@ -39,8 +39,9 @@
       <div class="blk">
         <div class="h">Safety</div>
         <p>
-          No secrets. Read the plan. One project folder. Keep a backup. Leave
-          Claude Code's permission prompts on; <a href="#s6">Delta has none</a>.
+          No secrets. Read the plan and check the result. Keep backups outside
+          every agent's working project. Auto mode is not bypass permissions or
+          a safety guarantee; <a href="#s6">Delta has different controls</a>.
         </p>
       </div>
     </div>

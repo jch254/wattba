@@ -28,9 +28,9 @@ import StepCard from '../StepCard.astro';
       <p>
         In Claude Code, ask it to create <code class="i">bio.txt</code>, a plain
         text file, from a paragraph you supply. Include your display name and
-        the email address you want visitors to use. Ask for a plan, then approve
-        only that file. This avoids accidentally saving a formatted document
-        that merely has a .txt name.
+        the email address you want visitors to use. Ask for a plan, then give
+        your ok only to creating that file. This avoids accidentally saving a
+        formatted document that merely has a .txt name.
       </p>
     </StepCard>
     <StepCard number="2" title={'Send the website request'}>
@@ -66,8 +66,10 @@ import StepCard from '../StepCard.astro';
       <p>
         Before asking for revisions, wait until Claude finishes. In Finder or
         File Explorer, copy <code class="i">my-site</code> beside itself and name
-        the copy <code class="i">my-site-backup</code>. Do not open the backup
-        in Claude Code.
+        the copy <code class="i">my-site-backup</code>. It must be outside
+        <code class="i">my-site</code>, never inside any agent's working
+        project. Do not open the backup, or the parent folder containing both
+        copies, in an agent.
       </p>
       <p>
         Describe one visible problem in the same Claude Code conversation: "The
@@ -76,9 +78,11 @@ import StepCard from '../StepCard.astro';
       </p>
       <p>
         Once it is right, close Claude Code's terminal window and make a new
-        backup called <code class="i">my-site-checked</code>. Keep it for the
-        optional Delta exercise. To recover later, close any agents first and
-        copy the affected files back from your last good backup.
+        backup beside it called <code class="i">my-site-checked</code>. Leave
+        that backup untouched. For the optional Delta exercise, make another
+        sibling copy called <code class="i">my-site-delta</code>
+        and work only in that copy, not the backup. To recover later, close any agents
+        first and copy the affected files back from your last good backup.
       </p>
     </StepCard>
   </div>

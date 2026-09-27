@@ -14,27 +14,36 @@
   <h3>Read the plan before you approve</h3>
   <p>
     If it includes deleting files, installing software or going outside the
-    project, ask why. You can say no. An instruction to wait is useful, but it
-    is not a technical lock on what an agent can do.
+    project, ask why. You can say no. Instructions in a prompt or in
+    <code class="i">CLAUDE.md</code> are not technical restrictions. "Do not modify
+    the photos folder" tells Claude what you want; it does not make that folder read-only.
+    The agent can still get it wrong.
   </p>
   <h3>Keep work in one project folder</h3>
   <p>
     Use a folder for this website, never your whole Documents or home folder.
-    Keep private material out of it. Agents may send relevant file contents to
-    the company providing the AI. A project folder helps limit the job; it does
-    not guarantee the agent cannot reach elsewhere.
+    Keep private material out of it. Depending on the service, configuration and
+    what the agent accesses, file contents may be sent to the AI provider as
+    context for its answer. Not every file read necessarily sends the whole
+    file, but do not assume that local files stay local. Check the service's
+    data policy. A project folder helps limit the job; it does not guarantee the
+    agent cannot reach elsewhere.
   </p>
   <h3>Make mistakes undoable</h3>
   <p>
     Use copies of photos, not your originals. Before changing a page you like,
-    copy the whole project folder somewhere outside the working folder. Keep
-    that backup closed to the agent. A separate working copy is useful, but it
-    is not protection for everything on your computer.
+    copy the whole project folder somewhere outside it. Backups must never be
+    inside any agent's working project, even in a subfolder called "backup".
+    Never open the backup itself to an agent; make a separate working copy if
+    you want to experiment. This helps recovery, but it is not a security
+    boundary or protection for everything on your computer.
   </p>
   <p>
-    In Claude Code, leave permission prompts on. Do not choose automatic
-    approval or bypass permissions. Delta's optional exercise explains its lack
-    of those controls. If something feels off, stop approving actions and
-    message me. Nothing in this folder is urgent enough to guess.
+    For this small practice project, I suggest Claude Code's auto mode to reduce
+    routine permission questions. It uses background safety checks, not your
+    approval for every action, and it can still make mistakes. Keep reviewing
+    plans and results. Do not use bypass permissions. If something feels off,
+    press Escape to interrupt Claude Code and ask me before continuing. Delta's
+    different controls are explained in its optional section.
   </p>
 </div>

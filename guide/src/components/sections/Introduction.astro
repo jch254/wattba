@@ -26,19 +26,26 @@ import Callout from '../Callout.astro';
   >
     <div class="num" style="color: var(--color-b8ffd0)">For the reader</div>
     <p>
-      There is one trick in here worth keeping: get one AI to help write the
-      instructions, then hand them to another AI that does the work. This guide
-      points that trick at your own computer, and by the end you will have a one
-      page website of your photos. You will not need to learn to code. You will
-      need to read what the agent plans, say yes or no and check what it made.
-      Go slow, keep it small and when you get stuck, send me the error message
-      and I will jump in.
+      By the end, you will have a one page website of your photos, working on
+      your computer. Claude chat helps write the request; Claude Code builds it.
+      You decide what changes and check the result.
     </p>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 10px">
-    <div class="num">What is in here</div>
-    <BootMenu />
+  <div class="card workflow">
+    <div class="num" id="workflow-title">The whole workflow</div>
+    <ol aria-labelledby="workflow-title">
+      <li><strong>Claude chat</strong><span>writes the request</span></li>
+      <li><strong>Claude Code</strong><span>proposes changes</span></li>
+      <li>
+        <strong>You approve</strong><span>then Claude Code makes changes</span>
+      </li>
+      <li><strong>Browser</strong><span>you inspect the result</span></li>
+    </ol>
+    <p>
+      Here, approval means your ok to the plan, not a prompt for every edit.
+      Asking an agent to wait is an instruction, not a technical lock.
+    </p>
   </div>
   <Callout title={'Before you start'} warning
     ><svg
@@ -55,11 +62,61 @@ import Callout from '../Callout.astro';
         d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"
       ></path></svg
     ><p>
-      These tools change fast, check the live docs:
+      Use copies, keep private files out, and keep backups outside the agent's
+      working project. Read the <a href="#s2">four safety rules</a> before starting.
+      These tools change fast; check the live docs:
       <a href="https://code.claude.com/docs/en/setup">Claude Code</a> and
       <a href="https://delta.dev/docs">Delta</a>. If a step does not match your
       screen, do not guess. Send me the error text, with private details
       removed.
     </p></Callout
   >
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div class="num">What is in here</div>
+    <BootMenu />
+  </div>
 </div>
+
+<style>
+  .workflow ol {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  .workflow li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .workflow li:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -20px;
+    top: 0;
+    color: var(--color-7dffa8);
+  }
+
+  .workflow strong {
+    color: var(--color-b8ffd0);
+  }
+
+  @media (max-width: 600px) {
+    .workflow ol {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .workflow li:not(:last-child)::after {
+      content: '↓';
+      top: auto;
+      right: auto;
+      bottom: -28px;
+    }
+  }
+</style>

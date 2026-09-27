@@ -15,13 +15,12 @@ import StepCard from '../StepCard.astro';
     those two systems; Linux users should follow the linked installation page.
   </p>
   <p>
-    Claude Code needs internet access and an eligible account. Claude Pro or Max
-    can be used for this exercise; the free Claude plan cannot. Check the
-    account requirements on <a href="https://code.claude.com/docs/en/setup"
+    Claude Code needs internet access. Claude Code requires an eligible Claude
+    account or supported API access. Check the current account requirements on
+    <a href="https://code.claude.com/docs/en/setup#authenticate"
       >Claude Code's setup page</a
-    >
-    before paying. I would use a subscription here rather than set up separately billed
-    developer access.
+    > before paying. For this exercise, I would use an eligible subscription rather
+    than set up separately billed API access.
   </p>
   <div class="steps">
     <StepCard number="1" title={'Install and check it'}>
@@ -59,24 +58,49 @@ import StepCard from '../StepCard.astro';
     </StepCard>
     <StepCard number="3" title={'Start and sign in'}>
       <p>
-        Run the command below. The extra words select Manual mode, which asks
-        before most actions that change files or run commands. Follow the
-        browser sign-in prompts with your Claude account. If asked to trust a
-        folder, check it is your new <code class="i">my-site</code> folder.
+        Run the command below to request auto mode, which reduces routine
+        permission prompts. Follow the browser sign-in prompts with your
+        eligible Claude account. If asked to trust a folder, check it is your
+        new <code class="i">my-site</code> folder.
       </p>
     </StepCard>
   </div>
   <CodeBlock
-    label={'Terminal: start with manual permissions'}
-    code={'claude --permission-mode default'}
+    label={'Terminal: start with auto mode'}
+    code={'claude --permission-mode auto'}
     copy
   />
+  <p>
+    Auto mode uses a separate AI safety checker for some actions; routine reads
+    and edits inside the project can run without it. It is not bypass
+    permissions, a sandbox or a guarantee of safety. For this practice site, you
+    approve the overall plan and check the finished page rather than answering a
+    question for every edit.
+  </p>
+  <p>
+    Check the active mode shown in the terminal. Availability depends on your
+    version, model and account settings. If auto mode is unavailable, Claude
+    Code may fall back to prompting you. If the flag is rejected, start with
+    <code class="i">claude --permission-mode default</code> instead. That setting
+    normally asks before edits and commands, subject to permission rules; its screen
+    label varies by version. Read any prompt before agreeing, and ask for help if
+    unclear. See the current
+    <a href="https://code.claude.com/docs/en/permission-modes"
+      >permission docs</a
+    >.
+  </p>
   <h3>Give it standing instructions</h3>
   <p>
     <code class="i">CLAUDE.md</code> is a plain text file of project instructions
-    Claude Code reads at the start of a session. In Claude Code, type "Create CLAUDE.md
-    with exactly the following text, and change nothing else", then paste this block
-    into the same message. Approve that file creation.
+    Claude Code reads at the start of a session. <strong
+      >It is guidance, not enforced protection.</strong
+    > The rule about photos below does not lock the folder or prevent Claude from
+    modifying it. That is why you use copies and keep backups outside the project.
+  </p>
+  <p>
+    In Claude Code, type "Show me a plan to create CLAUDE.md with exactly the
+    following text, and change nothing else. Wait for my ok", then paste this
+    block into the same message. Read the plan, then give your ok.
   </p>
   <CodeBlock
     label={'Example CLAUDE.md'}
@@ -84,13 +108,10 @@ import StepCard from '../StepCard.astro';
     copy
   />
   <p>
-    Ask it to show the saved file so you can check it. These are instructions,
-    not enforced restrictions. Keep Manual mode selected and approve individual
-    actions rather than choosing "don't ask again". File reads may happen
-    without a prompt. See <a
-      href="https://code.claude.com/docs/en/permission-modes"
-      >permission modes</a
-    >
-    if the label is unclear.
+    Ask it to show the saved file so you can check it. The request to wait is
+    still only an instruction. For a stronger planning checkpoint, prefix a task
+    with <code class="i">/plan</code>: Claude Code's plan mode blocks source
+    edits until you approve the plan, provided bypass permissions are not
+    enabled. You can then choose auto mode to carry out the approved plan.
   </p>
 </div>
