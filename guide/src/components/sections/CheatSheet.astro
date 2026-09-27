@@ -7,17 +7,19 @@
       <div class="blk">
         <div class="h">Which window?</div>
         <p>
-          Claude chat writes the request → Claude Code proposes changes → you
-          approve the plan → Claude Code builds → you inspect in the browser.
-          Delta is optional.
+          Supplied request (or Claude chat draft) → Claude Code plans → you
+          approve → Claude Code builds → you inspect in the browser. Delta is a
+          separate follow-up.
         </p>
       </div>
       <div class="blk">
         <div class="h">Start again</div>
         <p>
           Open a terminal, use <code>cd</code> to enter your project folder and run
-          <code>claude --permission-mode auto</code>. See <a href="#s3">setup</a
-          > for the exact steps.
+          <code>claude --permission-mode plan</code>. Approve the plan with Auto
+          if available, or manual approval. The Manual launch command is
+          <code>claude --permission-mode default</code>; use <code>/plan</code>
+          before each change. See <a href="#s3">setup</a>.
         </p>
       </div>
       <div class="blk">
@@ -31,17 +33,26 @@
       <div class="blk">
         <div class="h">A new job</div>
         <p>
-          Use the <a href="#s4">prompt writer</a> for a substantial request. Keep
-          small corrections in the existing conversation.
+          Optionally use the <a href="#s4">prompt writer</a> for a substantial request.
+          Prefix every new change with <code>/plan</code>, including small
+          corrections in the existing conversation.
         </p>
       </div>
       <div class="blk">
         <div class="h">Check the result</div>
         <p>
           Open <code>index.html</code>, refresh after edits and check the words,
-          photos, email link and narrow layout. Use the <a href="#s5"
-            >website checks</a
+          photos, image descriptions, email link and narrow layout. Use the <a
+            href="#s5">website checks</a
           >.
+        </p>
+      </div>
+      <div class="blk">
+        <div class="h">Recover</div>
+        <p>
+          Close the agents and keep the damaged folder. Make a fresh working
+          copy of your last good backup with a new name. Continue in that copy;
+          leave the backup untouched.
         </p>
       </div>
       <div class="blk">

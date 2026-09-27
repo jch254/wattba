@@ -6,9 +6,7 @@ import StepCard from '../StepCard.astro';
 <div class="sec" id="s3">
   <div class="num">03</div>
   <h2>Install Claude Code</h2>
-  <p class="lede">
-    The terminal looks unfriendly. You only need a few commands.
-  </p>
+  <p class="lede">You'll use the terminal for a few setup steps.</p>
   <p>
     A terminal is a window for typing commands. On a Mac, open Terminal using
     Spotlight. On Windows, open PowerShell from Start. The steps here cover
@@ -59,35 +57,49 @@ import StepCard from '../StepCard.astro';
     </StepCard>
     <StepCard number="3" title={'Start and sign in'}>
       <p>
-        Run the command below to request auto mode, which reduces routine
-        permission prompts. Follow the browser sign-in prompts with your
-        eligible Claude account. If asked to trust a folder, check it is your
-        new <code class="i">my-site</code> folder.
+        Run the command below to start in Plan mode, so you can review the
+        proposed changes before they are made. Follow the browser sign-in
+        prompts with your eligible Claude account. If asked to trust a folder,
+        check it is your new <code class="i">my-site</code> folder.
       </p>
     </StepCard>
   </div>
   <CodeBlock
-    label={'Terminal: start with auto mode'}
-    code={'claude --permission-mode auto'}
+    label={'Terminal: start in Plan mode'}
+    code={'claude --permission-mode plan'}
     copy
   />
   <p>
-    Auto mode uses a separate AI safety checker for some actions; routine reads
-    and edits inside the project can run without it. It is not bypass
-    permissions, a sandbox or a guarantee of safety. For this practice site, you
-    approve the overall plan and check the finished page rather than answering a
-    question for every edit.
+    Check that the terminal shows Plan mode. It can read files and run
+    exploration commands, so it is not a sandbox or a promise that nothing runs.
+    It blocks source edits until you approve the plan, except in interactive
+    terminal sessions where bypass permissions are available in the mode cycle,
+    even if not selected. Do not enable bypass permissions or use flags that
+    make them available.
   </p>
   <p>
-    Check the active mode shown in the terminal. Availability depends on your
-    version, model and account settings. If auto mode is unavailable, Claude
-    Code may fall back to prompting you. If the flag is rejected, start with
-    <code class="i">claude --permission-mode default</code> instead. That setting
-    normally asks before edits and commands, subject to permission rules; its screen
-    label varies by version. A permission prompt shows a proposed action and choices
-    to allow or deny it. Read the action, use the displayed keys to select your choice,
-    then press Enter where instructed. If unclear, stop and ask for help rather than
-    approve everything. See the current
+    Read the proposed plan. If it matches your request, choose "Yes, and use
+    auto mode" if available, or "Yes, manually approve edits". If it does not,
+    choose "No, keep planning" and explain what needs changing. Approval leaves
+    Plan mode. Before each new change, prefix your request with
+    <code class="i">/plan</code> to return to planning.
+  </p>
+  <p>
+    Auto mode reduces routine permission prompts with background safety checks.
+    Routine file edits inside the working folder can proceed without individual
+    classifier review. It is not bypass permissions, a sandbox or a guarantee of
+    safety. You still check the finished page yourself.
+  </p>
+  <p>
+    Auto availability depends on your version, selected model, provider,
+    organization settings and service availability. If Auto is unavailable,
+    choose manual approval, not "auto-accept edits", which is a different mode.
+    To start directly in Manual mode, use
+    <code class="i">claude --permission-mode default</code>, then prefix each
+    change request with <code class="i">/plan</code>. Manual normally asks
+    before edits and commands, subject to permission rules; labels vary by
+    version. Read each proposed action and use the displayed keys to allow or
+    deny it. If unclear, ask the person helping you. See the current
     <a href="https://code.claude.com/docs/en/permission-modes"
       >permission docs</a
     >.
@@ -102,9 +114,9 @@ import StepCard from '../StepCard.astro';
     modifying it. That is why you use copies and keep backups outside the project.
   </p>
   <p>
-    In Claude Code, type "Show me a plan to create CLAUDE.md with exactly the
-    following text, and change nothing else. Wait for my ok", then paste this
-    block into the same message. Read the plan, then give your ok.
+    In Claude Code, type "/plan Create CLAUDE.md with exactly the following
+    text, and change nothing else", then paste this block into the same message.
+    Review the plan and choose Auto or manual approval as described above.
   </p>
   <CodeBlock
     label={'Example CLAUDE.md'}
@@ -112,10 +124,8 @@ import StepCard from '../StepCard.astro';
     copy
   />
   <p>
-    Ask it to show the saved file so you can check it. The request to wait is
-    still only an instruction. For a stronger planning checkpoint, prefix a task
-    with <code class="i">/plan</code>: Claude Code's plan mode blocks source
-    edits until you approve the plan, provided bypass permissions are not
-    enabled. You can then choose auto mode to carry out the approved plan.
+    Ask it to show the saved file so you can check it. The request to wait in
+    this file is still only an instruction; it does not turn Plan mode on. Keep
+    using <code class="i">/plan</code> before each new change.
   </p>
 </div>

@@ -27,16 +27,25 @@ import Callout from '../Callout.astro';
     <div class="num" style="color: var(--color-b8ffd0)">For the reader</div>
     <p>
       By the end, you will have a one-page website of your photos, working on
-      your computer. Claude chat helps write the request; Claude Code builds it.
-      You decide what changes and check the result.
+      your computer. Start with the supplied request; Claude chat can help you
+      write your own requests later. Claude Code builds it while you decide what
+      changes and check the result.
     </p>
   </div>
 
   <div class="card workflow">
     <div class="num" id="workflow-title">The whole workflow</div>
     <ol aria-labelledby="workflow-title">
-      <li><strong>Claude chat</strong>{' '}<span>writes the request</span></li>
-      <li><strong>Claude Code</strong>{' '}<span>proposes changes</span></li>
+      <li>
+        <strong>Your request</strong>{' '}<span
+          >use ours, or draft one with Claude chat</span
+        >
+      </li>
+      <li>
+        <strong>Claude Code</strong>{' '}<span
+          >proposes changes in Plan mode</span
+        >
+      </li>
       <li>
         <strong>You approve</strong>{' '}<span
           >then Claude Code makes changes</span
@@ -46,8 +55,9 @@ import Callout from '../Callout.astro';
     </ol>
     <p>
       Here, approval means you have reviewed the plan and told the agent to
-      proceed, not that you approve every edit separately. Asking an agent to
-      wait is an instruction, not a technical lock.
+      proceed. We use Plan mode for that checkpoint, then Auto or manual
+      approval for the edits. Asking an agent to wait in ordinary text does not
+      turn Plan mode on.
     </p>
   </div>
   <Callout title={'Before you start'} warning
@@ -70,8 +80,8 @@ import Callout from '../Callout.astro';
       These tools change fast; check the live docs:
       <a href="https://code.claude.com/docs/en/setup">Claude Code</a> and
       <a href="https://delta.dev/docs">Delta</a>. If a step does not match your
-      screen, do not guess. Send me the error text, with private details
-      removed.
+      screen, do not guess. Send the error text to the person helping you, with
+      private details removed.
     </p></Callout
   >
   <p>

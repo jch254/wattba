@@ -22,31 +22,38 @@ import StepCard from '../StepCard.astro';
       <p>
         Inside <code class="i">my-site</code>, make a folder called
         <code class="i">photos</code>. Put a few JPEG or PNG copies in it, not
-        your only originals or camera raw files. Choose pictures you are
-        comfortable letting an AI service process.
+        your only originals or camera raw files. Photos can contain location
+        information and other hidden details; choose copies you are comfortable
+        sharing, not just pictures that look harmless.
       </p>
       <p>
-        In Claude Code, ask it to create <code class="i">bio.txt</code>, a plain
-        text file, from a paragraph you supply. Include your display name and
-        the email address you want visitors to use. Ask for a plan, then give
-        your ok only to creating that file. This avoids accidentally saving a
-        formatted document that merely has a .txt name.
+        In Claude Code, start your message with <code class="i">/plan</code>
+        and ask it to create <code class="i">bio.txt</code>, a plain text file,
+        from a paragraph you supply. Include your display name and the email
+        address you want visitors to use. Review the plan and approve only
+        creating that file, using Auto or manual approval. This avoids
+        accidentally saving a formatted document that merely has a .txt name.
       </p>
     </StepCard>
     <StepCard number="2" title={'Send the website request'}>
       <p>
-        Stay in Claude Code. Paste the request below, keeping its limits and
-        checks if you adapt it. The plan should use your existing material and
-        create the two website files. It should not need another account,
-        software installation or upload. Ask it to remove those steps if it
-        proposes them, then give the plan your ok.
+        Stay in Claude Code. Paste the request below, including its
+        <code class="i">/plan</code> prefix, and keep its limits and checks if you
+        adapt it. The plan should use your existing material and create the two website
+        files. It should not need another account, software installation or upload.
+        Ask it to remove those steps if it proposes them, then approve the plan using
+        Auto if available or manual approval.
       </p>
     </StepCard>
   </div>
   <CodeBlock
     label={'Website request: paste into Claude Code'}
-    code={"Goal: a one-page personal website for me, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Don't finish until you have checked that every photo appears, all file references and links are correct and the layout fits narrow screens. Report any checks you cannot perform.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Include short image descriptions for people who cannot see the photos.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text."}
+    code={"/plan Goal: a one-page personal website for me, a maker and photographer.\n\nContext: I am not a programmer. This project contains CLAUDE.md, a photos folder with images and bio.txt with my display name, bio and public contact email. Ask for any missing details instead of inventing them.\n\nConstraints: create one index.html and one style.css using plain HTML and CSS. No extra software, scripts, sign-ups, tracking or externally loaded files. Do not modify my photos or bio.txt. Do not upload or publish anything. Use a dark background, large photos and readable text. Don't finish until you have checked that every photo appears, all file references and links are correct and the layout fits narrow screens. Report any checks you cannot perform.\n\nWhat done looks like: I open index.html directly in my browser and see my name, my bio, all my photos in a grid and an email link using the supplied address. Include short image descriptions for people who cannot see the photos.\n\nOutput format: show me a short plan first and wait for my ok before changing files. When finished, list the files changed, list each photo filename with the image description you wrote, and tell me how to open the page.\n\nExample: a simple photographer portfolio, mostly images with very little text."}
     copy
+  />
+  <CodeBlock
+    label={'Expected files after the build'}
+    code={'my-site/\n├── CLAUDE.md\n├── bio.txt\n├── index.html\n├── style.css\n└── photos/'}
   />
   <div class="steps">
     <StepCard number="3" title={'Check the actual page'}>
@@ -60,6 +67,12 @@ import StepCard from '../StepCard.astro';
         and check that nothing runs off the side or becomes hard to read. Click
         the email link: it should address a new message to you, not send one. If
         no email app is set up, ask Claude to show the address in the link.
+      </p>
+      <p>
+        Read the image descriptions Claude lists alongside each photo filename.
+        Check that they describe the actual photos accurately. These
+        descriptions help people who cannot see the images; looking at the page
+        alone will not check them.
       </p>
       <p>
         Claude's report is not proof that the page looks right. It may not have
@@ -79,22 +92,32 @@ import StepCard from '../StepCard.astro';
         copies, in an agent.
       </p>
       <p>
-        Describe one visible problem in the same Claude Code conversation: "The
-        photos are too small when the window is narrow." Ask for a plan for that
-        correction. After the change, refresh with Cmd+R on Mac or Ctrl+R on
-        Windows and check again.
+        Describe one problem in the same Claude Code conversation, starting with <code
+          class="i">/plan</code
+        >: "/plan The photos are too small when the window is narrow." Review
+        the proposed correction before approving it. After the change, refresh
+        with Cmd+R on Mac or Ctrl+R on Windows and check again.
       </p>
       <p>
         Once it is right, type <code class="i">/exit</code> in Claude Code and press
         Enter. Make a new backup beside <code class="i">my-site</code> called <code
           class="i">my-site-checked</code
-        >. Leave that backup untouched. For the optional Delta exercise, make
-        another sibling copy called <code class="i">my-site-delta</code>
-        and work only in that copy, not the backup. To recover later, close any agents
-        first and copy the affected files back from your last good backup.
+        >. Leave that backup untouched.
+      </p>
+      <p>
+        To recover later, close the agents and keep the damaged folder for now.
+        In Finder or File Explorer, make a fresh working copy of your last good
+        backup beside it, give the copy a new name such as
+        <code class="i">my-site-recovered</code>, and continue in that copy.
+        Leave the backup untouched. Use <code class="i">cd</code> to enter the new
+        working folder before starting Claude Code in Plan mode again.
       </p>
     </StepCard>
   </div>
+  <CodeBlock
+    label={'Beside, not inside'}
+    code={'Chosen location/\n├── my-site/          ← working project\n└── my-site-checked/  ← untouched backup'}
+  />
   <p>
     The page works on your computer. It is not a public website. Making it
     available to visitors online is a separate job; nothing in this exercise

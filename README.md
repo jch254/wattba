@@ -1,8 +1,11 @@
 # Getting going with AI
 
 A practical guide for non-engineers moving from chatting with AI to using agents
-that work on files on their computer. It covers writing effective prompts, using
-Claude Code, Delta and Zed, building a first website, and reviewing changes safely.
+that work on files on their computer. The first-build path uses Claude Code's
+Plan mode and a supplied website request, with optional prompt-writing practice.
+Delta's assisted review exercise lives separately at `/delta/index.html`.
+Links use the explicit HTML path so the static S3 origin does not need directory
+index rewriting.
 
 The guide is a static Astro site with a retro terminal design. Its words, links
 and section order come from the [design reference](reference/guide-reference.html).

@@ -4,20 +4,18 @@ import CodeBlock from '../CodeBlock.astro';
 
 <div class="sec" id="s4">
   <div class="num">04</div>
-  <h2>Get Claude to write the request</h2>
+  <h2>Optional: get Claude to write the request</h2>
   <p class="lede">
     You can describe the thing badly first. That is what the chat is for.
   </p>
   <p>
-    This is practice for writing your own requests. Section 05 supplies the
-    ready-made request you will use for this first website; compare it with your
-    chat's answer to see how a clear brief takes shape.
+    For your first build, skip to <a href="#s5">Build your website</a> and use the
+    supplied request. Return here when you want to brief an agent on your own project.
   </p>
   <p>
     Open your usual Claude chat and paste the prompt writer below. Answer its
-    questions about the website. Say you want one page for your photos and bio,
-    saved in the project folder you have just made. It should work without
-    installing more software.
+    questions about your project. Describe the result you want, the material you
+    already have and how you will check the result.
   </p>
   <p>
     The result has six headings. Goal says what you want. Context supplies the
@@ -37,10 +35,12 @@ import CodeBlock from '../CodeBlock.astro';
     copy
   />
   <p>
-    Save this prompt writer in a note for other jobs, then use the supplied
-    request in <a href="#s5">Build your website</a>. If you personalise it with
-    the chat's answer, keep its filenames, limits and checks. A small wording
-    change later does not need another interview.
+    Save this prompt writer in a note for other jobs. When you are happy with
+    its answer, paste it into Claude Code with <code class="i">/plan</code>
+    before the request. Review the proposed plan before allowing edits. A small correction
+    can stay in the existing conversation, also prefixed with <code class="i"
+      >/plan</code
+    >.
   </p>
   <p>
     This approach owes a lot to <a
