@@ -1,0 +1,158 @@
+---
+import CodeBlock from '../CodeBlock.astro';
+import StepCard from '../StepCard.astro';
+---
+
+<div class="sec" id="delta-follow-up">
+  <p><a href="/#s6">← Back to the main guide</a></p>
+  <div class="num">OPTIONAL FOLLOW-UP</div>
+  <h1>Review a change in Delta — with help</h1>
+  <p class="lede">
+    Your website already works. This separate exercise is optional: ask the
+    person helping you to prepare it with you, rather than treating it as the
+    next step in the main guide.
+  </p>
+  <p>
+    The main guide does not create a Git repository, an <code class="i"
+      >origin</code
+    >
+    remote, or a <code class="i">my-site-delta</code> copy. Delta needs different
+    setup, which you will check together below. Do not publish the project just to
+    make this exercise work.
+  </p>
+  <h2>Before installing: check compatibility and the risks</h2>
+  <p>
+    On a Mac, Delta requires Apple Silicon and macOS 13 or later; Intel Macs are
+    not supported. Check Apple menu → About This Mac before installing. On
+    Windows or Linux, check the requirements on the linked installation page
+    with the person helping you.
+  </p>
+  <p>
+    Delta is an agent app from Zed with a different safety model. Isolated
+    Workspace gives a thread a separate working copy; Existing Local Checkout
+    edits your selected project directly. Check the Work In selection: a new
+    thread can inherit your previous choice.
+  </p>
+  <p>
+    Neither choice is a security sandbox. Delta's
+    <a href="https://delta.dev/docs/privacy-and-security/agentic-safety"
+      >safety docs</a
+    >
+    say agents can access the device where they run and call tools without asking,
+    including destructive actions. Unlike Claude Code, Delta has no agent permission
+    system. Asking for a plan is not enforced approval. An outside backup helps recovery,
+    but is not protected from an agent with device access.
+  </p>
+  <p>
+    Project contents and history <a
+      href="https://delta.dev/docs/privacy-and-security/data-storage"
+      >sync to Delta's servers</a
+    > when you add a project, including tracked files and untracked files Git does
+    not ignore. Agent requests may also send relevant messages and file contents to
+    your selected model provider, not automatically every file in the repository.
+    Use only material you are comfortable uploading. Backups cannot undo disclosure.
+    Keep threads private; send redacted error text to the person helping you rather
+    than sharing a thread.
+  </p>
+  <p>
+    If you are comfortable with those risks and your computer is supported,
+    follow Delta's official <a href="https://delta.dev/docs/installation"
+      >installation instructions</a
+    > with the person helping you, then complete the in-app welcome setup. Check <a
+      href="https://delta.dev/docs/agents/models-and-providers">model access</a
+    > and costs before paying. Do not assume your Claude subscription also provides
+    model access in Delta.
+  </p>
+  <div class="steps">
+    <StepCard number="1" title={'Create a separate working copy with help'}>
+      <p>
+        Close Claude Code, Delta, and any other agents first. Find your checked,
+        untouched <code class="i">my-site-checked</code> backup in Finder or File
+        Explorer. If it is missing or you are unsure it is a good backup, stop and
+        ask the person helping you before proceeding.
+      </p>
+      <p>
+        Duplicate that backup and name the new folder <code class="i"
+          >my-site-delta</code
+        >. Keep the backup outside the new working folder, for example as a
+        sibling beside it, not nested inside it. Do not overwrite an existing
+        folder with that name. Leave both <code class="i">my-site</code> and
+        <code class="i">my-site-checked</code> unchanged, and never open the backup
+        as a Delta project.
+      </p>
+      <p>
+        Delta works with Git repositories, folders with saved change history.
+        Its <a href="https://delta.dev/docs/concepts/worktrees"
+          >workspace docs</a
+        > specify a configured <code class="i">origin</code> remote, another location
+        for that history. Ask the person helping you to check and prepare this prerequisite
+        on <code class="i">my-site-delta</code>, and review what its files and
+        history would upload. If it has only local history or no Git setup, stop
+        until they have helped. Do not invent a remote, publish files, or ask an
+        agent to set this up for you.
+      </p>
+    </StepCard>
+    <StepCard number="2" title={'Open the copy, then return here'}>
+      <p>
+        Use ONLY the <strong>Open your project</strong> section of Delta's
+        <a
+          href="https://delta.dev/docs/getting-started/quick-start#open-your-project"
+          >Quick Start</a
+        > to add the top-level <code class="i">my-site-delta</code> folder, not its
+        photos folder: choose Add Project, select the folder, and review the cloud-sync
+        notice if shown. Then return here immediately, before that section tells you
+        to select Isolated Workspace. Do not continue to Make a change or send the
+        Quick Start's prompt; it teaches an isolated workspace and a different task.
+      </p>
+      <p>
+        For this exercise, deliberately select Work In → Existing Local
+        Checkout. Check the project menu's checkout path points to <code
+          class="i">my-site-delta</code
+        > before sending anything. This changes that copy directly, not an isolated
+        workspace. Open that same folder's <code class="i">index.html</code>
+        in your browser. Run only one agent at a time, with no other threads working
+        in this checkout. You do not need Git commands for this review.
+      </p>
+    </StepCard>
+  </div>
+  <CodeBlock
+    label={'One small change'}
+    code={'Read CLAUDE.md. Add "Maker and photographer" below my name in index.html; use style.css if needed. Change nothing else. Do not run Git commands, publish or push the project anywhere. Use only Delta\'s normal project synchronization. Show a short plan and wait for my ok before editing. Then list changed files and checks.'}
+    copy
+  />
+  <div class="steps">
+    <StepCard number="3" title={'Review the result'}>
+      <p>
+        Read the plan before replying; remember that waiting is a request, not a
+        permission control. Open Changes with the upper-right diff icon to
+        compare additions and removals (a "diff"). Select a line and type
+        feedback, or send a normal message. Refresh <code class="i"
+          >my-site-delta</code
+        >'s <code class="i">index.html</code> in your browser; check the words and
+        narrow layout.
+      </p>
+      <p>
+        These edits are already applied, not awaiting acceptance. Leave the main
+        website and backup alone. For help, send the person helping you redacted
+        error text, not a shared thread.
+      </p>
+    </StepCard>
+  </div>
+  <h2>If something goes wrong</h2>
+  <p>
+    Stop and close all agents, including Delta and Claude Code. Keep the damaged
+    working folder for inspection; do not delete it or restore affected files
+    inside it. With the person helping you, make a fresh working copy from the
+    untouched <code class="i">my-site-checked</code> backup, using a new name such
+    as <code class="i">my-site-delta-retry-1</code> that does not already exist. Keep
+    the backup outside this new folder too. If the backup may have changed, stop rather
+    than assuming it is safe.
+  </p>
+  <p>
+    Ask the person helping you to recheck the fresh copy and its Git setup
+    before adding it to Delta. Confirm the new checkout path and open the new
+    copy in your browser before trying again. Do not resume an old thread
+    against the damaged folder or open the backup in Delta.
+  </p>
+  <p><a href="/#s6">← Back to the main guide</a></p>
+</div>
