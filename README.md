@@ -7,7 +7,10 @@ Delta's assisted review exercise lives separately at `/delta/index.html`.
 The optional publishing follow-up at `/publish/index.html` uses Cloudflare Pages
 Direct Upload for the reader's plain HTML/CSS portfolio, with a sourced comparison
 of Vercel and Netlify. It covers public-file preparation, manual publishing,
-verification, updates and recovery. This is reader guidance, not a change to this
+verification, updates and recovery, plus technology selection and a generic
+existing-site migration checklist and prompt. Examples are anonymous; do not add
+personal attribution or identifying example-site links to the published guide.
+This is reader guidance, not a change to this
 repository's AWS hosting or an automatic deployment integration.
 Links use the explicit HTML path so the static S3 origin does not need directory
 index rewriting.

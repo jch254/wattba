@@ -29,9 +29,26 @@ import CodeBlock from '../CodeBlock.astro';
     see your project folder just because Claude Code can. Tell it what is there;
     do not give it private files to save a sentence of explanation.
   </p>
+  <h3>Describe the job, not a list of technologies</h3>
+  <p>
+    For your own projects, usually let the agent recommend the simplest suitable
+    technology and explain why. Describe what the site must do, how you want to
+    update it, your budget and any existing setup it must fit. Astro can suit a
+    larger portfolio or blog; React can suit interactive features. Neither is a
+    requirement just because you have heard the name. Only insist on a
+    technology when it is a strict requirement, such as compatibility with an
+    existing project. Review the recommendation rather than assuming AI always
+    picks correctly.
+  </p>
+  <p>
+    The first exercise deliberately requires plain HTML and CSS so it works
+    without more software. For larger sites or an existing portfolio, see
+    <a href="/publish/index.html#technology">choosing technology</a> and
+    <a href="/publish/index.html#migrate">migrating a site you already have</a>.
+  </p>
   <CodeBlock
     label={'Prompt writer: paste into Claude chat'}
-    code={'I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.\n\nAsk me questions one at a time, no more than five, about the goal, audience, existing materials, limits and how I will check the result. Do not ask for secrets or private information.\n\nThen write a prompt under 250 words with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include specific completion checks using only available tools. If a check cannot be performed, tell the agent to stop trying that check, report what remains unverified and explain how I can check it. Do not install tools to complete checks. Do not invent missing details. Use plain language. End with "Show me a short plan first and wait for my ok before changing files."\n\nAsk your questions before writing the prompt.'}
+    code={'I want you to write a prompt for an AI coding agent that works on files on my computer. I am not a programmer.\n\nAsk me questions one at a time, no more than five, about the goal, audience, existing materials, limits and how I will check the result. Do not ask for secrets or private information.\n\nThen write a prompt under 250 words with these headings: Goal, Context, Constraints, What done looks like, Output format, Example. Under Constraints include specific completion checks using only available tools. If a check cannot be performed, tell the agent to stop trying that check, report what remains unverified and explain how I can check it. Do not install tools to complete checks. Unless I name a strict technology requirement, ask the agent to recommend the simplest suitable approach, explain its trade-offs and respect existing project choices. Do not invent missing details. Use plain language. End with "Show me a short plan first and wait for my ok before changing files."\n\nAsk your questions before writing the prompt.'}
     copy
   />
   <p>
