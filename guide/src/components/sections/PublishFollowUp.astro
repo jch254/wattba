@@ -41,7 +41,7 @@ import StepCard from '../StepCard.astro';
   </nav>
   <p>
     Hosting guidance checked against official documentation on
-    <time datetime="2026-09-27">27 September 2026</time>. Screens and free plans
+    <time datetime="2026-11-21">21 November 2026</time>. Screens and free plans
     change. If yours differs, use the linked docs or ask the person helping you;
     do not choose paid options just to continue.
   </p>
@@ -58,7 +58,7 @@ import StepCard from '../StepCard.astro';
       <a href="https://developers.cloudflare.com/pages/functions/pricing/"
         >static-file requests are free and unlimited</a
       >.
-      <a href="https://pages.cloudflare.com/"
+      <a href="https://www.cloudflare.com/products/pages/"
         >Pages advertises unlimited bandwidth</a
       >. That is useful when photos are the largest part of your page. File
       limits and service terms still apply; this is not a promise of unlimited
@@ -67,14 +67,15 @@ import StepCard from '../StepCard.astro';
     <ul>
       <li>
         <strong>Vercel:</strong> a good option for personal projects and apps.
-        <a href="https://vercel.com/docs/drop">Vercel Drop</a> needs no Git or CLI,
-        but each upload creates a new project; it cannot update an existing one.
-        <a href="https://vercel.com/docs/plans/hobby">Hobby</a> is free for non-commercial
-        personal use only. Advertising paid photography services or selling prints
-        falls under its
-        <a href="https://vercel.com/docs/limits/fair-use-guidelines"
-          >commercial-use restrictions</a
-        >. Do not assume a portfolio qualifies just because it has no checkout.
+        <a href="https://vercel.com/docs/drop">Vercel Drop</a> needs no Git or CLI.
+        A first drop creates a new project; with an account, you can update one that
+        has no Git connection by dropping a folder onto it in the dashboard. Vercel's
+        <a href="https://vercel.com/legal/terms">terms</a> limit the free
+        <a href="https://vercel.com/docs/plans/hobby">Hobby</a> plan to personal or
+        non-commercial use, so a portfolio that advertises paid work may not qualify.
+        Those terms also let Vercel use Hobby-plan content to train AI models unless
+        you opt out in your account settings, which matters when the content is your
+        photos.
       </li>
       <li>
         <strong>Netlify:</strong> a simple
@@ -90,9 +91,10 @@ import StepCard from '../StepCard.astro';
       </li>
     </ul>
     <p>
-      There is a trade-off: Cloudflare
+      There is a trade-off: Cloudflare now calls Workers its primary platform
+      and
       <a href="https://developers.cloudflare.com/pages/"
-        >recommends Workers for new applications</a
+        >says to start new projects there</a
       >. Pages still documents the browser-only upload, update and rollback
       workflow used here. A Direct Upload Pages project cannot later switch to
       Git integration; that needs a new project. Cloudflare Drop is another
@@ -255,9 +257,10 @@ import StepCard from '../StepCard.astro';
       <p>
         Open the project's production address in the form
         <code class="i">https://&lt;project&gt;.pages.dev</code>, using the
-        actual address Cloudflare gives you. Do not share the version-specific
+        actual address Cloudflare gives you; it adds a few random characters if
+        your project name is already taken. Do not share the version-specific
         address in the form <code class="i"
-          >https://&lt;deployment-id&gt;.&lt;project&gt;.pages.dev</code
+          >https://&lt;hash&gt;.&lt;project&gt;.pages.dev</code
         >. Save the production address and a bookmark to the project's dashboard
         in a personal note outside the upload folder. Share the website address,
         not the dashboard.
@@ -307,11 +310,12 @@ import StepCard from '../StepCard.astro';
   </p>
   <p>
     Open the <strong>existing Pages project</strong> in Cloudflare and select
-    <strong>Create a new deployment</strong>. Choose <strong>Production</strong>
-    to update the main address, upload the complete checked folder and confirm deployment.
-    Do not create another project. Recheck the same production address in a fresh
-    browser window. Keep an outside copy of each known-good published folder, named
-    by date or version, so you know what was actually uploaded.
+    <strong>Create a new deployment</strong>. Choose the production environment,
+    not preview, to update the main address, upload the complete checked folder
+    and confirm deployment. Do not create another project. Recheck the same
+    production address in a fresh browser window. Keep an outside copy of each
+    known-good published folder, named by date or version, so you know what was
+    actually uploaded.
   </p>
 
   <h2 id="recovery">Undo an update or take the site down</h2>
@@ -319,8 +323,10 @@ import StepCard from '../StepCard.astro';
     For a broken update, open the project's <strong>Deployments</strong> list, find
     the previous known-good production deployment, open its three-dot menu and choose
     <strong>Rollback to this deployment</strong>. Review and confirm, then check
-    the live address. Only previous successful production deployments are
-    rollback targets; the first upload has none. See
+    the live address. Any earlier production deployment that deployed
+    successfully and has not been deleted can be a rollback target; the first
+    upload has none. Cloudflare deletes deployments older than 30 days, except
+    the 100 most recent and the current production one. See
     <a href="https://developers.cloudflare.com/pages/configuration/rollbacks/"
       >Cloudflare's rollback instructions</a
     >. Rollback changes the hosted site, not your local files.
@@ -329,14 +335,16 @@ import StepCard from '../StepCard.astro';
     If you published something private, a rollback or replacement upload is not
     enough: <a
       href="https://developers.cloudflare.com/pages/configuration/preview-deployments/#preview-aliases"
-      >older deployment URLs may still serve it</a
-    >. With your helper, remove the affected deployments or delete this practice
-    Pages project through its settings, checking the project name carefully.
-    Keep local backups. Verify the main address and affected deployment links no
-    longer serve the material; contact Cloudflare support if removal fails.
-    Copies already downloaded or cached elsewhere cannot be recalled. If a
-    credential was exposed, revoke or replace it with its issuer immediately,
-    not just remove the file.
+      >older deployment addresses keep serving it</a
+    > until those deployments are deleted, and they are public by default. Cloudflare
+    documents deleting individual deployments only with its command-line tool, so
+    the simplest complete fix is usually to delete the whole practice Pages project
+    with your helper, checking the project name carefully, then publish a clean copy
+    as a new project. Keep local backups. Verify the main address and affected deployment
+    links no longer serve the material; contact Cloudflare support if removal fails.
+    Copies already downloaded or cached elsewhere cannot be recalled. If a credential
+    was exposed, revoke or replace it with its issuer immediately, not just remove
+    the file.
   </p>
 
   <div class="card">
@@ -454,19 +462,21 @@ import StepCard from '../StepCard.astro';
     >
     describes exporting supported content as a WordPress-format XML file. You do not
     have to move to WordPress to use that file as migration material. In your own
-    Squarespace account, open <strong>Import &amp; export content</strong>,
-    choose <strong>Export → WordPress</strong>, then download the completed
-    export. The documented export requires an active, public site, not a trial.
-    Do not make private content public just to enable export; ask for help with
-    a safe alternative if the requirements do not fit your site.
+    Squarespace account, open the <strong>Import &amp; export content</strong>
+    panel, click <strong>Export</strong>, choose the
+    <strong>WordPress</strong> icon, wait for the export to process, then click
+    <strong>Download</strong>. The site must be published with its availability
+    set to Public; you cannot export from a trial site. Do not make private
+    content public just to enable export; ask for help with a safe alternative
+    if the requirements do not fit your site.
   </p>
   <ul>
     <li>
       <strong>The export is partial.</strong> Squarespace lists layout pages, text
       and image blocks, and one blog with its posts among supported content. Portfolio
-      pages, store pages, drafts, style settings and custom CSS are among the exclusions.
-      Check the current export guide against your actual site; do not assume every
-      project or post was included.
+      pages, store pages, video and audio blocks, drafts, style settings and custom
+      CSS are among the exclusions. Check the current export guide against your actual
+      site; do not assume every project or post was included.
     </li>
     <li>
       <strong>Supply what is missing.</strong> Save desktop and mobile screenshots
