@@ -1,0 +1,22 @@
+version: 0.2
+
+# The Cloudflare token is deliberately not injected here with parameter-store:
+# that would expose it to the dependency install and site build. ci-deploy.bash
+# fetches it for the Terraform commands only.
+env:
+  shell: bash
+  variables:
+    TF_IN_AUTOMATION: "1"
+
+phases:
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      nodejs: 22
+    commands:
+      - npm install --global pnpm@10.32.0
+      - bash guide/infrastructure/install-terraform.bash
+  build:
+    on-failure: ABORT
+    commands:
+      - bash guide/infrastructure/ci-deploy.bash

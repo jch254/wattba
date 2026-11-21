@@ -16,7 +16,7 @@ esac
 
 site_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 terraform_dir="$site_dir/infrastructure/terraform"
-profile=jch254
+# Credentials come from the environment: AWS_PROFILE locally, the service role in CodeBuild.
 export AWS_PAGER=""
 
 for tool in aws terraform pnpm; do
@@ -28,7 +28,7 @@ bucket="$(terraform -chdir="$terraform_dir" output -raw site_bucket)"
 distribution="$(terraform -chdir="$terraform_dir" output -raw cloudfront_distribution_id)"
 region="$(terraform -chdir="$terraform_dir" output -raw aws_region)"
 account="$(terraform -chdir="$terraform_dir" output -raw aws_account_id)"
-actual_account="$(aws sts get-caller-identity --profile "$profile" --query Account --output text)"
+actual_account="$(aws sts get-caller-identity --query Account --output text)"
 if [[ "$actual_account" != "352311918919" || "$account" != "$actual_account" || "$bucket" != "wattba-site-$account-$region" || ! "$distribution" =~ ^[A-Z0-9]+$ ]]; then
   printf 'Account or deployment target mismatch; refusing to publish.\n' >&2
   exit 1
@@ -42,7 +42,7 @@ pnpm format:check
 pnpm build
 test -s dist/index.html || { printf 'Build did not produce dist/index.html.\n' >&2; exit 1; }
 
-sync_options=(--profile "$profile" --region "$region" --no-progress)
+sync_options=(--region "$region" --no-progress)
 if [[ "$mode" == --dry-run ]]; then
   sync_options+=(--dryrun)
   printf 'DRY RUN: %s -> s3://%s (no upload or invalidation)\n' "$site_dir/dist" "$bucket"
@@ -60,10 +60,10 @@ aws s3 cp dist/ "s3://$bucket/" --recursive --exclude '*' --include '*.html' \
   --cache-control 'public,max-age=0,must-revalidate' "${sync_options[@]}"
 
 if [[ "$mode" == --publish ]]; then
-  invalidation="$(aws cloudfront create-invalidation --profile "$profile" \
+  invalidation="$(aws cloudfront create-invalidation \
     --distribution-id "$distribution" --paths '/*' --query Invalidation.Id --output text)"
   printf 'Waiting for CloudFront invalidation %s...\n' "$invalidation"
-  aws cloudfront wait invalidation-completed --profile "$profile" \
+  aws cloudfront wait invalidation-completed \
     --distribution-id "$distribution" --id "$invalidation"
   printf 'Published. Check https://wattba.site/ in a new browser session.\n'
 fi
