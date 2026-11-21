@@ -12,12 +12,10 @@ import StepCard from '../StepCard.astro';
     with the person helping you; it needs setup the main guide does not cover.
   </p>
   <p>
-    The main guide does not create a Git repository, an <code class="i"
-      >origin</code
-    >
-    remote, or a <code class="i">my-site-delta</code> copy. Delta needs different
-    setup, which you will check together below. Do not publish the project just to
-    make this exercise work.
+    The main guide does not create a Git repository, a Git remote, or a
+    <code class="i">my-site-delta</code> copy. Delta needs different setup, which
+    you will check together below. Do not publish the project just to make this exercise
+    work.
   </p>
   <nav class="guide-contents" id="contents" aria-labelledby="contents-title">
     <h2 id="contents-title">On this page</h2>
@@ -30,26 +28,37 @@ import StepCard from '../StepCard.astro';
   </nav>
   <h2 id="compatibility">Before installing: compatibility and risks</h2>
   <p>
-    On a Mac, Delta requires Apple Silicon and macOS 13 or later; Intel Macs are
-    not supported. Check Apple menu → About This Mac before installing. On
-    Windows or Linux, check the requirements on the linked installation page
-    with the person helping you.
+    Delta's only Mac download is for Apple Silicon on macOS 13 or later; there
+    is no Intel Mac version. Check Apple menu → About This Mac before
+    installing. The Mac installation currently includes a Terminal command, so
+    do that step with the person helping you. On Windows or Linux, check the
+    requirements on the linked installation page together.
   </p>
   <p>
-    Delta is an agent app from Zed with a different safety model. Isolated
-    Workspace gives a thread a separate working copy; Existing Local Checkout
-    edits your selected project directly. Check the Work In selection: a new
-    thread can inherit your previous choice.
+    Delta is a collaborative agent workspace built by Zed. It is in public beta:
+    you need a Zed account and must accept an early-access agreement, and
+    details may change. Its safety model is different. Under Work In, Isolated
+    Delta Worktree gives a thread a separate copy of the project's files;
+    Existing Local Checkout makes the agent work directly in your selected
+    folder. Check the Work In selection: a new thread can inherit your previous
+    choice, and the location is locked once the agent has used the project.
   </p>
   <p>
     Neither choice is a security sandbox. Delta's
     <a href="https://delta.dev/docs/privacy-and-security/agentic-safety"
       >safety docs</a
     >
-    say agents can access the device where they run and call tools without asking,
-    including destructive actions. Unlike Claude Code, Delta has no agent permission
-    system. Asking for a plan is not enforced approval. An outside backup helps recovery,
-    but is not protected from an agent with device access.
+    say it does not sandbox agents: an agent has unrestricted access to the device
+    where it runs. Delta's own agent has no permission system and does not ask before
+    calling tools, including destructive ones. Asking for a plan is not enforced approval.
+    An outside backup helps recovery, but is not protected from an agent with device
+    access.
+  </p>
+  <p>
+    Delta can also run Claude Agent, a separate beta agent that uses Claude's
+    own permission prompts. That is a different setup from this exercise; do not
+    assume those prompts are active unless you and your helper have chosen and
+    checked it.
   </p>
   <p>
     Project contents and history <a
@@ -58,8 +67,10 @@ import StepCard from '../StepCard.astro';
     > when you add a project, including tracked files and untracked files Git does
     not ignore. Agent requests may also send relevant messages and file contents to
     your selected model provider, not automatically every file in the repository.
-    Use only material you are comfortable uploading. Backups cannot undo disclosure.
-    Send redacted error text to the person helping you rather than sharing a thread.
+    Use only material you are comfortable uploading. Backups cannot undo disclosure,
+    and deleting a thread on your computer does not reliably delete its history from
+    Delta's servers. Send redacted error text to the person helping you rather than
+    sharing a thread.
   </p>
   <p>
     If you are comfortable with those risks and your computer is supported,
@@ -67,8 +78,12 @@ import StepCard from '../StepCard.astro';
       >installation instructions</a
     > with the person helping you, then complete the in-app welcome setup. Check <a
       href="https://delta.dev/docs/agents/models-and-providers">model access</a
-    > and costs before paying. Do not assume your Claude subscription also provides
-    model access in Delta.
+    > and costs before paying. Delta's own agent cannot use a Claude subscription.
+    A Claude subscription works only through
+    <a href="https://delta.dev/docs/agents/claude-agent">Claude Agent</a>, in
+    Delta's desktop app, where usage counts against your Claude plan's limits.
+    Signing out of Claude Agent also signs you out of Claude Code on the same
+    computer.
   </p>
   <h2 id="prepare">Prepare your working copy</h2>
   <div class="steps">
@@ -92,12 +107,14 @@ import StepCard from '../StepCard.astro';
         Delta works with Git repositories, folders with saved change history.
         Its <a href="https://delta.dev/docs/concepts/worktrees"
           >workspace docs</a
-        > specify a configured <code class="i">origin</code> remote, another location
-        for that history. Ask the person helping you to check and prepare this prerequisite
-        on <code class="i">my-site-delta</code>, and review what its files and
-        history would upload. If it has only local history or no Git setup, stop
-        until they have helped. Do not invent a remote, publish files, or ask an
-        agent to set this up for you.
+        > say a project must be the top-level folder of a Git repository with a configured
+        remote, another location for that history. If there are several remotes, one
+        must be named <code class="i">origin</code>. Ask the person helping you
+        to check and prepare this prerequisite on <code class="i"
+          >my-site-delta</code
+        >, and review what its files and history would upload. If it has only
+        local history or no Git setup, stop until they have helped. Do not
+        invent a remote, publish files, or ask an agent to set this up for you.
       </p>
     </StepCard>
     <StepCard number="2" title={'Open the working copy'}>
@@ -112,7 +129,10 @@ import StepCard from '../StepCard.astro';
           Select the top-level <code class="i">my-site-delta</code> folder, not its
           photos folder.
         </li>
-        <li>Review the cloud-sync notice if shown before continuing.</li>
+        <li>
+          If a Projects Sync to the Cloud notice appears, read it before
+          choosing Continue.
+        </li>
       </ul>
       <p>
         Delta's <a
@@ -127,7 +147,7 @@ import StepCard from '../StepCard.astro';
         Checkout. Check the project menu's checkout path points to <code
           class="i">my-site-delta</code
         > before sending anything. This changes that copy directly, not an isolated
-        workspace. Open that same folder's <code class="i">index.html</code>
+        worktree. Open that same folder's <code class="i">index.html</code>
         in your browser. Run only one agent at a time, with no other threads working
         in this checkout. You do not need Git commands for this review.
       </p>
@@ -144,16 +164,17 @@ import StepCard from '../StepCard.astro';
       <p>
         Read the plan before replying; remember that waiting is a request, not a
         permission control. Open Changes with the upper-right diff icon to
-        compare additions and removals (a "diff"). Select a line and type
-        feedback, or send a normal message. Refresh <code class="i"
-          >my-site-delta</code
-        >'s <code class="i">index.html</code> in your browser; check the words and
-        narrow layout.
+        compare additions and removals (a "diff"). Select a line or passage and
+        start typing to add a comment, then submit it, or send a normal message.
+        Refresh <code class="i">my-site-delta</code>'s <code class="i"
+          >index.html</code
+        > in your browser; check the words and narrow layout.
       </p>
       <p>
-        These edits are already applied, not awaiting acceptance. Leave the main
-        website and backup alone. For help, send the person helping you redacted
-        error text, not a shared thread.
+        In Existing Local Checkout the agent's edits appear in your folder
+        directly. Treat them as already made, not awaiting your acceptance.
+        Leave the main website and backup alone. For help, send the person
+        helping you redacted error text, not a shared thread.
       </p>
     </StepCard>
   </div>

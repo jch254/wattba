@@ -11,15 +11,27 @@ import StepCard from '../StepCard.astro';
     A terminal is a window for typing commands. On a Mac, open Terminal using
     Spotlight. On Windows, open PowerShell from Start. The steps here cover
     those two systems; Linux users should follow the linked installation page.
-    Press Enter after typing or pasting each terminal command.
+    Press Enter after typing or pasting each terminal command. If you have never
+    used a terminal, Anthropic's
+    <a href="https://code.claude.com/docs/en/terminal-guide"
+      >terminal guide for new users</a
+    > shows how to open one and paste a command.
   </p>
   <p>
-    Claude Code requires internet access and an eligible Claude account or
-    supported API access. Check the current account requirements on
+    Claude Code requires internet access and a paid Claude plan or supported API
+    access; the free Claude plan does not include it. Check the current account
+    requirements on
     <a href="https://code.claude.com/docs/en/setup#authenticate"
       >Claude Code's setup page</a
     > before paying. For this exercise, I would use an eligible subscription rather
     than set up separately billed API access.
+  </p>
+  <p>
+    Claude Code also has a
+    <a href="https://code.claude.com/docs/en/desktop-quickstart">desktop app</a>
+    that needs no terminal. This guide uses the terminal version, so its commands
+    and prompts match what you will see. If you choose the app instead, select Plan
+    mode before sending a request and follow the same review steps.
   </p>
   <div class="steps">
     <StepCard number="1" title={'Install and check it'}>
@@ -27,13 +39,19 @@ import StepCard from '../StepCard.astro';
         On the setup page, check that your computer meets the requirements. Copy
         the install command for macOS or Windows PowerShell into your terminal
         and press Enter. This downloads and runs Anthropic's installer, so take
-        it from that official page, not an AI reply.
+        it from that official page, not an AI reply. On Windows, the PowerShell
+        command only works when the line you type on starts with
+        <code class="i">PS</code>; the page has a separate command for the older
+        Command Prompt.
       </p>
       <p>
+        The installer shows no progress while it downloads, so give it a minute.
         When it finishes, open a new terminal window and run the check below. A
         version number means the installation worked. If it says the command was
-        not found, stop here and use the installation troubleshooting link on
-        the setup page.
+        not found, stop here and use Anthropic's
+        <a href="https://code.claude.com/docs/en/troubleshoot-install"
+          >installation troubleshooting page</a
+        >.
       </p>
     </StepCard>
   </div>
@@ -70,10 +88,16 @@ import StepCard from '../StepCard.astro';
     copy
   />
   <p>
-    Check that the terminal shows Plan mode. Once you send a request, Claude
-    will propose a plan. If it matches your request, choose "Yes, and use auto
-    mode" if available, or "Yes, manually approve edits". If it does not, choose
-    "No, keep planning" and explain what needs changing.
+    Always start with this full command. If you type only
+    <code class="i">claude</code>, current versions usually begin in Auto mode,
+    which can change files without asking you first.
+  </p>
+  <p>
+    Check that the status line at the bottom of the terminal reads
+    <code class="i">plan mode on</code>. Once you send a request, Claude will
+    propose a plan. If it matches your request, choose "Yes, and use auto mode"
+    if available, or "Yes, manually approve edits". If it does not, choose "No,
+    keep planning" and explain what needs changing.
   </p>
   <p>
     Approval leaves Plan mode. Before requesting another change, start your
@@ -110,6 +134,14 @@ import StepCard from '../StepCard.astro';
         current <a href="https://code.claude.com/docs/en/permission-modes"
           >permission docs</a
         >.
+      </p>
+      <p>
+        Shift+Tab switches between modes, and the status line at the bottom of
+        the terminal names the current one. If it shows a mode you did not
+        choose, press Shift+Tab until it reads <code class="i"
+          >plan mode on</code
+        >. Do not press Shift+Tab while Claude is asking you to approve a plan:
+        there, it approves the plan. Press Escape first.
       </p>
     </div>
   </details>

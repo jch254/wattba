@@ -26,8 +26,11 @@
     what the agent accesses, file contents may be sent to the AI provider as
     context for its answer. Not every file read necessarily sends the whole
     file, but do not assume that local files stay local. Check the service's
-    data policy. A project folder helps limit the job; it does not guarantee the
-    agent cannot reach elsewhere.
+    data policy. For Claude Code, Anthropic's
+    <a href="https://code.claude.com/docs/en/data-usage">data usage page</a>
+    explains what is sent; on personal plans, your Claude privacy settings control
+    whether it may be used to improve future models. A project folder helps limit
+    the job; it does not guarantee the agent cannot reach elsewhere.
   </p>
   <h3>Make mistakes undoable</h3>
   <p>
@@ -37,6 +40,12 @@
     Never open the backup itself to an agent; make a separate working copy if
     you want to experiment. This helps recovery, but it is not a security
     boundary or protection for everything on your computer.
+  </p>
+  <p>
+    Claude Code also keeps checkpoints of its own file edits, and
+    <code class="i">/rewind</code> can undo them during a session. It does not track
+    everything, such as a file changed only by a command, so treat it as a convenience,
+    not a replacement for your outside backup.
   </p>
   <p>
     Start each change in Claude Code's Plan mode, then review the plan before
