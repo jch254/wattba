@@ -1,5 +1,5 @@
 output "site_bucket" {
-  description = "Private S3 bucket used by the manual publish script."
+  description = "Private S3 bucket used by the publish script."
   value       = module.site.s3_bucket_id
 }
 
@@ -19,11 +19,16 @@ output "site_url" {
 }
 
 output "aws_region" {
-  description = "Site bucket region for the manual publish script."
+  description = "Site bucket region for the publish script."
   value       = var.aws_region
 }
 
 output "aws_account_id" {
-  description = "Account guard for the manual publish script."
+  description = "Account guard for the publish script."
   value       = data.aws_caller_identity.current.account_id
+}
+
+output "codebuild_project" {
+  description = "CodeBuild project that deploys the deployment branch."
+  value       = module.codebuild.project_name
 }

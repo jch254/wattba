@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import AccessGate from '../components/AccessGate.astro';
 import GuideNav from '../components/GuideNav.astro';
 import Introduction from '../components/sections/Introduction.astro';
 import AiTools from '../components/sections/AiTools.astro';
@@ -16,11 +15,10 @@ import Publish from '../components/sections/Publish.astro';
 ---
 
 <Layout>
-  <AccessGate />
   <div
     class="g"
     id="guide"
-    style="width: 100%; min-height: 100%; box-sizing: border-box; display: none; flex-direction: column; align-items: center; background: var(--color-0a0f0b)"
+    style="width: 100%; min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; background: var(--color-0a0f0b)"
   >
     <GuideNav current="main" />
     <main id="main-content" class="guide-content" tabindex="-1">

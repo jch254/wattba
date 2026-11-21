@@ -15,3 +15,15 @@ variable "cloudflare_zone_id" {
   type        = string
   default     = "aeb76be43e751d19fd89a4269a310222"
 }
+
+variable "enable_webhook" {
+  description = "Deploy automatically when a commit lands on the deployment branch. Needs CodeBuild's GitHub connection in this region."
+  type        = bool
+  default     = true
+}
+
+variable "deployment_branch" {
+  description = "Branch whose commits CodeBuild deploys."
+  type        = string
+  default     = "main"
+}

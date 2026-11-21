@@ -16,7 +16,6 @@ terraform {
     bucket       = "jch254-terraform-remote-state"
     key          = "wattba-site/prod/terraform.tfstate"
     region       = "ap-southeast-4"
-    profile      = "jch254"
     encrypt      = true
     use_lockfile = true
   }

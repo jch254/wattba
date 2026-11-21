@@ -28,8 +28,9 @@ navigation. Existing section anchors remain stable.
 
 - [`guide/`](guide/) — the Astro site, including its page layout, section
   components, reusable UI components and SVG diagrams.
-- [`guide/infrastructure/`](guide/infrastructure/) — manual Terraform hosting and
-  a separate static-file publish script; no CodeBuild or automatic deployments.
+- [`guide/infrastructure/`](guide/infrastructure/) — Terraform hosting, the
+  CodeBuild deployment scripts and the static-file publish script.
+- [`buildspec.yml`](buildspec.yml) — the CodeBuild build that deploys `main`.
 - [`reference/guide-reference.html`](reference/guide-reference.html) — the original
   static design export and source of truth for content and styling.
 - `example/` — a local, git-ignored Astro example used as the implementation
@@ -67,7 +68,6 @@ Run from `guide/`:
 
 ```sh
 pnpm typecheck
-pnpm test
 pnpm lint
 pnpm format:check
 ```
@@ -75,31 +75,89 @@ pnpm format:check
 Use `pnpm format` to apply formatting. The project uses Astro's strict TypeScript
 settings, ESLint and Prettier.
 
-## Manual deployment
+## Deployment
 
 Hosting uses the same pinned Terraform modules as the example: a private S3
 bucket, CloudFront with Origin Access Control, an ACM certificate in `us-east-1`,
 and DNS-only Cloudflare records. Only `wattba.site` is configured, not `www`.
-There is no CodeBuild, webhook, deployment role or automatic apply. AWS storage,
-requests and CDN traffic can incur charges.
 
-| Setting               | Value                                     |
-| --------------------- | ----------------------------------------- |
-| Site                  | `https://wattba.site`                     |
-| AWS profile / account | `jch254` / `352311918919`                 |
-| Site bucket region    | `ap-southeast-2` (Sydney)                 |
-| Site bucket           | `wattba-site-352311918919-ap-southeast-2` |
-| Existing state bucket | `jch254-terraform-remote-state`           |
-| State bucket region   | `ap-southeast-4` (Melbourne)              |
-| State key             | `wattba-site/prod/terraform.tfstate`      |
+A CodeBuild project deploys every commit that lands on `main`, so merging a
+pull request is the deployment. Each build applies the Terraform stack and then
+builds and publishes the guide. CodeBuild minutes, AWS storage, requests and CDN
+traffic can incur charges.
 
-### Provision or update infrastructure
+| Setting               | Value                                             |
+| --------------------- | ------------------------------------------------- |
+| Site                  | `https://wattba.site`                             |
+| AWS profile / account | `jch254` / `352311918919`                         |
+| Site bucket region    | `ap-southeast-2` (Sydney)                         |
+| Site bucket           | `wattba-site-352311918919-ap-southeast-2`         |
+| CodeBuild project     | `wattba-site` in `ap-southeast-2`                 |
+| Cloudflare token      | `/wattba-site/cloudflare-api-token` (SSM, Sydney) |
+| Existing state bucket | `jch254-terraform-remote-state`                   |
+| State bucket region   | `ap-southeast-4` (Melbourne)                      |
+| State key             | `wattba-site/prod/terraform.tfstate`              |
 
-Install Terraform 1.10+, AWS CLI v2 and pnpm 10.32.0. Authenticate the `jch254`
-AWS profile using your usual local credential workflow. The backend uses native
-S3 state locking: your identity needs access to the state object and permission
-to create/delete its `.tflock` object. The existing state bucket is not managed
-by this stack; keep versioning enabled for state recovery.
+### Deploy by merging to `main`
+
+A push to `main` triggers the `wattba-site` CodeBuild project, which runs
+[`buildspec.yml`](buildspec.yml):
+
+1. Installs pnpm 10.32.0 and a checksum-verified Terraform release.
+2. Runs `guide/infrastructure/ci-deploy.bash`, which checks the AWS account,
+   plans and applies the Terraform stack, then runs `publish.bash --publish`.
+
+The merge is the only approval: CI applies its own saved plan without a separate
+review step. Read Terraform changes in the pull request before merging. A failed
+build stops before publishing. To redeploy a commit by hand:
+
+```sh
+AWS_PROFILE=jch254 aws codebuild start-build --region ap-southeast-2 \
+  --project-name wattba-site --source-version main
+```
+
+The CodeBuild role is a deployment administrator for this stack. It can change
+the site bucket, CloudFront, the certificate, DNS, and its own role and project.
+Protect `main`, require pull request review and never point the project at pull
+request or fork code. Only pushes to the deployment branch trigger a build.
+
+CI reads the Cloudflare token from the SSM parameter and passes it only to the
+two Terraform commands. The dependency install, site build and upload never
+receive it.
+
+### One-time setup
+
+The CodeBuild project is part of the Terraform stack, so it must be created once
+with a local apply before merges can deploy.
+
+1. Store a Cloudflare API token scoped to DNS Edit on the `wattba.site` zone.
+   This keeps the token out of shell history and process arguments:
+
+   ```sh
+   read -rs CF_TOKEN  # paste the token and press Enter; nothing is shown
+   printf '%s' "$CF_TOKEN" | AWS_PROFILE=jch254 aws ssm put-parameter \
+     --region ap-southeast-2 --name /wattba-site/cloudflare-api-token \
+     --type SecureString --value file:///dev/stdin
+   unset CF_TOKEN
+   ```
+
+2. In the AWS console, connect CodeBuild in `ap-southeast-2` to GitHub with
+   access to `jch254/wattba`. Creating the webhook fails without it. To create
+   the project first and add the webhook later, set `enable_webhook = false`.
+3. Apply the stack locally as described below. The plan should only add the
+   CodeBuild project, its log group, role, policies and webhook.
+4. Protect `main` on GitHub and require pull request review.
+
+### Provision or update infrastructure locally
+
+Install Terraform 1.10+, AWS CLI v2 and pnpm 10.32.0. CI pins Terraform 1.15.6
+in `guide/infrastructure/install-terraform.bash`; keep local and CI versions in
+step. No AWS profile is hardcoded, so that CodeBuild can use its service role.
+Export `AWS_PROFILE=jch254` locally; the providers reject any other account.
+The backend uses native S3 state locking: your identity needs access to the
+state object and permission to create/delete its `.tflock` object. The existing
+state bucket is not managed by this stack; keep versioning enabled for state
+recovery.
 
 Supply `CLOUDFLARE_API_TOKEN` to Terraform from your local secret manager or
 secure shell environment. Scope the token to DNS Edit on the `wattba.site` zone.
@@ -110,7 +168,9 @@ commits or command-line arguments. If using Varlock, run Terraform through
 From the repository root:
 
 ```sh
-terraform -chdir=guide/infrastructure/terraform init
+export AWS_PROFILE=jch254
+# -reconfigure is needed once, because the backend no longer names a profile.
+terraform -chdir=guide/infrastructure/terraform init -reconfigure
 terraform -chdir=guide/infrastructure/terraform fmt -check
 terraform -chdir=guide/infrastructure/terraform validate
 terraform -chdir=guide/infrastructure/terraform plan -out=site.tfplan
@@ -130,11 +190,18 @@ The saved plan is git-ignored and should be removed after use. Commit the
 Terraform provider lockfile (`.terraform.lock.hcl`), but never local state or
 plan files. The site bucket cannot be destroyed while it contains objects.
 
-### Publish the guide
+Avoid merging to `main` while applying locally; both use the same state lock.
+CodeBuild cannot grant itself permissions it does not already have. When a
+change needs new permissions for the deployment role, apply it locally first.
 
-After applying the stack, run from the repository root:
+### Publish the guide locally
+
+Merging to `main` publishes the guide. To publish by hand instead, run from the
+repository root after applying the stack:
 
 ```sh
+export AWS_PROFILE=jch254
+
 # Builds and checks the site, then previews uploads without changing AWS.
 bash guide/infrastructure/publish.bash
 
@@ -152,25 +219,14 @@ tabs and cached HTML can still load previous assets; uploads overwrite matching
 keys but never delete unrelated or older objects. This is not an atomic release.
 
 Publishing needs AWS credentials only, not the Cloudflare token. After publishing,
-check `https://wattba.site/` in a fresh browser session and try the access gate.
-To roll back, build and publish a previous source revision through the same
-manual workflow. This infrastructure has been locally validated, not applied.
+check `https://wattba.site/` in a fresh browser session.
+To roll back, revert the change on `main`, or build and publish a previous
+source revision by hand. The hosting stack is applied and serving the site. The
+CodeBuild deployment has been validated locally only (format, validate and a
+mocked plan); it has not been applied or run.
 
-## Access gate and browser behaviour
+## Browser behaviour
 
-The terminal-style access gate hashes the entered code in the browser and
-remembers a successful entry for 24 hours in local storage. Only an expiry
-timestamp is saved, never the entered code. The unlock works across subpages,
-tabs and browser restarts on the same origin and browser profile. Visits do not
-extend the expiry; after 24 hours, the next page load asks for the code again.
-Changing the configured code invalidates remembered unlocks. Clearing site data
-or using a different browser also requires another entry. When local storage is
-unavailable, a valid code still opens the current page but cannot be remembered.
-Older session-only unlocks are not carried over; enter the code once to start
-the new 24-hour period.
-It is a presentation gate, **not authentication**: the static guide content and
-password hash are publicly inspectable.
-
-Client-side JavaScript is limited to the gate and code-block copy buttons. Web
-Crypto and clipboard access require HTTPS or localhost. Boot typing and reveal
-animations respect the browser's reduced-motion preference.
+The guide is open to anyone with the link. Client-side
+JavaScript is limited to the code-block copy buttons. Clipboard access requires
+HTTPS or localhost. Animations respect the browser's reduced-motion preference.
